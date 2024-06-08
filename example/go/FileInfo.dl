@@ -1,0 +1,411 @@
+.functor get_field_by_index(self: number, total: number, index: number): number stateful
+.functor datalog_lang_builtin_string_getMatchResult(self: symbol, pattern: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_to_upper(self: symbol): symbol
+.functor datalog_lang_builtin_string_to_lower(self: symbol): symbol
+.functor datalog_lang_builtin_string_replace_once(self: symbol, pattern: symbol, replacement: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_replace_all(self: symbol, pattern: symbol, replacement: symbol): symbol
+
+.type DBIndex = [type_id: number, load_path: number]
+.type int = number
+.type string = symbol
+.type microscope__go__GoDB = DBIndex
+.type microscope__go__Node = int
+.type microscope__go__File = int
+.type microscope__go__CommentGroupDO = int
+.type microscope__go__Decl = int
+.type microscope__go__FieldsDO = int
+.type microscope__go__DocCommentDO = int
+.type microscope__go__StmtDO = int
+.type microscope__go__ExprDO = int
+.type microscope__go__DeclDO = int
+.type microscope__go__NumberOfLineDO = int
+.type microscope__go__FileDO = int
+.type microscope__go__CommentDO = int
+.type microscope__go__SpecDO = int
+.type microscope__go__Function = int
+
+.decl schema_microscope__go__Node(result: microscope__go__Node, db_id: DBIndex, id: int)
+.decl schema_microscope__go__File(result: microscope__go__File, db_id: DBIndex, id: int)
+.decl schema_microscope__go__CommentGroupDO(result: microscope__go__CommentGroupDO, db_id: DBIndex, oid: int, file_id: int, parent: int, idx: int)
+.decl schema_microscope__go__Decl(result: microscope__go__Decl, db_id: DBIndex, id: int)
+.decl schema_microscope__go__FieldsDO(result: microscope__go__FieldsDO, db_id: DBIndex, oid: int, parent_id: int, idx: int, kind: int)
+.decl schema_microscope__go__DocCommentDO(result: microscope__go__DocCommentDO, db_id: DBIndex, oid: int, associate_obj: int, comment_group_id: int)
+.decl schema_microscope__go__StmtDO(result: microscope__go__StmtDO, db_id: DBIndex, oid: int, file_id: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl schema_microscope__go__ExprDO(result: microscope__go__ExprDO, db_id: DBIndex, oid: int, file_id: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl schema_microscope__go__DeclDO(result: microscope__go__DeclDO, db_id: DBIndex, oid: int, file_id: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl schema_microscope__go__NumberOfLineDO(result: microscope__go__NumberOfLineDO, db_id: DBIndex, oid: int, number_of_total_lines: int, number_of_code_lines: int, number_of_comment_lines: int)
+.decl schema_microscope__go__FileDO(result: microscope__go__FileDO, db_id: DBIndex, oid: int, pkg_oid: int, name: string, md5_sum: string, sha256_sum: string)
+.decl schema_microscope__go__CommentDO(result: microscope__go__CommentDO, db_id: DBIndex, oid: int, file_id: int, comment_type: int, parent: int, index: int, debug_info: string)
+.decl schema_microscope__go__SpecDO(result: microscope__go__SpecDO, db_id: DBIndex, oid: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl schema_microscope__go__Function(result: microscope__go__Function, db_id: DBIndex, id: int)
+
+.decl all_data_DBIndex(db_id: DBIndex)
+.decl rule_microscope__go__Node____all__(result: microscope__go__Node, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__Node__getBelongsFile(result: microscope__go__File, self: microscope__go__Node)
+.decl rule_microscope__go__Node__getParentNode(result: microscope__go__Node, self: microscope__go__Node)
+.decl rule_microscope__go__File____all__(result: microscope__go__File, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__File__getLineInfo(result: microscope__go__NumberOfLineDO, self: microscope__go__File)
+.decl rule_microscope__go__File__getName(result: string, self: microscope__go__File)
+.decl rule_microscope__go__File__getFunctionCount(result: int, self: microscope__go__File)
+.decl rule_microscope__go__File__getSha256Sum(result: string, self: microscope__go__File)
+.decl rule_microscope__go__File__getFunction(result: microscope__go__Function, self: microscope__go__File)
+.decl rule_microscope__go__File__getMd5Sum(result: string, self: microscope__go__File)
+.decl rule_microscope__go__CommentGroupDO__getParent(result: int, self: microscope__go__CommentGroupDO)
+.decl rule_microscope__go__CommentGroupDO____all__(result: microscope__go__CommentGroupDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__Decl____all__(result: microscope__go__Decl, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__Decl__isFuncDecl(self: microscope__go__Decl)
+.decl rule_microscope__go__Decl__getKind(result: int, self: microscope__go__Decl)
+.decl rule_microscope__go__FieldsDO__getParentId(result: int, self: microscope__go__FieldsDO)
+.decl rule_microscope__go__FieldsDO____all__(result: microscope__go__FieldsDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__DocCommentDO__getAssociateObj(result: int, self: microscope__go__DocCommentDO)
+.decl rule_microscope__go__DocCommentDO____all__(result: microscope__go__DocCommentDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__StmtDO__getParentId(result: int, self: microscope__go__StmtDO)
+.decl rule_microscope__go__StmtDO____all__(result: microscope__go__StmtDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__ExprDO__getParentId(result: int, self: microscope__go__ExprDO)
+.decl rule_microscope__go__ExprDO____all__(result: microscope__go__ExprDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__DeclDO__getParentId(result: int, self: microscope__go__DeclDO)
+.decl rule_microscope__go__DeclDO__getKind(result: int, self: microscope__go__DeclDO)
+.decl rule_microscope__go__DeclDO____all__(result: microscope__go__DeclDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__NumberOfLineDO__getNumberOfCommentLines(result: int, self: microscope__go__NumberOfLineDO)
+.decl rule_microscope__go__NumberOfLineDO__getNumberOfCodeLines(result: int, self: microscope__go__NumberOfLineDO)
+.decl rule_microscope__go__NumberOfLineDO__getNumberOfTotalLines(result: int, self: microscope__go__NumberOfLineDO)
+.decl rule_microscope__go__NumberOfLineDO____all__(result: microscope__go__NumberOfLineDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__FileDO__getSha256Sum(result: string, self: microscope__go__FileDO)
+.decl rule_microscope__go__FileDO__getMd5Sum(result: string, self: microscope__go__FileDO)
+.decl rule_microscope__go__FileDO__getName(result: string, self: microscope__go__FileDO)
+.decl rule_microscope__go__FileDO____all__(result: microscope__go__FileDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__CommentDO__getParent(result: int, self: microscope__go__CommentDO)
+.decl rule_microscope__go__CommentDO____all__(result: microscope__go__CommentDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__SpecDO__getParentId(result: int, self: microscope__go__SpecDO)
+.decl rule_microscope__go__SpecDO____all__(result: microscope__go__SpecDO, db: microscope__go__GoDB) inline
+.decl rule_microscope__go__Function__getBelongsFile(result: microscope__go__File, self: microscope__go__Function) inline
+.decl rule_microscope__go__Function____all__(result: microscope__go__Function, db: microscope__go__GoDB) inline
+.decl typecheck_microscope__go__File(self: microscope__go__File) inline
+.decl get_field_microscope__go__Node_id(result: int, self: microscope__go__Node) inline
+.decl get_field_microscope__go__CommentGroupDO_oid(result: int, self: microscope__go__CommentGroupDO) inline
+.decl get_field_microscope__go__CommentGroupDO_parent(result: int, self: microscope__go__CommentGroupDO) inline
+.decl get_field_microscope__go__FieldsDO_oid(result: int, self: microscope__go__FieldsDO) inline
+.decl get_field_microscope__go__FieldsDO_parent_id(result: int, self: microscope__go__FieldsDO) inline
+.decl get_field_microscope__go__DocCommentDO_oid(result: int, self: microscope__go__DocCommentDO) inline
+.decl get_field_microscope__go__DocCommentDO_associate_obj(result: int, self: microscope__go__DocCommentDO) inline
+.decl get_field_microscope__go__StmtDO_oid(result: int, self: microscope__go__StmtDO) inline
+.decl get_field_microscope__go__StmtDO_parent_id(result: int, self: microscope__go__StmtDO) inline
+.decl get_field_microscope__go__ExprDO_oid(result: int, self: microscope__go__ExprDO) inline
+.decl get_field_microscope__go__ExprDO_parent_id(result: int, self: microscope__go__ExprDO) inline
+.decl get_field_microscope__go__DeclDO_oid(result: int, self: microscope__go__DeclDO) inline
+.decl get_field_microscope__go__DeclDO_kind(result: int, self: microscope__go__DeclDO) inline
+.decl get_field_microscope__go__DeclDO_parent_id(result: int, self: microscope__go__DeclDO) inline
+.decl get_field_microscope__go__NumberOfLineDO_number_of_total_lines(result: int, self: microscope__go__NumberOfLineDO) inline
+.decl get_field_microscope__go__NumberOfLineDO_number_of_code_lines(result: int, self: microscope__go__NumberOfLineDO) inline
+.decl get_field_microscope__go__NumberOfLineDO_number_of_comment_lines(result: int, self: microscope__go__NumberOfLineDO) inline
+.decl get_field_microscope__go__FileDO_oid(result: int, self: microscope__go__FileDO) inline
+.decl get_field_microscope__go__FileDO_name(result: string, self: microscope__go__FileDO) inline
+.decl get_field_microscope__go__FileDO_md5_sum(result: string, self: microscope__go__FileDO) inline
+.decl get_field_microscope__go__FileDO_sha256_sum(result: string, self: microscope__go__FileDO) inline
+.decl get_field_microscope__go__CommentDO_oid(result: int, self: microscope__go__CommentDO) inline
+.decl get_field_microscope__go__CommentDO_parent(result: int, self: microscope__go__CommentDO) inline
+.decl get_field_microscope__go__SpecDO_oid(result: int, self: microscope__go__SpecDO) inline
+.decl get_field_microscope__go__SpecDO_parent_id(result: int, self: microscope__go__SpecDO) inline
+.decl rule_out(name: string, funcCount: int, totallines: int, codelines: int, commentlines: int, md5: string, sha256: string)
+.decl rule_default_db(result: microscope__go__GoDB)
+
+.decl input_microscope__go__GoDB_microscope__go__CommentGroupDO_0(oid: int, file_id: int, parent: int, idx: int)
+.decl input_microscope__go__GoDB_microscope__go__StmtDO_0(oid: int, file_id: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl input_microscope__go__GoDB_microscope__go__FileDO_0(oid: int, pkg_oid: int, name: string, md5_sum: string, sha256_sum: string)
+.decl input_microscope__go__GoDB_microscope__go__DeclDO_0(oid: int, file_id: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl input_microscope__go__GoDB_microscope__go__ExprDO_0(oid: int, file_id: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl input_microscope__go__GoDB_microscope__go__SpecDO_0(oid: int, kind: int, parent_id: int, idx: int, debug_info: string)
+.decl input_microscope__go__GoDB_microscope__go__DocCommentDO_0(oid: int, associate_obj: int, comment_group_id: int)
+.decl input_microscope__go__GoDB_microscope__go__NumberOfLineDO_0(oid: int, number_of_total_lines: int, number_of_code_lines: int, number_of_comment_lines: int)
+.decl input_microscope__go__GoDB_microscope__go__FieldsDO_0(oid: int, parent_id: int, idx: int, kind: int)
+.decl input_microscope__go__GoDB_microscope__go__CommentDO_0(oid: int, file_id: int, comment_type: int, parent: int, index: int, debug_info: string)
+
+rule_microscope__go__Function__getBelongsFile(result, self) :- rule_microscope__go__Node__getBelongsFile(result, self).
+typecheck_microscope__go__File(self) :- schema_microscope__go__File(self, _, _).
+rule_microscope__go__CommentDO____all__(result, db) :- schema_microscope__go__CommentDO(result, db, _, _, _, _, _, _).
+rule_microscope__go__CommentDO__getParent(result, self) :- get_field_microscope__go__CommentDO_parent(result, self).
+rule_microscope__go__CommentGroupDO____all__(result, db) :- schema_microscope__go__CommentGroupDO(result, db, _, _, _, _).
+rule_microscope__go__CommentGroupDO__getParent(result, self) :- get_field_microscope__go__CommentGroupDO_parent(result, self).
+rule_microscope__go__DeclDO____all__(result, db) :- schema_microscope__go__DeclDO(result, db, _, _, _, _, _, _).
+rule_microscope__go__DeclDO__getKind(result, self) :- get_field_microscope__go__DeclDO_kind(result, self).
+rule_microscope__go__DeclDO__getParentId(result, self) :- get_field_microscope__go__DeclDO_parent_id(result, self).
+rule_microscope__go__DocCommentDO____all__(result, db) :- schema_microscope__go__DocCommentDO(result, db, _, _, _).
+rule_microscope__go__DocCommentDO__getAssociateObj(result, self) :- get_field_microscope__go__DocCommentDO_associate_obj(result, self).
+rule_microscope__go__ExprDO____all__(result, db) :- schema_microscope__go__ExprDO(result, db, _, _, _, _, _, _).
+rule_microscope__go__ExprDO__getParentId(result, self) :- get_field_microscope__go__ExprDO_parent_id(result, self).
+rule_microscope__go__FieldsDO____all__(result, db) :- schema_microscope__go__FieldsDO(result, db, _, _, _, _).
+rule_microscope__go__FieldsDO__getParentId(result, self) :- get_field_microscope__go__FieldsDO_parent_id(result, self).
+rule_microscope__go__FileDO____all__(result, db) :- schema_microscope__go__FileDO(result, db, _, _, _, _, _).
+rule_microscope__go__FileDO__getName(result, self) :- get_field_microscope__go__FileDO_name(result, self).
+rule_microscope__go__FileDO__getMd5Sum(result, self) :- get_field_microscope__go__FileDO_md5_sum(result, self).
+rule_microscope__go__FileDO__getSha256Sum(result, self) :- get_field_microscope__go__FileDO_sha256_sum(result, self).
+rule_microscope__go__NumberOfLineDO____all__(result, db) :- schema_microscope__go__NumberOfLineDO(result, db, _, _, _, _).
+rule_microscope__go__NumberOfLineDO__getNumberOfTotalLines(result, self) :- get_field_microscope__go__NumberOfLineDO_number_of_total_lines(result, self).
+rule_microscope__go__NumberOfLineDO__getNumberOfCodeLines(result, self) :- get_field_microscope__go__NumberOfLineDO_number_of_code_lines(result, self).
+rule_microscope__go__NumberOfLineDO__getNumberOfCommentLines(result, self) :- get_field_microscope__go__NumberOfLineDO_number_of_comment_lines(result, self).
+rule_microscope__go__SpecDO____all__(result, db) :- schema_microscope__go__SpecDO(result, db, _, _, _, _, _).
+rule_microscope__go__SpecDO__getParentId(result, self) :- get_field_microscope__go__SpecDO_parent_id(result, self).
+rule_microscope__go__StmtDO____all__(result, db) :- schema_microscope__go__StmtDO(result, db, _, _, _, _, _, _).
+rule_microscope__go__StmtDO__getParentId(result, self) :- get_field_microscope__go__StmtDO_parent_id(result, self).
+schema_microscope__go__File(result, db, field_0x6669656c64_id_int) :- (
+  get_field_microscope__go__FileDO_oid(field_0x6669656c64_id_int, f),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__go__FileDO____all__(f, db)
+).
+rule_microscope__go__File____all__(result, db) :- schema_microscope__go__File(result, db, _).
+rule_microscope__go__File__getFunction(result, self) :- (
+  rule_microscope__go__Function__getBelongsFile(self, function),
+  result = function,
+  rule_microscope__go__Function____all__(function, _)
+).
+rule_microscope__go__File__getName(result, self) :- (
+  f = self,
+  rule_microscope__go__FileDO__getName(result, f),
+  rule_microscope__go__FileDO____all__(f, _)
+).
+rule_microscope__go__File__getMd5Sum(result, self) :- (
+  f = self,
+  rule_microscope__go__FileDO__getMd5Sum(result, f),
+  rule_microscope__go__FileDO____all__(f, _)
+).
+rule_microscope__go__File__getSha256Sum(result, self) :- (
+  f = self,
+  rule_microscope__go__FileDO__getSha256Sum(result, f),
+  rule_microscope__go__FileDO____all__(f, _)
+).
+rule_microscope__go__File__getLineInfo(result, self) :- (
+  n = self,
+  result = n,
+  rule_microscope__go__NumberOfLineDO____all__(n, _)
+).
+rule_microscope__go__File__getFunctionCount(result, self) :- (
+  ssa_temp_1 = count : {
+    rule_microscope__go__File__getFunction(ssa_temp_0, self)
+  },
+  result = ssa_temp_1,
+  typecheck_microscope__go__File(self)
+).
+schema_microscope__go__Function(result, db, field_0x6669656c64_id_int) :- (
+  d = tmp,
+  rule_microscope__go__Decl__isFuncDecl(d),
+  get_field_microscope__go__Node_id(field_0x6669656c64_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__go__Decl____all__(d, db),
+  rule_microscope__go__Node____all__(tmp, db)
+).
+rule_microscope__go__Function____all__(result, db) :- schema_microscope__go__Function(result, db, _).
+schema_microscope__go__Decl(result, db, field_0x6669656c64_id_int) :- (
+  tmp = d,
+  get_field_microscope__go__Node_id(field_0x6669656c64_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__go__DeclDO____all__(d, db),
+  rule_microscope__go__Node____all__(tmp, db)
+).
+rule_microscope__go__Decl____all__(result, db) :- schema_microscope__go__Decl(result, db, _).
+rule_microscope__go__Decl__getKind(result, self) :- (
+  d = self,
+  rule_microscope__go__DeclDO__getKind(result, d),
+  rule_microscope__go__DeclDO____all__(d, _)
+).
+rule_microscope__go__Decl__isFuncDecl(self) :- rule_microscope__go__Decl__getKind(5, self).
+schema_microscope__go__Node(result, db, field_0x6669656c64_id_int) :- (
+  (
+    get_field_microscope__go__DeclDO_oid(field_0x6669656c64_id_int, d),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__DeclDO____all__(d, db)
+  );
+  (
+    get_field_microscope__go__ExprDO_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__ExprDO____all__(e, db)
+  );
+  (
+    get_field_microscope__go__StmtDO_oid(field_0x6669656c64_id_int, s),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__StmtDO____all__(s, db)
+  );
+  (
+    get_field_microscope__go__CommentGroupDO_oid(field_0x6669656c64_id_int, c),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__CommentGroupDO____all__(c, db)
+  );
+  (
+    get_field_microscope__go__FileDO_oid(field_0x6669656c64_id_int, c),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__FileDO____all__(c, db)
+  );
+  (
+    get_field_microscope__go__CommentDO_oid(field_0x6669656c64_id_int, c),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__CommentDO____all__(c, db)
+  );
+  (
+    get_field_microscope__go__DocCommentDO_oid(field_0x6669656c64_id_int, c),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__DocCommentDO____all__(c, db)
+  );
+  (
+    get_field_microscope__go__FieldsDO_oid(field_0x6669656c64_id_int, c),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__FieldsDO____all__(c, db)
+  );
+  (
+    get_field_microscope__go__SpecDO_oid(field_0x6669656c64_id_int, c),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__go__SpecDO____all__(c, db)
+  )
+).
+rule_microscope__go__Node____all__(result, db) :- schema_microscope__go__Node(result, db, _).
+rule_microscope__go__Node__getBelongsFile(result, self) :- (
+  (
+    (
+      (
+        f = self,
+        result = f
+      );
+      (
+        rule_microscope__go__Node__getParentNode(ssa_temp_0, self),
+        f = ssa_temp_0,
+        result = f
+      )
+    ),
+    rule_microscope__go__File____all__(f, _)
+  );
+  (
+    rule_microscope__go__Node__getParentNode(ssa_temp_2, self),
+    rule_microscope__go__Node__getBelongsFile(result, ssa_temp_2)
+  )
+).
+rule_microscope__go__Node__getParentNode(result, self) :- (
+  (
+    (
+      self = e,
+      get_field_microscope__go__Node_id(ssa_temp_0, parent),
+      rule_microscope__go__DeclDO__getParentId(ssa_temp_0, e),
+      result = parent,
+      rule_microscope__go__DeclDO____all__(e, _)
+    );
+    (
+      self = var,
+      get_field_microscope__go__Node_id(ssa_temp_4, parent),
+      rule_microscope__go__ExprDO__getParentId(ssa_temp_4, var),
+      result = parent,
+      rule_microscope__go__ExprDO____all__(var, _)
+    );
+    (
+      self = m,
+      get_field_microscope__go__Node_id(ssa_temp_8, parent),
+      rule_microscope__go__StmtDO__getParentId(ssa_temp_8, m),
+      result = parent,
+      rule_microscope__go__StmtDO____all__(m, _)
+    );
+    (
+      self = c,
+      get_field_microscope__go__Node_id(ssa_temp_12, parent),
+      rule_microscope__go__CommentGroupDO__getParent(ssa_temp_12, c),
+      result = parent,
+      rule_microscope__go__CommentGroupDO____all__(c, _)
+    );
+    (
+      self = c,
+      get_field_microscope__go__Node_id(ssa_temp_16, parent),
+      rule_microscope__go__CommentDO__getParent(ssa_temp_16, c),
+      result = parent,
+      rule_microscope__go__CommentDO____all__(c, _)
+    );
+    (
+      self = c,
+      get_field_microscope__go__CommentGroupDO_oid(ssa_temp_20, cg),
+      rule_microscope__go__DocCommentDO__getAssociateObj(ssa_temp_20, c),
+      get_field_microscope__go__Node_id(ssa_temp_23, parent),
+      get_field_microscope__go__CommentGroupDO_oid(ssa_temp_23, cg),
+      result = parent,
+      rule_microscope__go__CommentGroupDO____all__(cg, _),
+      rule_microscope__go__DocCommentDO____all__(c, _)
+    );
+    (
+      self = c,
+      get_field_microscope__go__Node_id(ssa_temp_28, parent),
+      rule_microscope__go__FieldsDO__getParentId(ssa_temp_28, c),
+      result = parent,
+      rule_microscope__go__FieldsDO____all__(c, _)
+    );
+    (
+      self = c,
+      get_field_microscope__go__Node_id(ssa_temp_33, parent),
+      rule_microscope__go__SpecDO__getParentId(ssa_temp_33, c),
+      result = parent,
+      rule_microscope__go__SpecDO____all__(c, _)
+    )
+  ),
+  rule_microscope__go__Node____all__(parent, _)
+).
+rule_default_db(result) :- result = [0, 0].
+rule_out(name, funcCount, totallines, codelines, commentlines, md5, sha256) :- (
+  rule_microscope__go__File__getName(name, f),
+  rule_microscope__go__File__getFunctionCount(funcCount, f),
+  rule_microscope__go__File__getMd5Sum(md5, f),
+  rule_microscope__go__File__getSha256Sum(sha256, f),
+  rule_microscope__go__File__getLineInfo(ssa_temp_8, f),
+  rule_microscope__go__NumberOfLineDO__getNumberOfTotalLines(totallines, ssa_temp_8),
+  rule_microscope__go__File__getLineInfo(ssa_temp_11, f),
+  rule_microscope__go__NumberOfLineDO__getNumberOfCodeLines(codelines, ssa_temp_11),
+  rule_microscope__go__File__getLineInfo(ssa_temp_14, f),
+  rule_microscope__go__NumberOfLineDO__getNumberOfCommentLines(commentlines, ssa_temp_14),
+  rule_default_db(ssa_temp_17),
+  rule_microscope__go__File____all__(f, ssa_temp_17)
+).
+
+all_data_DBIndex([0, 0]).
+all_data_DBIndex([-1, -1]).
+
+schema_microscope__go__CommentGroupDO(oid, [0, 0], oid, file_id, parent, idx) :- input_microscope__go__GoDB_microscope__go__CommentGroupDO_0(oid, file_id, parent, idx).
+schema_microscope__go__StmtDO(oid, [0, 0], oid, file_id, kind, parent_id, idx, debug_info) :- input_microscope__go__GoDB_microscope__go__StmtDO_0(oid, file_id, kind, parent_id, idx, debug_info).
+schema_microscope__go__FileDO(oid, [0, 0], oid, pkg_oid, name, md5_sum, sha256_sum) :- input_microscope__go__GoDB_microscope__go__FileDO_0(oid, pkg_oid, name, md5_sum, sha256_sum).
+schema_microscope__go__DeclDO(oid, [0, 0], oid, file_id, kind, parent_id, idx, debug_info) :- input_microscope__go__GoDB_microscope__go__DeclDO_0(oid, file_id, kind, parent_id, idx, debug_info).
+schema_microscope__go__ExprDO(oid, [0, 0], oid, file_id, kind, parent_id, idx, debug_info) :- input_microscope__go__GoDB_microscope__go__ExprDO_0(oid, file_id, kind, parent_id, idx, debug_info).
+schema_microscope__go__SpecDO(oid, [0, 0], oid, kind, parent_id, idx, debug_info) :- input_microscope__go__GoDB_microscope__go__SpecDO_0(oid, kind, parent_id, idx, debug_info).
+schema_microscope__go__DocCommentDO(oid, [0, 0], oid, associate_obj, comment_group_id) :- input_microscope__go__GoDB_microscope__go__DocCommentDO_0(oid, associate_obj, comment_group_id).
+schema_microscope__go__NumberOfLineDO(oid, [0, 0], oid, number_of_total_lines, number_of_code_lines, number_of_comment_lines) :- input_microscope__go__GoDB_microscope__go__NumberOfLineDO_0(oid, number_of_total_lines, number_of_code_lines, number_of_comment_lines).
+schema_microscope__go__FieldsDO(oid, [0, 0], oid, parent_id, idx, kind) :- input_microscope__go__GoDB_microscope__go__FieldsDO_0(oid, parent_id, idx, kind).
+schema_microscope__go__CommentDO(oid, [0, 0], oid, file_id, comment_type, parent, index, debug_info) :- input_microscope__go__GoDB_microscope__go__CommentDO_0(oid, file_id, comment_type, parent, index, debug_info).
+
+get_field_microscope__go__Node_id(result, self) :- result = self.
+get_field_microscope__go__CommentGroupDO_oid(result, self) :- result = self.
+get_field_microscope__go__CommentGroupDO_parent(result, self) :- schema_microscope__go__CommentGroupDO(self, _, _, _, result, _).
+get_field_microscope__go__FieldsDO_oid(result, self) :- result = self.
+get_field_microscope__go__FieldsDO_parent_id(result, self) :- schema_microscope__go__FieldsDO(self, _, _, result, _, _).
+get_field_microscope__go__DocCommentDO_oid(result, self) :- result = self.
+get_field_microscope__go__DocCommentDO_associate_obj(result, self) :- schema_microscope__go__DocCommentDO(self, _, _, result, _).
+get_field_microscope__go__StmtDO_oid(result, self) :- result = self.
+get_field_microscope__go__StmtDO_parent_id(result, self) :- schema_microscope__go__StmtDO(self, _, _, _, _, result, _, _).
+get_field_microscope__go__ExprDO_oid(result, self) :- result = self.
+get_field_microscope__go__ExprDO_parent_id(result, self) :- schema_microscope__go__ExprDO(self, _, _, _, _, result, _, _).
+get_field_microscope__go__DeclDO_oid(result, self) :- result = self.
+get_field_microscope__go__DeclDO_kind(result, self) :- schema_microscope__go__DeclDO(self, _, _, _, result, _, _, _).
+get_field_microscope__go__DeclDO_parent_id(result, self) :- schema_microscope__go__DeclDO(self, _, _, _, _, result, _, _).
+get_field_microscope__go__NumberOfLineDO_number_of_total_lines(result, self) :- schema_microscope__go__NumberOfLineDO(self, _, _, result, _, _).
+get_field_microscope__go__NumberOfLineDO_number_of_code_lines(result, self) :- schema_microscope__go__NumberOfLineDO(self, _, _, _, result, _).
+get_field_microscope__go__NumberOfLineDO_number_of_comment_lines(result, self) :- schema_microscope__go__NumberOfLineDO(self, _, _, _, _, result).
+get_field_microscope__go__FileDO_oid(result, self) :- result = self.
+get_field_microscope__go__FileDO_name(result, self) :- schema_microscope__go__FileDO(self, _, _, _, result, _, _).
+get_field_microscope__go__FileDO_md5_sum(result, self) :- schema_microscope__go__FileDO(self, _, _, _, _, result, _).
+get_field_microscope__go__FileDO_sha256_sum(result, self) :- schema_microscope__go__FileDO(self, _, _, _, _, _, result).
+get_field_microscope__go__CommentDO_oid(result, self) :- result = self.
+get_field_microscope__go__CommentDO_parent(result, self) :- schema_microscope__go__CommentDO(self, _, _, _, _, result, _, _).
+get_field_microscope__go__SpecDO_oid(result, self) :- result = self.
+get_field_microscope__go__SpecDO_parent_id(result, self) :- schema_microscope__go__SpecDO(self, _, _, _, result, _, _).
+
+.input input_microscope__go__GoDB_microscope__go__CommentGroupDO_0(IO="sqlite", dbname="microscope_go_src.db", name="comment_group")
+.input input_microscope__go__GoDB_microscope__go__StmtDO_0(IO="sqlite", dbname="microscope_go_src.db", name="stmt")
+.input input_microscope__go__GoDB_microscope__go__FileDO_0(IO="sqlite", dbname="microscope_go_src.db", name="file")
+.input input_microscope__go__GoDB_microscope__go__DeclDO_0(IO="sqlite", dbname="microscope_go_src.db", name="decl")
+.input input_microscope__go__GoDB_microscope__go__ExprDO_0(IO="sqlite", dbname="microscope_go_src.db", name="expr")
+.input input_microscope__go__GoDB_microscope__go__SpecDO_0(IO="sqlite", dbname="microscope_go_src.db", name="spec")
+.input input_microscope__go__GoDB_microscope__go__DocCommentDO_0(IO="sqlite", dbname="microscope_go_src.db", name="doc_comment")
+.input input_microscope__go__GoDB_microscope__go__NumberOfLineDO_0(IO="sqlite", dbname="microscope_go_src.db", name="number_of_line")
+.input input_microscope__go__GoDB_microscope__go__FieldsDO_0(IO="sqlite", dbname="microscope_go_src.db", name="fields")
+.input input_microscope__go__GoDB_microscope__go__CommentDO_0(IO="sqlite", dbname="microscope_go_src.db", name="comment")
+
+.output rule_out(IO="stdout")
+

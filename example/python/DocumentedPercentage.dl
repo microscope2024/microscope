@@ -1,0 +1,990 @@
+.functor get_field_by_index(self: number, total: number, index: number): number stateful
+.functor datalog_lang_builtin_string_getMatchResult(self: symbol, pattern: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_to_upper(self: symbol): symbol
+.functor datalog_lang_builtin_string_to_lower(self: symbol): symbol
+.functor datalog_lang_builtin_string_replace_once(self: symbol, pattern: symbol, replacement: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_replace_all(self: symbol, pattern: symbol, replacement: symbol): symbol
+
+.type DBIndex = [type_id: number, load_path: number]
+.type int = number
+.type string = symbol
+.type microscope__python__PythonDB = DBIndex
+.type microscope__python__ClassDefStatement = int
+.type microscope__python__Slice = int
+.type microscope__python__Location = int
+.type microscope__python__WithItem = int
+.type microscope__python__Alias = int
+.type microscope__python__File = int
+.type microscope__python__Arguments = int
+.type microscope__python__Arg = int
+.type microscope__python__Element = int
+.type microscope__python__Keyword = int
+.type microscope__python__Expression = int
+.type microscope__python__DocstringComment = int
+.type microscope__python__Comment = int
+.type microscope__python__Class = int
+.type microscope__python__Module = int
+.type microscope__python__Function = int
+.type microscope__python__FunctionDefStatement = int
+.type microscope__python__StatementDO = int
+.type microscope__python__WithItemDO = int
+.type microscope__python__Statement = int
+.type microscope__python__Comprehension = int
+.type microscope__python__MatchCaseDO = int
+.type microscope__python__FileDO = int
+.type microscope__python__LocationDO = int
+.type microscope__python__SliceDO = int
+.type microscope__python__MatchCase = int
+.type microscope__python__ModuleDO = int
+.type microscope__python__CommentDO = int
+.type microscope__python__ArgumentsDO = int
+.type microscope__python__ExpressionDO = int
+.type microscope__python__CombineElement = int
+.type microscope__python__ElementDO = int
+.type microscope__python__DocstringCommentDO = int
+.type microscope__python__KeywordDO = int
+.type microscope__python__FunctionDefStatementDO = int
+.type microscope__python__ExceptHandlerDO = int
+.type microscope__python__AliasDO = int
+.type microscope__python__ComprehensionDO = int
+.type microscope__python__ExceptHandler = int
+.type microscope__python__ClassDefStatementDO = int
+.type microscope__python__ArgDO = int
+.type microscope__python__AsyncFunctionDefStatementDO = int
+.type microscope__python__AsyncFunctionDefStatement = int
+.type PublicVisitedElement = int
+
+.decl schema_microscope__python__ClassDefStatement(result: microscope__python__ClassDefStatement, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__Slice(result: microscope__python__Slice, db_id: DBIndex, element_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string, has_step: int)
+.decl schema_microscope__python__Location(result: microscope__python__Location, db_id: DBIndex, element_oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int)
+.decl schema_microscope__python__WithItem(result: microscope__python__WithItem, db_id: DBIndex, element_oid: int, printable_text: string, element_index: int, parent_oid: int)
+.decl schema_microscope__python__Alias(result: microscope__python__Alias, db_id: DBIndex, element_oid: int, name: string, asname: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__File(result: microscope__python__File, db_id: DBIndex, element_oid: int, relative_path: string, extension: string, name: string, number_of_lines_oid: int)
+.decl schema_microscope__python__Arguments(result: microscope__python__Arguments, db_id: DBIndex, element_oid: int, parent_oid: int, printable_text: string)
+.decl schema_microscope__python__Arg(result: microscope__python__Arg, db_id: DBIndex, element_oid: int, annotation: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__Element(result: microscope__python__Element, db_id: DBIndex, oid: int, value: string, type: string, parent_oid: int)
+.decl schema_microscope__python__Keyword(result: microscope__python__Keyword, db_id: DBIndex, element_oid: int, arg_value: string, value_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__Expression(result: microscope__python__Expression, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__DocstringComment(result: microscope__python__DocstringComment, db_id: DBIndex, element_oid: int, text: string, documented_element_oid: int)
+.decl schema_microscope__python__Comment(result: microscope__python__Comment, db_id: DBIndex, element_oid: int, text: string, parent_oid: int, location_oid: int)
+.decl schema_microscope__python__Class(result: microscope__python__Class, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__Module(result: microscope__python__Module, db_id: DBIndex, element_oid: int, name: string, file_oid: int, location_oid: int)
+.decl schema_microscope__python__Function(result: microscope__python__Function, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__FunctionDefStatement(result: microscope__python__FunctionDefStatement, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__StatementDO(result: microscope__python__StatementDO, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__WithItemDO(result: microscope__python__WithItemDO, db_id: DBIndex, element_oid: int, printable_text: string, element_index: int, parent_oid: int)
+.decl schema_microscope__python__Statement(result: microscope__python__Statement, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__Comprehension(result: microscope__python__Comprehension, db_id: DBIndex, element_oid: int, target_expr_oid: int, iter_expr_oid: int, element_index: int, parent_oid: int, printable_text: string)
+.decl schema_microscope__python__MatchCaseDO(result: microscope__python__MatchCaseDO, db_id: DBIndex, element_oid: int, pattern_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string, is_default: int)
+.decl schema_microscope__python__FileDO(result: microscope__python__FileDO, db_id: DBIndex, element_oid: int, relative_path: string, extension: string, name: string, number_of_lines_oid: int)
+.decl schema_microscope__python__LocationDO(result: microscope__python__LocationDO, db_id: DBIndex, element_oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int)
+.decl schema_microscope__python__SliceDO(result: microscope__python__SliceDO, db_id: DBIndex, element_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string, has_step: int)
+.decl schema_microscope__python__MatchCase(result: microscope__python__MatchCase, db_id: DBIndex, element_oid: int, pattern_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string, is_default: int)
+.decl schema_microscope__python__ModuleDO(result: microscope__python__ModuleDO, db_id: DBIndex, element_oid: int, name: string, file_oid: int, location_oid: int)
+.decl schema_microscope__python__CommentDO(result: microscope__python__CommentDO, db_id: DBIndex, element_oid: int, text: string, parent_oid: int, location_oid: int)
+.decl schema_microscope__python__ArgumentsDO(result: microscope__python__ArgumentsDO, db_id: DBIndex, element_oid: int, parent_oid: int, printable_text: string)
+.decl schema_microscope__python__ExpressionDO(result: microscope__python__ExpressionDO, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__CombineElement(result: microscope__python__CombineElement, db_id: DBIndex, id: int)
+.decl schema_microscope__python__ElementDO(result: microscope__python__ElementDO, db_id: DBIndex, oid: int, value: string, type: string, parent_oid: int)
+.decl schema_microscope__python__DocstringCommentDO(result: microscope__python__DocstringCommentDO, db_id: DBIndex, element_oid: int, text: string, documented_element_oid: int)
+.decl schema_microscope__python__KeywordDO(result: microscope__python__KeywordDO, db_id: DBIndex, element_oid: int, arg_value: string, value_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__FunctionDefStatementDO(result: microscope__python__FunctionDefStatementDO, db_id: DBIndex, element_oid: int, name: string)
+.decl schema_microscope__python__ExceptHandlerDO(result: microscope__python__ExceptHandlerDO, db_id: DBIndex, element_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__AliasDO(result: microscope__python__AliasDO, db_id: DBIndex, element_oid: int, name: string, asname: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__ComprehensionDO(result: microscope__python__ComprehensionDO, db_id: DBIndex, element_oid: int, target_expr_oid: int, iter_expr_oid: int, element_index: int, parent_oid: int, printable_text: string)
+.decl schema_microscope__python__ExceptHandler(result: microscope__python__ExceptHandler, db_id: DBIndex, element_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__ClassDefStatementDO(result: microscope__python__ClassDefStatementDO, db_id: DBIndex, element_oid: int, name: string)
+.decl schema_microscope__python__ArgDO(result: microscope__python__ArgDO, db_id: DBIndex, element_oid: int, annotation: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_microscope__python__AsyncFunctionDefStatementDO(result: microscope__python__AsyncFunctionDefStatementDO, db_id: DBIndex, element_oid: int, name: string)
+.decl schema_microscope__python__AsyncFunctionDefStatement(result: microscope__python__AsyncFunctionDefStatement, db_id: DBIndex, element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl schema_PublicVisitedElement(result: PublicVisitedElement, db_id: DBIndex, id: int)
+
+.decl all_data_DBIndex(db_id: DBIndex)
+.decl rule_microscope__python__ClassDefStatement__getLocation(result: microscope__python__Location, self: microscope__python__ClassDefStatement) inline
+.decl rule_microscope__python__ClassDefStatement____all__(result: microscope__python__ClassDefStatement, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Slice____all__(result: microscope__python__Slice, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Location__getFileOid(result: int, self: microscope__python__Location) inline
+.decl rule_microscope__python__Location__getStartLineNumber(result: int, self: microscope__python__Location) inline
+.decl rule_microscope__python__Location____all__(result: microscope__python__Location, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Location__getEndLineNumber(result: int, self: microscope__python__Location) inline
+.decl rule_microscope__python__Location__getFile(result: microscope__python__File, self: microscope__python__Location)
+.decl rule_microscope__python__WithItem____all__(result: microscope__python__WithItem, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Alias____all__(result: microscope__python__Alias, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__File____all__(result: microscope__python__File, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Arguments____all__(result: microscope__python__Arguments, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Arg____all__(result: microscope__python__Arg, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Element____all__(result: microscope__python__Element, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Keyword____all__(result: microscope__python__Keyword, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Expression____all__(result: microscope__python__Expression, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__DocstringComment__getDocumentedElementOid(result: int, self: microscope__python__DocstringComment) inline
+.decl rule_microscope__python__DocstringComment__getDocumentableElement(result: microscope__python__CombineElement, self: microscope__python__DocstringComment)
+.decl rule_microscope__python__DocstringComment____all__(result: microscope__python__DocstringComment, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Comment__getParentOid(result: int, self: microscope__python__Comment) inline
+.decl rule_microscope__python__Comment__getLocationOid(result: int, self: microscope__python__Comment) inline
+.decl rule_microscope__python__Comment__getParent(result: microscope__python__CombineElement, self: microscope__python__Comment)
+.decl rule_microscope__python__Comment____all__(result: microscope__python__Comment, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Comment__getDocumentedClassOrFunctionElement(result: microscope__python__CombineElement, self: microscope__python__Comment)
+.decl rule_microscope__python__Comment__getLocation(result: microscope__python__Location, self: microscope__python__Comment)
+.decl rule_microscope__python__Class__getLocation(result: microscope__python__Location, self: microscope__python__Class) inline
+.decl rule_microscope__python__Class____all__(result: microscope__python__Class, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Module____all__(result: microscope__python__Module, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Function__getLocation(result: microscope__python__Location, self: microscope__python__Function) inline
+.decl rule_microscope__python__Function____all__(result: microscope__python__Function, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__FunctionDefStatement____all__(result: microscope__python__FunctionDefStatement, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__StatementDO__getLocationOid(result: int, self: microscope__python__StatementDO)
+.decl rule_microscope__python__StatementDO____all__(result: microscope__python__StatementDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__WithItemDO____all__(result: microscope__python__WithItemDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Statement__getLocationOid(result: int, self: microscope__python__Statement) inline
+.decl rule_microscope__python__Statement____all__(result: microscope__python__Statement, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__Statement__getLocation(result: microscope__python__Location, self: microscope__python__Statement)
+.decl rule_microscope__python__Comprehension____all__(result: microscope__python__Comprehension, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__MatchCaseDO____all__(result: microscope__python__MatchCaseDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__FileDO____all__(result: microscope__python__FileDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__LocationDO____all__(result: microscope__python__LocationDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__LocationDO__getEndLineNumber(result: int, self: microscope__python__LocationDO)
+.decl rule_microscope__python__LocationDO__getStartLineNumber(result: int, self: microscope__python__LocationDO)
+.decl rule_microscope__python__LocationDO__getFileOid(result: int, self: microscope__python__LocationDO)
+.decl rule_microscope__python__SliceDO____all__(result: microscope__python__SliceDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__MatchCase____all__(result: microscope__python__MatchCase, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ModuleDO____all__(result: microscope__python__ModuleDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__CommentDO__getLocationOid(result: int, self: microscope__python__CommentDO)
+.decl rule_microscope__python__CommentDO__getParentOid(result: int, self: microscope__python__CommentDO)
+.decl rule_microscope__python__CommentDO____all__(result: microscope__python__CommentDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ArgumentsDO____all__(result: microscope__python__ArgumentsDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ExpressionDO____all__(result: microscope__python__ExpressionDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__CombineElement____all__(result: microscope__python__CombineElement, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ElementDO____all__(result: microscope__python__ElementDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__DocstringCommentDO__getDocumentedElementOid(result: int, self: microscope__python__DocstringCommentDO)
+.decl rule_microscope__python__DocstringCommentDO____all__(result: microscope__python__DocstringCommentDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__KeywordDO____all__(result: microscope__python__KeywordDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__FunctionDefStatementDO____all__(result: microscope__python__FunctionDefStatementDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ExceptHandlerDO____all__(result: microscope__python__ExceptHandlerDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__AliasDO____all__(result: microscope__python__AliasDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ComprehensionDO____all__(result: microscope__python__ComprehensionDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ExceptHandler____all__(result: microscope__python__ExceptHandler, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ClassDefStatementDO____all__(result: microscope__python__ClassDefStatementDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__ArgDO____all__(result: microscope__python__ArgDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__AsyncFunctionDefStatementDO____all__(result: microscope__python__AsyncFunctionDefStatementDO, db: microscope__python__PythonDB) inline
+.decl rule_microscope__python__AsyncFunctionDefStatement____all__(result: microscope__python__AsyncFunctionDefStatement, db: microscope__python__PythonDB) inline
+.decl get_field_microscope__python__ClassDefStatement_element_oid(result: int, self: microscope__python__ClassDefStatement) inline
+.decl get_field_microscope__python__ClassDefStatement_type(result: string, self: microscope__python__ClassDefStatement) inline
+.decl get_field_microscope__python__ClassDefStatement_element_index(result: int, self: microscope__python__ClassDefStatement) inline
+.decl get_field_microscope__python__ClassDefStatement_parent_oid(result: int, self: microscope__python__ClassDefStatement) inline
+.decl get_field_microscope__python__ClassDefStatement_location_oid(result: int, self: microscope__python__ClassDefStatement) inline
+.decl get_field_microscope__python__ClassDefStatement_printable_text(result: string, self: microscope__python__ClassDefStatement) inline
+.decl get_field_microscope__python__Slice_element_oid(result: int, self: microscope__python__Slice) inline
+.decl get_field_microscope__python__Location_element_oid(result: int, self: microscope__python__Location) inline
+.decl get_field_microscope__python__WithItem_element_oid(result: int, self: microscope__python__WithItem) inline
+.decl get_field_microscope__python__Alias_element_oid(result: int, self: microscope__python__Alias) inline
+.decl get_field_microscope__python__File_element_oid(result: int, self: microscope__python__File) inline
+.decl get_field_microscope__python__Arguments_element_oid(result: int, self: microscope__python__Arguments) inline
+.decl get_field_microscope__python__Arg_element_oid(result: int, self: microscope__python__Arg) inline
+.decl get_field_microscope__python__Element_oid(result: int, self: microscope__python__Element) inline
+.decl get_field_microscope__python__Keyword_element_oid(result: int, self: microscope__python__Keyword) inline
+.decl get_field_microscope__python__Expression_element_oid(result: int, self: microscope__python__Expression) inline
+.decl get_field_microscope__python__DocstringComment_element_oid(result: int, self: microscope__python__DocstringComment) inline
+.decl get_field_microscope__python__Comment_element_oid(result: int, self: microscope__python__Comment) inline
+.decl get_field_microscope__python__Class_element_oid(result: int, self: microscope__python__Class) inline
+.decl get_field_microscope__python__Module_element_oid(result: int, self: microscope__python__Module) inline
+.decl get_field_microscope__python__Function_element_oid(result: int, self: microscope__python__Function) inline
+.decl get_field_microscope__python__StatementDO_element_oid(result: int, self: microscope__python__StatementDO) inline
+.decl get_field_microscope__python__StatementDO_type(result: string, self: microscope__python__StatementDO) inline
+.decl get_field_microscope__python__StatementDO_element_index(result: int, self: microscope__python__StatementDO) inline
+.decl get_field_microscope__python__StatementDO_parent_oid(result: int, self: microscope__python__StatementDO) inline
+.decl get_field_microscope__python__StatementDO_location_oid(result: int, self: microscope__python__StatementDO) inline
+.decl get_field_microscope__python__StatementDO_printable_text(result: string, self: microscope__python__StatementDO) inline
+.decl get_field_microscope__python__WithItemDO_element_oid(result: int, self: microscope__python__WithItemDO) inline
+.decl get_field_microscope__python__WithItemDO_printable_text(result: string, self: microscope__python__WithItemDO) inline
+.decl get_field_microscope__python__WithItemDO_element_index(result: int, self: microscope__python__WithItemDO) inline
+.decl get_field_microscope__python__WithItemDO_parent_oid(result: int, self: microscope__python__WithItemDO) inline
+.decl get_field_microscope__python__Statement_element_oid(result: int, self: microscope__python__Statement) inline
+.decl get_field_microscope__python__Statement_type(result: string, self: microscope__python__Statement) inline
+.decl get_field_microscope__python__Statement_element_index(result: int, self: microscope__python__Statement) inline
+.decl get_field_microscope__python__Statement_parent_oid(result: int, self: microscope__python__Statement) inline
+.decl get_field_microscope__python__Statement_location_oid(result: int, self: microscope__python__Statement) inline
+.decl get_field_microscope__python__Statement_printable_text(result: string, self: microscope__python__Statement) inline
+.decl get_field_microscope__python__Comprehension_element_oid(result: int, self: microscope__python__Comprehension) inline
+.decl get_field_microscope__python__MatchCaseDO_element_oid(result: int, self: microscope__python__MatchCaseDO) inline
+.decl get_field_microscope__python__MatchCaseDO_pattern_oid(result: int, self: microscope__python__MatchCaseDO) inline
+.decl get_field_microscope__python__MatchCaseDO_element_index(result: int, self: microscope__python__MatchCaseDO) inline
+.decl get_field_microscope__python__MatchCaseDO_parent_oid(result: int, self: microscope__python__MatchCaseDO) inline
+.decl get_field_microscope__python__MatchCaseDO_location_oid(result: int, self: microscope__python__MatchCaseDO) inline
+.decl get_field_microscope__python__MatchCaseDO_printable_text(result: string, self: microscope__python__MatchCaseDO) inline
+.decl get_field_microscope__python__MatchCaseDO_is_default(result: int, self: microscope__python__MatchCaseDO) inline
+.decl get_field_microscope__python__FileDO_element_oid(result: int, self: microscope__python__FileDO) inline
+.decl get_field_microscope__python__FileDO_relative_path(result: string, self: microscope__python__FileDO) inline
+.decl get_field_microscope__python__FileDO_extension(result: string, self: microscope__python__FileDO) inline
+.decl get_field_microscope__python__FileDO_name(result: string, self: microscope__python__FileDO) inline
+.decl get_field_microscope__python__FileDO_number_of_lines_oid(result: int, self: microscope__python__FileDO) inline
+.decl get_field_microscope__python__LocationDO_element_oid(result: int, self: microscope__python__LocationDO) inline
+.decl get_field_microscope__python__LocationDO_file_oid(result: int, self: microscope__python__LocationDO) inline
+.decl get_field_microscope__python__LocationDO_start_line_number(result: int, self: microscope__python__LocationDO) inline
+.decl get_field_microscope__python__LocationDO_start_column_number(result: int, self: microscope__python__LocationDO) inline
+.decl get_field_microscope__python__LocationDO_end_line_number(result: int, self: microscope__python__LocationDO) inline
+.decl get_field_microscope__python__LocationDO_end_column_number(result: int, self: microscope__python__LocationDO) inline
+.decl get_field_microscope__python__SliceDO_element_oid(result: int, self: microscope__python__SliceDO) inline
+.decl get_field_microscope__python__SliceDO_element_index(result: int, self: microscope__python__SliceDO) inline
+.decl get_field_microscope__python__SliceDO_parent_oid(result: int, self: microscope__python__SliceDO) inline
+.decl get_field_microscope__python__SliceDO_location_oid(result: int, self: microscope__python__SliceDO) inline
+.decl get_field_microscope__python__SliceDO_printable_text(result: string, self: microscope__python__SliceDO) inline
+.decl get_field_microscope__python__SliceDO_has_step(result: int, self: microscope__python__SliceDO) inline
+.decl get_field_microscope__python__MatchCase_element_oid(result: int, self: microscope__python__MatchCase) inline
+.decl get_field_microscope__python__ModuleDO_element_oid(result: int, self: microscope__python__ModuleDO) inline
+.decl get_field_microscope__python__ModuleDO_name(result: string, self: microscope__python__ModuleDO) inline
+.decl get_field_microscope__python__ModuleDO_file_oid(result: int, self: microscope__python__ModuleDO) inline
+.decl get_field_microscope__python__ModuleDO_location_oid(result: int, self: microscope__python__ModuleDO) inline
+.decl get_field_microscope__python__CommentDO_element_oid(result: int, self: microscope__python__CommentDO) inline
+.decl get_field_microscope__python__CommentDO_text(result: string, self: microscope__python__CommentDO) inline
+.decl get_field_microscope__python__CommentDO_parent_oid(result: int, self: microscope__python__CommentDO) inline
+.decl get_field_microscope__python__CommentDO_location_oid(result: int, self: microscope__python__CommentDO) inline
+.decl get_field_microscope__python__ArgumentsDO_element_oid(result: int, self: microscope__python__ArgumentsDO) inline
+.decl get_field_microscope__python__ArgumentsDO_parent_oid(result: int, self: microscope__python__ArgumentsDO) inline
+.decl get_field_microscope__python__ArgumentsDO_printable_text(result: string, self: microscope__python__ArgumentsDO) inline
+.decl get_field_microscope__python__ExpressionDO_element_oid(result: int, self: microscope__python__ExpressionDO) inline
+.decl get_field_microscope__python__ExpressionDO_type(result: string, self: microscope__python__ExpressionDO) inline
+.decl get_field_microscope__python__ExpressionDO_element_index(result: int, self: microscope__python__ExpressionDO) inline
+.decl get_field_microscope__python__ExpressionDO_parent_oid(result: int, self: microscope__python__ExpressionDO) inline
+.decl get_field_microscope__python__ExpressionDO_location_oid(result: int, self: microscope__python__ExpressionDO) inline
+.decl get_field_microscope__python__ExpressionDO_printable_text(result: string, self: microscope__python__ExpressionDO) inline
+.decl get_field_microscope__python__CombineElement_id(result: int, self: microscope__python__CombineElement) inline
+.decl get_field_microscope__python__ElementDO_oid(result: int, self: microscope__python__ElementDO) inline
+.decl get_field_microscope__python__ElementDO_value(result: string, self: microscope__python__ElementDO) inline
+.decl get_field_microscope__python__ElementDO_type(result: string, self: microscope__python__ElementDO) inline
+.decl get_field_microscope__python__ElementDO_parent_oid(result: int, self: microscope__python__ElementDO) inline
+.decl get_field_microscope__python__DocstringCommentDO_element_oid(result: int, self: microscope__python__DocstringCommentDO) inline
+.decl get_field_microscope__python__DocstringCommentDO_text(result: string, self: microscope__python__DocstringCommentDO) inline
+.decl get_field_microscope__python__DocstringCommentDO_documented_element_oid(result: int, self: microscope__python__DocstringCommentDO) inline
+.decl get_field_microscope__python__KeywordDO_element_oid(result: int, self: microscope__python__KeywordDO) inline
+.decl get_field_microscope__python__KeywordDO_arg_value(result: string, self: microscope__python__KeywordDO) inline
+.decl get_field_microscope__python__KeywordDO_value_oid(result: int, self: microscope__python__KeywordDO) inline
+.decl get_field_microscope__python__KeywordDO_element_index(result: int, self: microscope__python__KeywordDO) inline
+.decl get_field_microscope__python__KeywordDO_parent_oid(result: int, self: microscope__python__KeywordDO) inline
+.decl get_field_microscope__python__KeywordDO_location_oid(result: int, self: microscope__python__KeywordDO) inline
+.decl get_field_microscope__python__KeywordDO_printable_text(result: string, self: microscope__python__KeywordDO) inline
+.decl get_field_microscope__python__ExceptHandlerDO_element_oid(result: int, self: microscope__python__ExceptHandlerDO) inline
+.decl get_field_microscope__python__ExceptHandlerDO_element_index(result: int, self: microscope__python__ExceptHandlerDO) inline
+.decl get_field_microscope__python__ExceptHandlerDO_parent_oid(result: int, self: microscope__python__ExceptHandlerDO) inline
+.decl get_field_microscope__python__ExceptHandlerDO_location_oid(result: int, self: microscope__python__ExceptHandlerDO) inline
+.decl get_field_microscope__python__ExceptHandlerDO_printable_text(result: string, self: microscope__python__ExceptHandlerDO) inline
+.decl get_field_microscope__python__AliasDO_element_oid(result: int, self: microscope__python__AliasDO) inline
+.decl get_field_microscope__python__AliasDO_name(result: string, self: microscope__python__AliasDO) inline
+.decl get_field_microscope__python__AliasDO_asname(result: string, self: microscope__python__AliasDO) inline
+.decl get_field_microscope__python__AliasDO_element_index(result: int, self: microscope__python__AliasDO) inline
+.decl get_field_microscope__python__AliasDO_parent_oid(result: int, self: microscope__python__AliasDO) inline
+.decl get_field_microscope__python__AliasDO_location_oid(result: int, self: microscope__python__AliasDO) inline
+.decl get_field_microscope__python__AliasDO_printable_text(result: string, self: microscope__python__AliasDO) inline
+.decl get_field_microscope__python__ComprehensionDO_element_oid(result: int, self: microscope__python__ComprehensionDO) inline
+.decl get_field_microscope__python__ComprehensionDO_target_expr_oid(result: int, self: microscope__python__ComprehensionDO) inline
+.decl get_field_microscope__python__ComprehensionDO_iter_expr_oid(result: int, self: microscope__python__ComprehensionDO) inline
+.decl get_field_microscope__python__ComprehensionDO_element_index(result: int, self: microscope__python__ComprehensionDO) inline
+.decl get_field_microscope__python__ComprehensionDO_parent_oid(result: int, self: microscope__python__ComprehensionDO) inline
+.decl get_field_microscope__python__ComprehensionDO_printable_text(result: string, self: microscope__python__ComprehensionDO) inline
+.decl get_field_microscope__python__ExceptHandler_element_oid(result: int, self: microscope__python__ExceptHandler) inline
+.decl get_field_microscope__python__ArgDO_element_oid(result: int, self: microscope__python__ArgDO) inline
+.decl get_field_microscope__python__ArgDO_annotation(result: int, self: microscope__python__ArgDO) inline
+.decl get_field_microscope__python__ArgDO_element_index(result: int, self: microscope__python__ArgDO) inline
+.decl get_field_microscope__python__ArgDO_parent_oid(result: int, self: microscope__python__ArgDO) inline
+.decl get_field_microscope__python__ArgDO_location_oid(result: int, self: microscope__python__ArgDO) inline
+.decl get_field_microscope__python__ArgDO_printable_text(result: string, self: microscope__python__ArgDO) inline
+.decl rule_PublicVisitedElement____all__(result: PublicVisitedElement, db: microscope__python__PythonDB)
+.decl rule_getDocumentedPercentage(documentedPercentage: int)
+.decl rule_countTotalPublicDocumentedBelowElement(result: int)
+.decl rule_withPublicDocumentedBelowElement(result: PublicVisitedElement)
+.decl rule_withDocstringCommentElement(result: PublicVisitedElement)
+.decl rule_countTotalPublicElement(result: int)
+.decl rule_countTotalPublicDocumentedElement(result: int)
+.decl rule_default_db(result: microscope__python__PythonDB)
+
+.decl input_microscope__python__PythonDB_microscope__python__WithItemDO_0(element_oid: int, printable_text: string, element_index: int, parent_oid: int)
+.decl input_microscope__python__PythonDB_microscope__python__SliceDO_0(element_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string, has_step: int)
+.decl input_microscope__python__PythonDB_microscope__python__ModuleDO_0(element_oid: int, name: string, file_oid: int, location_oid: int)
+.decl input_microscope__python__PythonDB_microscope__python__KeywordDO_0(element_oid: int, arg_value: string, value_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__MatchCaseDO_0(element_oid: int, pattern_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string, is_default: int)
+.decl input_microscope__python__PythonDB_microscope__python__StatementDO_0(element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__FunctionDefStatementDO_0(element_oid: int, name: string)
+.decl input_microscope__python__PythonDB_microscope__python__FileDO_0(element_oid: int, relative_path: string, extension: string, name: string, number_of_lines_oid: int)
+.decl input_microscope__python__PythonDB_microscope__python__ExpressionDO_0(element_oid: int, type: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__DocstringCommentDO_0(element_oid: int, text: string, documented_element_oid: int)
+.decl input_microscope__python__PythonDB_microscope__python__ExceptHandlerDO_0(element_oid: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__ComprehensionDO_0(element_oid: int, target_expr_oid: int, iter_expr_oid: int, element_index: int, parent_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__AliasDO_0(element_oid: int, name: string, asname: string, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__ArgumentsDO_0(element_oid: int, parent_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__LocationDO_0(element_oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int)
+.decl input_microscope__python__PythonDB_microscope__python__AsyncFunctionDefStatementDO_0(element_oid: int, name: string)
+.decl input_microscope__python__PythonDB_microscope__python__ArgDO_0(element_oid: int, annotation: int, element_index: int, parent_oid: int, location_oid: int, printable_text: string)
+.decl input_microscope__python__PythonDB_microscope__python__ClassDefStatementDO_0(element_oid: int, name: string)
+.decl input_microscope__python__PythonDB_microscope__python__ElementDO_0(oid: int, value: string, type: string, parent_oid: int)
+.decl input_microscope__python__PythonDB_microscope__python__CommentDO_0(element_oid: int, text: string, parent_oid: int, location_oid: int)
+
+rule_microscope__python__ClassDefStatement__getLocation(result, self) :- rule_microscope__python__Statement__getLocation(result, self).
+rule_microscope__python__Location__getFileOid(result, self) :- rule_microscope__python__LocationDO__getFileOid(result, self).
+rule_microscope__python__Location__getStartLineNumber(result, self) :- rule_microscope__python__LocationDO__getStartLineNumber(result, self).
+rule_microscope__python__Location__getEndLineNumber(result, self) :- rule_microscope__python__LocationDO__getEndLineNumber(result, self).
+rule_microscope__python__DocstringComment__getDocumentedElementOid(result, self) :- rule_microscope__python__DocstringCommentDO__getDocumentedElementOid(result, self).
+rule_microscope__python__Comment__getParentOid(result, self) :- rule_microscope__python__CommentDO__getParentOid(result, self).
+rule_microscope__python__Comment__getLocationOid(result, self) :- rule_microscope__python__CommentDO__getLocationOid(result, self).
+rule_microscope__python__Class__getLocation(result, self) :- rule_microscope__python__ClassDefStatement__getLocation(result, self).
+rule_microscope__python__Function__getLocation(result, self) :- rule_microscope__python__Statement__getLocation(result, self).
+rule_microscope__python__Statement__getLocationOid(result, self) :- rule_microscope__python__StatementDO__getLocationOid(result, self).
+rule_microscope__python__AliasDO____all__(result, db) :- schema_microscope__python__AliasDO(result, db, _, _, _, _, _, _, _).
+rule_microscope__python__ArgDO____all__(result, db) :- schema_microscope__python__ArgDO(result, db, _, _, _, _, _, _).
+rule_microscope__python__ArgumentsDO____all__(result, db) :- schema_microscope__python__ArgumentsDO(result, db, _, _, _).
+rule_microscope__python__AsyncFunctionDefStatementDO____all__(result, db) :- schema_microscope__python__AsyncFunctionDefStatementDO(result, db, _, _).
+rule_microscope__python__ClassDefStatementDO____all__(result, db) :- schema_microscope__python__ClassDefStatementDO(result, db, _, _).
+rule_microscope__python__CommentDO____all__(result, db) :- schema_microscope__python__CommentDO(result, db, _, _, _, _).
+rule_microscope__python__CommentDO__getParentOid(result, self) :- get_field_microscope__python__CommentDO_parent_oid(result, self).
+rule_microscope__python__CommentDO__getLocationOid(result, self) :- get_field_microscope__python__CommentDO_location_oid(result, self).
+rule_microscope__python__ComprehensionDO____all__(result, db) :- schema_microscope__python__ComprehensionDO(result, db, _, _, _, _, _, _).
+rule_microscope__python__DocstringCommentDO____all__(result, db) :- schema_microscope__python__DocstringCommentDO(result, db, _, _, _).
+rule_microscope__python__DocstringCommentDO__getDocumentedElementOid(result, self) :- get_field_microscope__python__DocstringCommentDO_documented_element_oid(result, self).
+rule_microscope__python__ElementDO____all__(result, db) :- schema_microscope__python__ElementDO(result, db, _, _, _, _).
+rule_microscope__python__ExceptHandlerDO____all__(result, db) :- schema_microscope__python__ExceptHandlerDO(result, db, _, _, _, _, _).
+rule_microscope__python__ExpressionDO____all__(result, db) :- schema_microscope__python__ExpressionDO(result, db, _, _, _, _, _, _).
+rule_microscope__python__FileDO____all__(result, db) :- schema_microscope__python__FileDO(result, db, _, _, _, _, _).
+rule_microscope__python__FunctionDefStatementDO____all__(result, db) :- schema_microscope__python__FunctionDefStatementDO(result, db, _, _).
+rule_microscope__python__KeywordDO____all__(result, db) :- schema_microscope__python__KeywordDO(result, db, _, _, _, _, _, _, _).
+rule_microscope__python__LocationDO____all__(result, db) :- schema_microscope__python__LocationDO(result, db, _, _, _, _, _, _).
+rule_microscope__python__LocationDO__getFileOid(result, self) :- get_field_microscope__python__LocationDO_file_oid(result, self).
+rule_microscope__python__LocationDO__getStartLineNumber(result, self) :- get_field_microscope__python__LocationDO_start_line_number(result, self).
+rule_microscope__python__LocationDO__getEndLineNumber(result, self) :- get_field_microscope__python__LocationDO_end_line_number(result, self).
+rule_microscope__python__MatchCaseDO____all__(result, db) :- schema_microscope__python__MatchCaseDO(result, db, _, _, _, _, _, _, _).
+rule_microscope__python__ModuleDO____all__(result, db) :- schema_microscope__python__ModuleDO(result, db, _, _, _, _).
+rule_microscope__python__SliceDO____all__(result, db) :- schema_microscope__python__SliceDO(result, db, _, _, _, _, _, _).
+rule_microscope__python__StatementDO____all__(result, db) :- schema_microscope__python__StatementDO(result, db, _, _, _, _, _, _).
+rule_microscope__python__StatementDO__getLocationOid(result, self) :- get_field_microscope__python__StatementDO_location_oid(result, self).
+rule_microscope__python__WithItemDO____all__(result, db) :- schema_microscope__python__WithItemDO(result, db, _, _, _, _).
+schema_microscope__python__Function(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_type_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  (
+    (
+      tmp = f,
+      get_field_microscope__python__Statement_element_oid(field_0x6669656c64_element_oid_int, tmp),
+      get_field_microscope__python__Statement_type(field_0x6669656c64_type_string, tmp),
+      get_field_microscope__python__Statement_element_index(field_0x6669656c64_element_index_int, tmp),
+      get_field_microscope__python__Statement_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+      get_field_microscope__python__Statement_location_oid(field_0x6669656c64_location_oid_int, tmp),
+      get_field_microscope__python__Statement_printable_text(field_0x6669656c64_printable_text_string, tmp),
+      result = field_0x6669656c64_element_oid_int,
+      rule_microscope__python__FunctionDefStatement____all__(f, db)
+    );
+    (
+      tmp = f,
+      get_field_microscope__python__Statement_element_oid(field_0x6669656c64_element_oid_int, tmp),
+      get_field_microscope__python__Statement_type(field_0x6669656c64_type_string, tmp),
+      get_field_microscope__python__Statement_element_index(field_0x6669656c64_element_index_int, tmp),
+      get_field_microscope__python__Statement_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+      get_field_microscope__python__Statement_location_oid(field_0x6669656c64_location_oid_int, tmp),
+      get_field_microscope__python__Statement_printable_text(field_0x6669656c64_printable_text_string, tmp),
+      result = field_0x6669656c64_element_oid_int,
+      rule_microscope__python__AsyncFunctionDefStatement____all__(f, db)
+    )
+  ),
+  rule_microscope__python__Statement____all__(tmp, db)
+).
+rule_microscope__python__Function____all__(result, db) :- schema_microscope__python__Function(result, db, _, _, _, _, _, _).
+schema_microscope__python__Comprehension(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_target_expr_oid_int, field_0x6669656c64_iter_expr_oid_int, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__ComprehensionDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__ComprehensionDO_target_expr_oid(field_0x6669656c64_target_expr_oid_int, tmp),
+  get_field_microscope__python__ComprehensionDO_iter_expr_oid(field_0x6669656c64_iter_expr_oid_int, tmp),
+  get_field_microscope__python__ComprehensionDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__ComprehensionDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__ComprehensionDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ComprehensionDO____all__(tmp, db)
+).
+rule_microscope__python__Comprehension____all__(result, db) :- schema_microscope__python__Comprehension(result, db, _, _, _, _, _, _).
+schema_microscope__python__Comment(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_text_string, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int) :- (
+  get_field_microscope__python__CommentDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__CommentDO_text(field_0x6669656c64_text_string, tmp),
+  get_field_microscope__python__CommentDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__CommentDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__CommentDO____all__(tmp, db)
+).
+rule_microscope__python__Comment____all__(result, db) :- schema_microscope__python__Comment(result, db, _, _, _, _).
+rule_microscope__python__Comment__getLocation(result, self) :- (
+  get_field_microscope__python__Location_element_oid(ssa_temp_0, loc),
+  rule_microscope__python__Comment__getLocationOid(ssa_temp_0, self),
+  result = loc,
+  rule_microscope__python__Location____all__(loc, _)
+).
+rule_microscope__python__Comment__getParent(result, self) :- (
+  get_field_microscope__python__CombineElement_id(ssa_temp_0, e),
+  rule_microscope__python__Comment__getParentOid(ssa_temp_0, self),
+  result = e,
+  rule_microscope__python__CombineElement____all__(e, _)
+).
+rule_microscope__python__Comment__getDocumentedClassOrFunctionElement(result, self) :- (
+  (
+    (
+      rule_microscope__python__Comment__getParent(ssa_temp_0, self),
+      rule_microscope__python__Function__getLocation(ssa_temp_1, e),
+      rule_microscope__python__Location__getFile(ssa_temp_2, ssa_temp_1),
+      ssa_temp_0 = ssa_temp_2,
+      rule_microscope__python__Comment__getLocation(ssa_temp_3, self),
+      rule_microscope__python__Location__getEndLineNumber(line, ssa_temp_3),
+      ssa_temp_5 = line + 1,
+      rule_microscope__python__Function__getLocation(ssa_temp_6, e),
+      rule_microscope__python__Location__getStartLineNumber(ssa_temp_5, ssa_temp_6),
+      h = e,
+      result = h,
+      rule_microscope__python__Function____all__(e, _)
+    );
+    (
+      rule_microscope__python__Comment__getParent(ssa_temp_10, self),
+      rule_microscope__python__Class__getLocation(ssa_temp_11, e),
+      rule_microscope__python__Location__getFile(ssa_temp_12, ssa_temp_11),
+      ssa_temp_10 = ssa_temp_12,
+      rule_microscope__python__Comment__getLocation(ssa_temp_13, self),
+      rule_microscope__python__Location__getEndLineNumber(line, ssa_temp_13),
+      ssa_temp_15 = line + 1,
+      rule_microscope__python__Class__getLocation(ssa_temp_16, e),
+      rule_microscope__python__Location__getStartLineNumber(ssa_temp_15, ssa_temp_16),
+      h = e,
+      result = h,
+      rule_microscope__python__Class____all__(e, _)
+    )
+  ),
+  rule_microscope__python__CombineElement____all__(h, _)
+).
+schema_microscope__python__DocstringComment(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_text_string, field_0x6669656c64_documented_element_oid_int) :- (
+  get_field_microscope__python__DocstringCommentDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__DocstringCommentDO_text(field_0x6669656c64_text_string, tmp),
+  get_field_microscope__python__DocstringCommentDO_documented_element_oid(field_0x6669656c64_documented_element_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__DocstringCommentDO____all__(tmp, db)
+).
+rule_microscope__python__DocstringComment____all__(result, db) :- schema_microscope__python__DocstringComment(result, db, _, _, _).
+rule_microscope__python__DocstringComment__getDocumentableElement(result, self) :- (
+  get_field_microscope__python__CombineElement_id(ssa_temp_0, element),
+  rule_microscope__python__DocstringComment__getDocumentedElementOid(ssa_temp_0, self),
+  result = element,
+  rule_microscope__python__CombineElement____all__(element, _)
+).
+schema_microscope__python__Expression(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_type_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__ExpressionDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__ExpressionDO_type(field_0x6669656c64_type_string, tmp),
+  get_field_microscope__python__ExpressionDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__ExpressionDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__ExpressionDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__ExpressionDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ExpressionDO____all__(tmp, db)
+).
+rule_microscope__python__Expression____all__(result, db) :- schema_microscope__python__Expression(result, db, _, _, _, _, _, _).
+schema_microscope__python__Keyword(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_arg_value_string, field_0x6669656c64_value_oid_int, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__KeywordDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__KeywordDO_arg_value(field_0x6669656c64_arg_value_string, tmp),
+  get_field_microscope__python__KeywordDO_value_oid(field_0x6669656c64_value_oid_int, tmp),
+  get_field_microscope__python__KeywordDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__KeywordDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__KeywordDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__KeywordDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__KeywordDO____all__(tmp, db)
+).
+rule_microscope__python__Keyword____all__(result, db) :- schema_microscope__python__Keyword(result, db, _, _, _, _, _, _, _).
+schema_microscope__python__CombineElement(result, db, field_0x6669656c64_id_int) :- (
+  (
+    get_field_microscope__python__Element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Element____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Statement_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Statement____all__(e, db)
+  );
+  (
+    get_field_microscope__python__MatchCase_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__MatchCase____all__(e, db)
+  );
+  (
+    get_field_microscope__python__ExceptHandler_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__ExceptHandler____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Expression_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Expression____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Alias_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Alias____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Module_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Module____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Arg_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Arg____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Arguments_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Arguments____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Comprehension_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Comprehension____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Keyword_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Keyword____all__(e, db)
+  );
+  (
+    get_field_microscope__python__WithItem_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__WithItem____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Slice_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Slice____all__(e, db)
+  );
+  (
+    get_field_microscope__python__File_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__File____all__(e, db)
+  );
+  (
+    get_field_microscope__python__Comment_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Comment____all__(e, db)
+  );
+  (
+    get_field_microscope__python__DocstringComment_element_oid(field_0x6669656c64_id_int, e),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__DocstringComment____all__(e, db)
+  )
+).
+rule_microscope__python__CombineElement____all__(result, db) :- schema_microscope__python__CombineElement(result, db, _).
+schema_microscope__python__Element(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_value_string, field_0x6669656c64_type_string, field_0x6669656c64_parent_oid_int) :- (
+  get_field_microscope__python__ElementDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_microscope__python__ElementDO_value(field_0x6669656c64_value_string, tmp),
+  get_field_microscope__python__ElementDO_type(field_0x6669656c64_type_string, tmp),
+  get_field_microscope__python__ElementDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  result = field_0x6669656c64_oid_int,
+  rule_microscope__python__ElementDO____all__(tmp, db)
+).
+rule_microscope__python__Element____all__(result, db) :- schema_microscope__python__Element(result, db, _, _, _, _).
+schema_microscope__python__Class(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_type_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__ClassDefStatement_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__ClassDefStatement_type(field_0x6669656c64_type_string, tmp),
+  get_field_microscope__python__ClassDefStatement_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__ClassDefStatement_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__ClassDefStatement_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__ClassDefStatement_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ClassDefStatement____all__(tmp, db)
+).
+rule_microscope__python__Class____all__(result, db) :- schema_microscope__python__Class(result, db, _, _, _, _, _, _).
+schema_microscope__python__Arg(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_annotation_int, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__ArgDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__ArgDO_annotation(field_0x6669656c64_annotation_int, tmp),
+  get_field_microscope__python__ArgDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__ArgDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__ArgDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__ArgDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ArgDO____all__(tmp, db)
+).
+rule_microscope__python__Arg____all__(result, db) :- schema_microscope__python__Arg(result, db, _, _, _, _, _, _).
+schema_microscope__python__Arguments(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__ArgumentsDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__ArgumentsDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__ArgumentsDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ArgumentsDO____all__(tmp, db)
+).
+rule_microscope__python__Arguments____all__(result, db) :- schema_microscope__python__Arguments(result, db, _, _, _).
+schema_microscope__python__File(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_relative_path_string, field_0x6669656c64_extension_string, field_0x6669656c64_name_string, field_0x6669656c64_number_of_lines_oid_int) :- (
+  get_field_microscope__python__FileDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__FileDO_relative_path(field_0x6669656c64_relative_path_string, tmp),
+  get_field_microscope__python__FileDO_extension(field_0x6669656c64_extension_string, tmp),
+  get_field_microscope__python__FileDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__python__FileDO_number_of_lines_oid(field_0x6669656c64_number_of_lines_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__FileDO____all__(tmp, db)
+).
+rule_microscope__python__File____all__(result, db) :- schema_microscope__python__File(result, db, _, _, _, _, _).
+schema_microscope__python__Module(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_name_string, field_0x6669656c64_file_oid_int, field_0x6669656c64_location_oid_int) :- (
+  get_field_microscope__python__ModuleDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__ModuleDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__python__ModuleDO_file_oid(field_0x6669656c64_file_oid_int, tmp),
+  get_field_microscope__python__ModuleDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ModuleDO____all__(tmp, db)
+).
+rule_microscope__python__Module____all__(result, db) :- schema_microscope__python__Module(result, db, _, _, _, _).
+schema_microscope__python__Alias(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_name_string, field_0x6669656c64_asname_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__AliasDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__AliasDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__python__AliasDO_asname(field_0x6669656c64_asname_string, tmp),
+  get_field_microscope__python__AliasDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__AliasDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__AliasDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__AliasDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__AliasDO____all__(tmp, db)
+).
+rule_microscope__python__Alias____all__(result, db) :- schema_microscope__python__Alias(result, db, _, _, _, _, _, _, _).
+schema_microscope__python__WithItem(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_printable_text_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int) :- (
+  get_field_microscope__python__WithItemDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__WithItemDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  get_field_microscope__python__WithItemDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__WithItemDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__WithItemDO____all__(tmp, db)
+).
+rule_microscope__python__WithItem____all__(result, db) :- schema_microscope__python__WithItem(result, db, _, _, _, _).
+schema_microscope__python__Location(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_file_oid_int, field_0x6669656c64_start_line_number_int, field_0x6669656c64_start_column_number_int, field_0x6669656c64_end_line_number_int, field_0x6669656c64_end_column_number_int) :- (
+  get_field_microscope__python__LocationDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__LocationDO_file_oid(field_0x6669656c64_file_oid_int, tmp),
+  get_field_microscope__python__LocationDO_start_line_number(field_0x6669656c64_start_line_number_int, tmp),
+  get_field_microscope__python__LocationDO_start_column_number(field_0x6669656c64_start_column_number_int, tmp),
+  get_field_microscope__python__LocationDO_end_line_number(field_0x6669656c64_end_line_number_int, tmp),
+  get_field_microscope__python__LocationDO_end_column_number(field_0x6669656c64_end_column_number_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__LocationDO____all__(tmp, db)
+).
+rule_microscope__python__Location____all__(result, db) :- schema_microscope__python__Location(result, db, _, _, _, _, _, _).
+rule_microscope__python__Location__getFile(result, self) :- (
+  get_field_microscope__python__File_element_oid(ssa_temp_0, f),
+  rule_microscope__python__Location__getFileOid(ssa_temp_0, self),
+  result = f,
+  rule_microscope__python__File____all__(f, _)
+).
+schema_microscope__python__Slice(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string, field_0x6669656c64_has_step_int) :- (
+  get_field_microscope__python__SliceDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__SliceDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__SliceDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__SliceDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__SliceDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  get_field_microscope__python__SliceDO_has_step(field_0x6669656c64_has_step_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__SliceDO____all__(tmp, db)
+).
+rule_microscope__python__Slice____all__(result, db) :- schema_microscope__python__Slice(result, db, _, _, _, _, _, _).
+schema_microscope__python__Statement(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_type_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__StatementDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__StatementDO_type(field_0x6669656c64_type_string, tmp),
+  get_field_microscope__python__StatementDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__StatementDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__StatementDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__StatementDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__StatementDO____all__(tmp, db)
+).
+rule_microscope__python__Statement____all__(result, db) :- schema_microscope__python__Statement(result, db, _, _, _, _, _, _).
+rule_microscope__python__Statement__getLocation(result, self) :- (
+  get_field_microscope__python__Location_element_oid(ssa_temp_0, loc),
+  rule_microscope__python__Statement__getLocationOid(ssa_temp_0, self),
+  result = loc,
+  rule_microscope__python__Location____all__(loc, _)
+).
+schema_microscope__python__FunctionDefStatement(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_type_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  tmp = f,
+  get_field_microscope__python__Statement_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__Statement_type(field_0x6669656c64_type_string, tmp),
+  get_field_microscope__python__Statement_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__Statement_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__Statement_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__Statement_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__FunctionDefStatementDO____all__(f, db),
+  rule_microscope__python__Statement____all__(tmp, db)
+).
+rule_microscope__python__FunctionDefStatement____all__(result, db) :- schema_microscope__python__FunctionDefStatement(result, db, _, _, _, _, _, _).
+schema_microscope__python__AsyncFunctionDefStatement(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_type_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  tmp = f,
+  get_field_microscope__python__Statement_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__Statement_type(field_0x6669656c64_type_string, tmp),
+  get_field_microscope__python__Statement_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__Statement_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__Statement_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__Statement_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__AsyncFunctionDefStatementDO____all__(f, db),
+  rule_microscope__python__Statement____all__(tmp, db)
+).
+rule_microscope__python__AsyncFunctionDefStatement____all__(result, db) :- schema_microscope__python__AsyncFunctionDefStatement(result, db, _, _, _, _, _, _).
+schema_microscope__python__ClassDefStatement(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_type_string, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  tmp = f,
+  get_field_microscope__python__Statement_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__Statement_type(field_0x6669656c64_type_string, tmp),
+  get_field_microscope__python__Statement_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__Statement_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__Statement_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__Statement_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ClassDefStatementDO____all__(f, db),
+  rule_microscope__python__Statement____all__(tmp, db)
+).
+rule_microscope__python__ClassDefStatement____all__(result, db) :- schema_microscope__python__ClassDefStatement(result, db, _, _, _, _, _, _).
+schema_microscope__python__ExceptHandler(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string) :- (
+  get_field_microscope__python__ExceptHandlerDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__ExceptHandlerDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__ExceptHandlerDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__ExceptHandlerDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__ExceptHandlerDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__ExceptHandlerDO____all__(tmp, db)
+).
+rule_microscope__python__ExceptHandler____all__(result, db) :- schema_microscope__python__ExceptHandler(result, db, _, _, _, _, _).
+schema_microscope__python__MatchCase(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_pattern_oid_int, field_0x6669656c64_element_index_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int, field_0x6669656c64_printable_text_string, field_0x6669656c64_is_default_int) :- (
+  get_field_microscope__python__MatchCaseDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_microscope__python__MatchCaseDO_pattern_oid(field_0x6669656c64_pattern_oid_int, tmp),
+  get_field_microscope__python__MatchCaseDO_element_index(field_0x6669656c64_element_index_int, tmp),
+  get_field_microscope__python__MatchCaseDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_microscope__python__MatchCaseDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  get_field_microscope__python__MatchCaseDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  get_field_microscope__python__MatchCaseDO_is_default(field_0x6669656c64_is_default_int, tmp),
+  result = field_0x6669656c64_element_oid_int,
+  rule_microscope__python__MatchCaseDO____all__(tmp, db)
+).
+rule_microscope__python__MatchCase____all__(result, db) :- schema_microscope__python__MatchCase(result, db, _, _, _, _, _, _, _).
+schema_PublicVisitedElement(result, db, field_0x6669656c64_id_int) :- (
+  (
+    get_field_microscope__python__Class_element_oid(field_0x6669656c64_id_int, tmp),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Class____all__(tmp, db)
+  );
+  (
+    get_field_microscope__python__Function_element_oid(field_0x6669656c64_id_int, tmp),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__python__Function____all__(tmp, db)
+  )
+).
+rule_PublicVisitedElement____all__(result, db) :- schema_PublicVisitedElement(result, db, _).
+rule_default_db(result) :- result = [0, 0].
+rule_countTotalPublicElement(result) :- (
+  ssa_temp_2 = count : {
+    (
+      rule_default_db(ssa_temp_0),
+      rule_PublicVisitedElement____all__(ssa_temp_1, ssa_temp_0)
+    )
+  },
+  result = ssa_temp_2
+).
+rule_withDocstringCommentElement(result) :- (
+  rule_default_db(db),
+  rule_microscope__python__DocstringComment__getDocumentableElement(ssa_temp_1, j),
+  e = ssa_temp_1,
+  result = e,
+  rule_PublicVisitedElement____all__(e, db),
+  rule_microscope__python__DocstringComment____all__(j, db)
+).
+rule_countTotalPublicDocumentedElement(result) :- (
+  ssa_temp_1 = count : {
+    rule_withDocstringCommentElement(ssa_temp_0)
+  },
+  result = ssa_temp_1
+).
+rule_withPublicDocumentedBelowElement(result) :- (
+  rule_default_db(db),
+  rule_microscope__python__Comment__getDocumentedClassOrFunctionElement(ssa_temp_1, j),
+  e = ssa_temp_1,
+  result = e,
+  rule_PublicVisitedElement____all__(e, db),
+  rule_microscope__python__Comment____all__(j, db)
+).
+rule_countTotalPublicDocumentedBelowElement(result) :- (
+  ssa_temp_1 = count : {
+    rule_withPublicDocumentedBelowElement(ssa_temp_0)
+  },
+  result = ssa_temp_1
+).
+rule_getDocumentedPercentage(documentedPercentage) :- (
+  rule_countTotalPublicElement(i),
+  rule_countTotalPublicDocumentedElement(j),
+  rule_countTotalPublicDocumentedBelowElement(k),
+  (
+    (
+      i = 0,
+      documentedPercentage = - 1
+    );
+    (
+      i != 0,
+      ssa_temp_7 = j + k,
+      ssa_temp_8 = ssa_temp_7 * 1000,
+      documentedPercentage = ssa_temp_8 / i
+    )
+  )
+).
+
+all_data_DBIndex([0, 0]).
+all_data_DBIndex([-1, -1]).
+
+schema_microscope__python__WithItemDO(element_oid, [0, 0], element_oid, printable_text, element_index, parent_oid) :- input_microscope__python__PythonDB_microscope__python__WithItemDO_0(element_oid, printable_text, element_index, parent_oid).
+schema_microscope__python__SliceDO(element_oid, [0, 0], element_oid, element_index, parent_oid, location_oid, printable_text, has_step) :- input_microscope__python__PythonDB_microscope__python__SliceDO_0(element_oid, element_index, parent_oid, location_oid, printable_text, has_step).
+schema_microscope__python__ModuleDO(element_oid, [0, 0], element_oid, name, file_oid, location_oid) :- input_microscope__python__PythonDB_microscope__python__ModuleDO_0(element_oid, name, file_oid, location_oid).
+schema_microscope__python__KeywordDO(element_oid, [0, 0], element_oid, arg_value, value_oid, element_index, parent_oid, location_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__KeywordDO_0(element_oid, arg_value, value_oid, element_index, parent_oid, location_oid, printable_text).
+schema_microscope__python__MatchCaseDO(element_oid, [0, 0], element_oid, pattern_oid, element_index, parent_oid, location_oid, printable_text, is_default) :- input_microscope__python__PythonDB_microscope__python__MatchCaseDO_0(element_oid, pattern_oid, element_index, parent_oid, location_oid, printable_text, is_default).
+schema_microscope__python__StatementDO(element_oid, [0, 0], element_oid, type, element_index, parent_oid, location_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__StatementDO_0(element_oid, type, element_index, parent_oid, location_oid, printable_text).
+schema_microscope__python__FunctionDefStatementDO(element_oid, [0, 0], element_oid, name) :- input_microscope__python__PythonDB_microscope__python__FunctionDefStatementDO_0(element_oid, name).
+schema_microscope__python__FileDO(element_oid, [0, 0], element_oid, relative_path, extension, name, number_of_lines_oid) :- input_microscope__python__PythonDB_microscope__python__FileDO_0(element_oid, relative_path, extension, name, number_of_lines_oid).
+schema_microscope__python__ExpressionDO(element_oid, [0, 0], element_oid, type, element_index, parent_oid, location_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__ExpressionDO_0(element_oid, type, element_index, parent_oid, location_oid, printable_text).
+schema_microscope__python__DocstringCommentDO(element_oid, [0, 0], element_oid, text, documented_element_oid) :- input_microscope__python__PythonDB_microscope__python__DocstringCommentDO_0(element_oid, text, documented_element_oid).
+schema_microscope__python__ExceptHandlerDO(element_oid, [0, 0], element_oid, element_index, parent_oid, location_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__ExceptHandlerDO_0(element_oid, element_index, parent_oid, location_oid, printable_text).
+schema_microscope__python__ComprehensionDO(element_oid, [0, 0], element_oid, target_expr_oid, iter_expr_oid, element_index, parent_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__ComprehensionDO_0(element_oid, target_expr_oid, iter_expr_oid, element_index, parent_oid, printable_text).
+schema_microscope__python__AliasDO(element_oid, [0, 0], element_oid, name, asname, element_index, parent_oid, location_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__AliasDO_0(element_oid, name, asname, element_index, parent_oid, location_oid, printable_text).
+schema_microscope__python__ArgumentsDO(element_oid, [0, 0], element_oid, parent_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__ArgumentsDO_0(element_oid, parent_oid, printable_text).
+schema_microscope__python__LocationDO(element_oid, [0, 0], element_oid, file_oid, start_line_number, start_column_number, end_line_number, end_column_number) :- input_microscope__python__PythonDB_microscope__python__LocationDO_0(element_oid, file_oid, start_line_number, start_column_number, end_line_number, end_column_number).
+schema_microscope__python__AsyncFunctionDefStatementDO(element_oid, [0, 0], element_oid, name) :- input_microscope__python__PythonDB_microscope__python__AsyncFunctionDefStatementDO_0(element_oid, name).
+schema_microscope__python__ArgDO(element_oid, [0, 0], element_oid, annotation, element_index, parent_oid, location_oid, printable_text) :- input_microscope__python__PythonDB_microscope__python__ArgDO_0(element_oid, annotation, element_index, parent_oid, location_oid, printable_text).
+schema_microscope__python__ClassDefStatementDO(element_oid, [0, 0], element_oid, name) :- input_microscope__python__PythonDB_microscope__python__ClassDefStatementDO_0(element_oid, name).
+schema_microscope__python__ElementDO(oid, [0, 0], oid, value, type, parent_oid) :- input_microscope__python__PythonDB_microscope__python__ElementDO_0(oid, value, type, parent_oid).
+schema_microscope__python__CommentDO(element_oid, [0, 0], element_oid, text, parent_oid, location_oid) :- input_microscope__python__PythonDB_microscope__python__CommentDO_0(element_oid, text, parent_oid, location_oid).
+
+get_field_microscope__python__ClassDefStatement_element_oid(result, self) :- result = self.
+get_field_microscope__python__ClassDefStatement_type(result, self) :- schema_microscope__python__ClassDefStatement(self, _, _, result, _, _, _, _).
+get_field_microscope__python__ClassDefStatement_element_index(result, self) :- schema_microscope__python__ClassDefStatement(self, _, _, _, result, _, _, _).
+get_field_microscope__python__ClassDefStatement_parent_oid(result, self) :- schema_microscope__python__ClassDefStatement(self, _, _, _, _, result, _, _).
+get_field_microscope__python__ClassDefStatement_location_oid(result, self) :- schema_microscope__python__ClassDefStatement(self, _, _, _, _, _, result, _).
+get_field_microscope__python__ClassDefStatement_printable_text(result, self) :- schema_microscope__python__ClassDefStatement(self, _, _, _, _, _, _, result).
+get_field_microscope__python__Slice_element_oid(result, self) :- result = self.
+get_field_microscope__python__Location_element_oid(result, self) :- result = self.
+get_field_microscope__python__WithItem_element_oid(result, self) :- result = self.
+get_field_microscope__python__Alias_element_oid(result, self) :- result = self.
+get_field_microscope__python__File_element_oid(result, self) :- result = self.
+get_field_microscope__python__Arguments_element_oid(result, self) :- result = self.
+get_field_microscope__python__Arg_element_oid(result, self) :- result = self.
+get_field_microscope__python__Element_oid(result, self) :- result = self.
+get_field_microscope__python__Keyword_element_oid(result, self) :- result = self.
+get_field_microscope__python__Expression_element_oid(result, self) :- result = self.
+get_field_microscope__python__DocstringComment_element_oid(result, self) :- result = self.
+get_field_microscope__python__Comment_element_oid(result, self) :- result = self.
+get_field_microscope__python__Class_element_oid(result, self) :- result = self.
+get_field_microscope__python__Module_element_oid(result, self) :- result = self.
+get_field_microscope__python__Function_element_oid(result, self) :- result = self.
+get_field_microscope__python__StatementDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__StatementDO_type(result, self) :- schema_microscope__python__StatementDO(self, _, _, result, _, _, _, _).
+get_field_microscope__python__StatementDO_element_index(result, self) :- schema_microscope__python__StatementDO(self, _, _, _, result, _, _, _).
+get_field_microscope__python__StatementDO_parent_oid(result, self) :- schema_microscope__python__StatementDO(self, _, _, _, _, result, _, _).
+get_field_microscope__python__StatementDO_location_oid(result, self) :- schema_microscope__python__StatementDO(self, _, _, _, _, _, result, _).
+get_field_microscope__python__StatementDO_printable_text(result, self) :- schema_microscope__python__StatementDO(self, _, _, _, _, _, _, result).
+get_field_microscope__python__WithItemDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__WithItemDO_printable_text(result, self) :- schema_microscope__python__WithItemDO(self, _, _, result, _, _).
+get_field_microscope__python__WithItemDO_element_index(result, self) :- schema_microscope__python__WithItemDO(self, _, _, _, result, _).
+get_field_microscope__python__WithItemDO_parent_oid(result, self) :- schema_microscope__python__WithItemDO(self, _, _, _, _, result).
+get_field_microscope__python__Statement_element_oid(result, self) :- result = self.
+get_field_microscope__python__Statement_type(result, self) :- schema_microscope__python__Statement(self, _, _, result, _, _, _, _).
+get_field_microscope__python__Statement_element_index(result, self) :- schema_microscope__python__Statement(self, _, _, _, result, _, _, _).
+get_field_microscope__python__Statement_parent_oid(result, self) :- schema_microscope__python__Statement(self, _, _, _, _, result, _, _).
+get_field_microscope__python__Statement_location_oid(result, self) :- schema_microscope__python__Statement(self, _, _, _, _, _, result, _).
+get_field_microscope__python__Statement_printable_text(result, self) :- schema_microscope__python__Statement(self, _, _, _, _, _, _, result).
+get_field_microscope__python__Comprehension_element_oid(result, self) :- result = self.
+get_field_microscope__python__MatchCaseDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__MatchCaseDO_pattern_oid(result, self) :- schema_microscope__python__MatchCaseDO(self, _, _, result, _, _, _, _, _).
+get_field_microscope__python__MatchCaseDO_element_index(result, self) :- schema_microscope__python__MatchCaseDO(self, _, _, _, result, _, _, _, _).
+get_field_microscope__python__MatchCaseDO_parent_oid(result, self) :- schema_microscope__python__MatchCaseDO(self, _, _, _, _, result, _, _, _).
+get_field_microscope__python__MatchCaseDO_location_oid(result, self) :- schema_microscope__python__MatchCaseDO(self, _, _, _, _, _, result, _, _).
+get_field_microscope__python__MatchCaseDO_printable_text(result, self) :- schema_microscope__python__MatchCaseDO(self, _, _, _, _, _, _, result, _).
+get_field_microscope__python__MatchCaseDO_is_default(result, self) :- schema_microscope__python__MatchCaseDO(self, _, _, _, _, _, _, _, result).
+get_field_microscope__python__FileDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__FileDO_relative_path(result, self) :- schema_microscope__python__FileDO(self, _, _, result, _, _, _).
+get_field_microscope__python__FileDO_extension(result, self) :- schema_microscope__python__FileDO(self, _, _, _, result, _, _).
+get_field_microscope__python__FileDO_name(result, self) :- schema_microscope__python__FileDO(self, _, _, _, _, result, _).
+get_field_microscope__python__FileDO_number_of_lines_oid(result, self) :- schema_microscope__python__FileDO(self, _, _, _, _, _, result).
+get_field_microscope__python__LocationDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__LocationDO_file_oid(result, self) :- schema_microscope__python__LocationDO(self, _, _, result, _, _, _, _).
+get_field_microscope__python__LocationDO_start_line_number(result, self) :- schema_microscope__python__LocationDO(self, _, _, _, result, _, _, _).
+get_field_microscope__python__LocationDO_start_column_number(result, self) :- schema_microscope__python__LocationDO(self, _, _, _, _, result, _, _).
+get_field_microscope__python__LocationDO_end_line_number(result, self) :- schema_microscope__python__LocationDO(self, _, _, _, _, _, result, _).
+get_field_microscope__python__LocationDO_end_column_number(result, self) :- schema_microscope__python__LocationDO(self, _, _, _, _, _, _, result).
+get_field_microscope__python__SliceDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__SliceDO_element_index(result, self) :- schema_microscope__python__SliceDO(self, _, _, result, _, _, _, _).
+get_field_microscope__python__SliceDO_parent_oid(result, self) :- schema_microscope__python__SliceDO(self, _, _, _, result, _, _, _).
+get_field_microscope__python__SliceDO_location_oid(result, self) :- schema_microscope__python__SliceDO(self, _, _, _, _, result, _, _).
+get_field_microscope__python__SliceDO_printable_text(result, self) :- schema_microscope__python__SliceDO(self, _, _, _, _, _, result, _).
+get_field_microscope__python__SliceDO_has_step(result, self) :- schema_microscope__python__SliceDO(self, _, _, _, _, _, _, result).
+get_field_microscope__python__MatchCase_element_oid(result, self) :- result = self.
+get_field_microscope__python__ModuleDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__ModuleDO_name(result, self) :- schema_microscope__python__ModuleDO(self, _, _, result, _, _).
+get_field_microscope__python__ModuleDO_file_oid(result, self) :- schema_microscope__python__ModuleDO(self, _, _, _, result, _).
+get_field_microscope__python__ModuleDO_location_oid(result, self) :- schema_microscope__python__ModuleDO(self, _, _, _, _, result).
+get_field_microscope__python__CommentDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__CommentDO_text(result, self) :- schema_microscope__python__CommentDO(self, _, _, result, _, _).
+get_field_microscope__python__CommentDO_parent_oid(result, self) :- schema_microscope__python__CommentDO(self, _, _, _, result, _).
+get_field_microscope__python__CommentDO_location_oid(result, self) :- schema_microscope__python__CommentDO(self, _, _, _, _, result).
+get_field_microscope__python__ArgumentsDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__ArgumentsDO_parent_oid(result, self) :- schema_microscope__python__ArgumentsDO(self, _, _, result, _).
+get_field_microscope__python__ArgumentsDO_printable_text(result, self) :- schema_microscope__python__ArgumentsDO(self, _, _, _, result).
+get_field_microscope__python__ExpressionDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__ExpressionDO_type(result, self) :- schema_microscope__python__ExpressionDO(self, _, _, result, _, _, _, _).
+get_field_microscope__python__ExpressionDO_element_index(result, self) :- schema_microscope__python__ExpressionDO(self, _, _, _, result, _, _, _).
+get_field_microscope__python__ExpressionDO_parent_oid(result, self) :- schema_microscope__python__ExpressionDO(self, _, _, _, _, result, _, _).
+get_field_microscope__python__ExpressionDO_location_oid(result, self) :- schema_microscope__python__ExpressionDO(self, _, _, _, _, _, result, _).
+get_field_microscope__python__ExpressionDO_printable_text(result, self) :- schema_microscope__python__ExpressionDO(self, _, _, _, _, _, _, result).
+get_field_microscope__python__CombineElement_id(result, self) :- result = self.
+get_field_microscope__python__ElementDO_oid(result, self) :- result = self.
+get_field_microscope__python__ElementDO_value(result, self) :- schema_microscope__python__ElementDO(self, _, _, result, _, _).
+get_field_microscope__python__ElementDO_type(result, self) :- schema_microscope__python__ElementDO(self, _, _, _, result, _).
+get_field_microscope__python__ElementDO_parent_oid(result, self) :- schema_microscope__python__ElementDO(self, _, _, _, _, result).
+get_field_microscope__python__DocstringCommentDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__DocstringCommentDO_text(result, self) :- schema_microscope__python__DocstringCommentDO(self, _, _, result, _).
+get_field_microscope__python__DocstringCommentDO_documented_element_oid(result, self) :- schema_microscope__python__DocstringCommentDO(self, _, _, _, result).
+get_field_microscope__python__KeywordDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__KeywordDO_arg_value(result, self) :- schema_microscope__python__KeywordDO(self, _, _, result, _, _, _, _, _).
+get_field_microscope__python__KeywordDO_value_oid(result, self) :- schema_microscope__python__KeywordDO(self, _, _, _, result, _, _, _, _).
+get_field_microscope__python__KeywordDO_element_index(result, self) :- schema_microscope__python__KeywordDO(self, _, _, _, _, result, _, _, _).
+get_field_microscope__python__KeywordDO_parent_oid(result, self) :- schema_microscope__python__KeywordDO(self, _, _, _, _, _, result, _, _).
+get_field_microscope__python__KeywordDO_location_oid(result, self) :- schema_microscope__python__KeywordDO(self, _, _, _, _, _, _, result, _).
+get_field_microscope__python__KeywordDO_printable_text(result, self) :- schema_microscope__python__KeywordDO(self, _, _, _, _, _, _, _, result).
+get_field_microscope__python__ExceptHandlerDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__ExceptHandlerDO_element_index(result, self) :- schema_microscope__python__ExceptHandlerDO(self, _, _, result, _, _, _).
+get_field_microscope__python__ExceptHandlerDO_parent_oid(result, self) :- schema_microscope__python__ExceptHandlerDO(self, _, _, _, result, _, _).
+get_field_microscope__python__ExceptHandlerDO_location_oid(result, self) :- schema_microscope__python__ExceptHandlerDO(self, _, _, _, _, result, _).
+get_field_microscope__python__ExceptHandlerDO_printable_text(result, self) :- schema_microscope__python__ExceptHandlerDO(self, _, _, _, _, _, result).
+get_field_microscope__python__AliasDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__AliasDO_name(result, self) :- schema_microscope__python__AliasDO(self, _, _, result, _, _, _, _, _).
+get_field_microscope__python__AliasDO_asname(result, self) :- schema_microscope__python__AliasDO(self, _, _, _, result, _, _, _, _).
+get_field_microscope__python__AliasDO_element_index(result, self) :- schema_microscope__python__AliasDO(self, _, _, _, _, result, _, _, _).
+get_field_microscope__python__AliasDO_parent_oid(result, self) :- schema_microscope__python__AliasDO(self, _, _, _, _, _, result, _, _).
+get_field_microscope__python__AliasDO_location_oid(result, self) :- schema_microscope__python__AliasDO(self, _, _, _, _, _, _, result, _).
+get_field_microscope__python__AliasDO_printable_text(result, self) :- schema_microscope__python__AliasDO(self, _, _, _, _, _, _, _, result).
+get_field_microscope__python__ComprehensionDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__ComprehensionDO_target_expr_oid(result, self) :- schema_microscope__python__ComprehensionDO(self, _, _, result, _, _, _, _).
+get_field_microscope__python__ComprehensionDO_iter_expr_oid(result, self) :- schema_microscope__python__ComprehensionDO(self, _, _, _, result, _, _, _).
+get_field_microscope__python__ComprehensionDO_element_index(result, self) :- schema_microscope__python__ComprehensionDO(self, _, _, _, _, result, _, _).
+get_field_microscope__python__ComprehensionDO_parent_oid(result, self) :- schema_microscope__python__ComprehensionDO(self, _, _, _, _, _, result, _).
+get_field_microscope__python__ComprehensionDO_printable_text(result, self) :- schema_microscope__python__ComprehensionDO(self, _, _, _, _, _, _, result).
+get_field_microscope__python__ExceptHandler_element_oid(result, self) :- result = self.
+get_field_microscope__python__ArgDO_element_oid(result, self) :- result = self.
+get_field_microscope__python__ArgDO_annotation(result, self) :- schema_microscope__python__ArgDO(self, _, _, result, _, _, _, _).
+get_field_microscope__python__ArgDO_element_index(result, self) :- schema_microscope__python__ArgDO(self, _, _, _, result, _, _, _).
+get_field_microscope__python__ArgDO_parent_oid(result, self) :- schema_microscope__python__ArgDO(self, _, _, _, _, result, _, _).
+get_field_microscope__python__ArgDO_location_oid(result, self) :- schema_microscope__python__ArgDO(self, _, _, _, _, _, result, _).
+get_field_microscope__python__ArgDO_printable_text(result, self) :- schema_microscope__python__ArgDO(self, _, _, _, _, _, _, result).
+
+.input input_microscope__python__PythonDB_microscope__python__WithItemDO_0(IO="sqlite", dbname="microscope_python_src.db", name="with_item")
+.input input_microscope__python__PythonDB_microscope__python__SliceDO_0(IO="sqlite", dbname="microscope_python_src.db", name="slice")
+.input input_microscope__python__PythonDB_microscope__python__ModuleDO_0(IO="sqlite", dbname="microscope_python_src.db", name="module")
+.input input_microscope__python__PythonDB_microscope__python__KeywordDO_0(IO="sqlite", dbname="microscope_python_src.db", name="keyword")
+.input input_microscope__python__PythonDB_microscope__python__MatchCaseDO_0(IO="sqlite", dbname="microscope_python_src.db", name="match_case")
+.input input_microscope__python__PythonDB_microscope__python__StatementDO_0(IO="sqlite", dbname="microscope_python_src.db", name="statement")
+.input input_microscope__python__PythonDB_microscope__python__FunctionDefStatementDO_0(IO="sqlite", dbname="microscope_python_src.db", name="function_def_statement")
+.input input_microscope__python__PythonDB_microscope__python__FileDO_0(IO="sqlite", dbname="microscope_python_src.db", name="file")
+.input input_microscope__python__PythonDB_microscope__python__ExpressionDO_0(IO="sqlite", dbname="microscope_python_src.db", name="expression")
+.input input_microscope__python__PythonDB_microscope__python__DocstringCommentDO_0(IO="sqlite", dbname="microscope_python_src.db", name="docstring_comment")
+.input input_microscope__python__PythonDB_microscope__python__ExceptHandlerDO_0(IO="sqlite", dbname="microscope_python_src.db", name="except_handler")
+.input input_microscope__python__PythonDB_microscope__python__ComprehensionDO_0(IO="sqlite", dbname="microscope_python_src.db", name="comprehension")
+.input input_microscope__python__PythonDB_microscope__python__AliasDO_0(IO="sqlite", dbname="microscope_python_src.db", name="alias")
+.input input_microscope__python__PythonDB_microscope__python__ArgumentsDO_0(IO="sqlite", dbname="microscope_python_src.db", name="arguments")
+.input input_microscope__python__PythonDB_microscope__python__LocationDO_0(IO="sqlite", dbname="microscope_python_src.db", name="location")
+.input input_microscope__python__PythonDB_microscope__python__AsyncFunctionDefStatementDO_0(IO="sqlite", dbname="microscope_python_src.db", name="async_function_def_statement")
+.input input_microscope__python__PythonDB_microscope__python__ArgDO_0(IO="sqlite", dbname="microscope_python_src.db", name="arg")
+.input input_microscope__python__PythonDB_microscope__python__ClassDefStatementDO_0(IO="sqlite", dbname="microscope_python_src.db", name="class_def_statement")
+.input input_microscope__python__PythonDB_microscope__python__ElementDO_0(IO="sqlite", dbname="microscope_python_src.db", name="element")
+.input input_microscope__python__PythonDB_microscope__python__CommentDO_0(IO="sqlite", dbname="microscope_python_src.db", name="comment")
+
+.output rule_getDocumentedPercentage(IO="stdout")
+

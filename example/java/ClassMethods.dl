@@ -1,0 +1,128 @@
+.functor get_field_by_index(self: number, total: number, index: number): number stateful
+.functor datalog_lang_builtin_string_getMatchResult(self: symbol, pattern: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_to_upper(self: symbol): symbol
+.functor datalog_lang_builtin_string_to_lower(self: symbol): symbol
+.functor datalog_lang_builtin_string_replace_once(self: symbol, pattern: symbol, replacement: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_replace_all(self: symbol, pattern: symbol, replacement: symbol): symbol
+
+.type DBIndex = [type_id: number, load_path: number]
+.type int = number
+.type string = symbol
+.type microscope__java__JavaDB = DBIndex
+.type microscope__java__Class = int
+.type microscope__java__MethodDO = int
+.type microscope__java__ClassDO = int
+.type microscope__java__Method = int
+
+.decl schema_microscope__java__Class(result: microscope__java__Class, db_id: DBIndex, element_hash_id: int, qualified_name: string, identifier_hash_id: int, location_hash_id: int, parent_hash_id: int)
+.decl schema_microscope__java__MethodDO(result: microscope__java__MethodDO, db_id: DBIndex, element_hash_id: int, name: string, signature: string, type_hash_id: int, parent_hash_id: int, location_hash_id: int, definition_body: string)
+.decl schema_microscope__java__ClassDO(result: microscope__java__ClassDO, db_id: DBIndex, element_hash_id: int, qualified_name: string, identifier_hash_id: int, location_hash_id: int, parent_hash_id: int)
+.decl schema_microscope__java__Method(result: microscope__java__Method, db_id: DBIndex, element_hash_id: int, name: string, signature: string, type_hash_id: int, parent_hash_id: int, location_hash_id: int, definition_body: string)
+
+.decl all_data_DBIndex(db_id: DBIndex)
+.decl rule_microscope__java__Class__getQualifiedName(result: string, self: microscope__java__Class) inline
+.decl rule_microscope__java__Class__getAllMethods(result: microscope__java__Method, self: microscope__java__Class)
+.decl rule_microscope__java__Class____all__(result: microscope__java__Class, db: microscope__java__JavaDB) inline
+.decl rule_microscope__java__MethodDO__getParentHashId(result: int, self: microscope__java__MethodDO)
+.decl rule_microscope__java__MethodDO____all__(result: microscope__java__MethodDO, db: microscope__java__JavaDB) inline
+.decl rule_microscope__java__MethodDO__getName(result: string, self: microscope__java__MethodDO)
+.decl rule_microscope__java__ClassDO__getQualifiedName(result: string, self: microscope__java__ClassDO)
+.decl rule_microscope__java__ClassDO____all__(result: microscope__java__ClassDO, db: microscope__java__JavaDB) inline
+.decl rule_microscope__java__Method__getName(result: string, self: microscope__java__Method) inline
+.decl rule_microscope__java__Method__getParentHashId(result: int, self: microscope__java__Method) inline
+.decl rule_microscope__java__Method____all__(result: microscope__java__Method, db: microscope__java__JavaDB) inline
+.decl rule_microscope__java__Method__getBelongedClass(result: microscope__java__Class, self: microscope__java__Method)
+.decl get_field_microscope__java__Class_element_hash_id(result: int, self: microscope__java__Class) inline
+.decl get_field_microscope__java__MethodDO_element_hash_id(result: int, self: microscope__java__MethodDO) inline
+.decl get_field_microscope__java__MethodDO_name(result: string, self: microscope__java__MethodDO) inline
+.decl get_field_microscope__java__MethodDO_signature(result: string, self: microscope__java__MethodDO) inline
+.decl get_field_microscope__java__MethodDO_type_hash_id(result: int, self: microscope__java__MethodDO) inline
+.decl get_field_microscope__java__MethodDO_parent_hash_id(result: int, self: microscope__java__MethodDO) inline
+.decl get_field_microscope__java__MethodDO_location_hash_id(result: int, self: microscope__java__MethodDO) inline
+.decl get_field_microscope__java__MethodDO_definition_body(result: string, self: microscope__java__MethodDO) inline
+.decl get_field_microscope__java__ClassDO_element_hash_id(result: int, self: microscope__java__ClassDO) inline
+.decl get_field_microscope__java__ClassDO_qualified_name(result: string, self: microscope__java__ClassDO) inline
+.decl get_field_microscope__java__ClassDO_identifier_hash_id(result: int, self: microscope__java__ClassDO) inline
+.decl get_field_microscope__java__ClassDO_location_hash_id(result: int, self: microscope__java__ClassDO) inline
+.decl get_field_microscope__java__ClassDO_parent_hash_id(result: int, self: microscope__java__ClassDO) inline
+.decl rule_methods(className: string, methodName: string)
+.decl rule_default_java_db(result: microscope__java__JavaDB)
+
+.decl input_microscope__java__JavaDB_microscope__java__MethodDO_0(element_hash_id: int, name: string, signature: string, type_hash_id: int, parent_hash_id: int, location_hash_id: int, definition_body: string)
+.decl input_microscope__java__JavaDB_microscope__java__ClassDO_0(element_hash_id: int, qualified_name: string, identifier_hash_id: int, location_hash_id: int, parent_hash_id: int)
+
+rule_microscope__java__Class__getQualifiedName(result, self) :- rule_microscope__java__ClassDO__getQualifiedName(result, self).
+rule_microscope__java__Method__getName(result, self) :- rule_microscope__java__MethodDO__getName(result, self).
+rule_microscope__java__Method__getParentHashId(result, self) :- rule_microscope__java__MethodDO__getParentHashId(result, self).
+schema_microscope__java__Method(result, db, field_0x6669656c64_element_hash_id_int, field_0x6669656c64_name_string, field_0x6669656c64_signature_string, field_0x6669656c64_type_hash_id_int, field_0x6669656c64_parent_hash_id_int, field_0x6669656c64_location_hash_id_int, field_0x6669656c64_definition_body_string) :- (
+  get_field_microscope__java__MethodDO_element_hash_id(field_0x6669656c64_element_hash_id_int, tmp),
+  get_field_microscope__java__MethodDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__java__MethodDO_signature(field_0x6669656c64_signature_string, tmp),
+  get_field_microscope__java__MethodDO_type_hash_id(field_0x6669656c64_type_hash_id_int, tmp),
+  get_field_microscope__java__MethodDO_parent_hash_id(field_0x6669656c64_parent_hash_id_int, tmp),
+  get_field_microscope__java__MethodDO_location_hash_id(field_0x6669656c64_location_hash_id_int, tmp),
+  get_field_microscope__java__MethodDO_definition_body(field_0x6669656c64_definition_body_string, tmp),
+  result = field_0x6669656c64_element_hash_id_int,
+  rule_microscope__java__MethodDO____all__(tmp, db)
+).
+rule_microscope__java__Method____all__(result, db) :- schema_microscope__java__Method(result, db, _, _, _, _, _, _, _).
+rule_microscope__java__Method__getBelongedClass(result, self) :- (
+  get_field_microscope__java__Class_element_hash_id(ssa_temp_0, tmp),
+  rule_microscope__java__Method__getParentHashId(ssa_temp_0, self),
+  result = tmp,
+  rule_microscope__java__Class____all__(tmp, _)
+).
+rule_microscope__java__ClassDO____all__(result, db) :- schema_microscope__java__ClassDO(result, db, _, _, _, _, _).
+rule_microscope__java__ClassDO__getQualifiedName(result, self) :- get_field_microscope__java__ClassDO_qualified_name(result, self).
+rule_microscope__java__MethodDO____all__(result, db) :- schema_microscope__java__MethodDO(result, db, _, _, _, _, _, _, _).
+rule_microscope__java__MethodDO__getName(result, self) :- get_field_microscope__java__MethodDO_name(result, self).
+rule_microscope__java__MethodDO__getParentHashId(result, self) :- get_field_microscope__java__MethodDO_parent_hash_id(result, self).
+schema_microscope__java__Class(result, db, field_0x6669656c64_element_hash_id_int, field_0x6669656c64_qualified_name_string, field_0x6669656c64_identifier_hash_id_int, field_0x6669656c64_location_hash_id_int, field_0x6669656c64_parent_hash_id_int) :- (
+  get_field_microscope__java__ClassDO_element_hash_id(field_0x6669656c64_element_hash_id_int, tmp),
+  get_field_microscope__java__ClassDO_qualified_name(field_0x6669656c64_qualified_name_string, tmp),
+  get_field_microscope__java__ClassDO_identifier_hash_id(field_0x6669656c64_identifier_hash_id_int, tmp),
+  get_field_microscope__java__ClassDO_location_hash_id(field_0x6669656c64_location_hash_id_int, tmp),
+  get_field_microscope__java__ClassDO_parent_hash_id(field_0x6669656c64_parent_hash_id_int, tmp),
+  result = field_0x6669656c64_element_hash_id_int,
+  rule_microscope__java__ClassDO____all__(tmp, db)
+).
+rule_microscope__java__Class____all__(result, db) :- schema_microscope__java__Class(result, db, _, _, _, _, _).
+rule_microscope__java__Class__getAllMethods(result, self) :- (
+  rule_microscope__java__Method__getBelongedClass(self, m),
+  result = m,
+  rule_microscope__java__Method____all__(m, _)
+).
+rule_default_java_db(result) :- result = [0, 0].
+rule_methods(className, methodName) :- (
+  rule_microscope__java__Class__getQualifiedName(className, c),
+  rule_microscope__java__Method__getName(methodName, m),
+  rule_default_java_db(ssa_temp_4),
+  rule_microscope__java__Class____all__(c, ssa_temp_4),
+  rule_microscope__java__Class__getAllMethods(m, c)
+).
+
+all_data_DBIndex([0, 0]).
+all_data_DBIndex([-1, -1]).
+
+schema_microscope__java__MethodDO(element_hash_id, [0, 0], element_hash_id, name, signature, type_hash_id, parent_hash_id, location_hash_id, definition_body) :- input_microscope__java__JavaDB_microscope__java__MethodDO_0(element_hash_id, name, signature, type_hash_id, parent_hash_id, location_hash_id, definition_body).
+schema_microscope__java__ClassDO(element_hash_id, [0, 0], element_hash_id, qualified_name, identifier_hash_id, location_hash_id, parent_hash_id) :- input_microscope__java__JavaDB_microscope__java__ClassDO_0(element_hash_id, qualified_name, identifier_hash_id, location_hash_id, parent_hash_id).
+
+get_field_microscope__java__Class_element_hash_id(result, self) :- result = self.
+get_field_microscope__java__MethodDO_element_hash_id(result, self) :- result = self.
+get_field_microscope__java__MethodDO_name(result, self) :- schema_microscope__java__MethodDO(self, _, _, result, _, _, _, _, _).
+get_field_microscope__java__MethodDO_signature(result, self) :- schema_microscope__java__MethodDO(self, _, _, _, result, _, _, _, _).
+get_field_microscope__java__MethodDO_type_hash_id(result, self) :- schema_microscope__java__MethodDO(self, _, _, _, _, result, _, _, _).
+get_field_microscope__java__MethodDO_parent_hash_id(result, self) :- schema_microscope__java__MethodDO(self, _, _, _, _, _, result, _, _).
+get_field_microscope__java__MethodDO_location_hash_id(result, self) :- schema_microscope__java__MethodDO(self, _, _, _, _, _, _, result, _).
+get_field_microscope__java__MethodDO_definition_body(result, self) :- schema_microscope__java__MethodDO(self, _, _, _, _, _, _, _, result).
+get_field_microscope__java__ClassDO_element_hash_id(result, self) :- result = self.
+get_field_microscope__java__ClassDO_qualified_name(result, self) :- schema_microscope__java__ClassDO(self, _, _, result, _, _, _).
+get_field_microscope__java__ClassDO_identifier_hash_id(result, self) :- schema_microscope__java__ClassDO(self, _, _, _, result, _, _).
+get_field_microscope__java__ClassDO_location_hash_id(result, self) :- schema_microscope__java__ClassDO(self, _, _, _, _, result, _).
+get_field_microscope__java__ClassDO_parent_hash_id(result, self) :- schema_microscope__java__ClassDO(self, _, _, _, _, _, result).
+
+.input input_microscope__java__JavaDB_microscope__java__MethodDO_0(IO="sqlite", dbname="microscope_java_src.db", name="method")
+.input input_microscope__java__JavaDB_microscope__java__ClassDO_0(IO="sqlite", dbname="microscope_java_src.db", name="class")
+
+.output rule_methods(IO="stdout")
+

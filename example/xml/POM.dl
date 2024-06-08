@@ -1,0 +1,368 @@
+.functor get_field_by_index(self: number, total: number, index: number): number stateful
+.functor datalog_lang_builtin_string_getMatchResult(self: symbol, pattern: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_to_upper(self: symbol): symbol
+.functor datalog_lang_builtin_string_to_lower(self: symbol): symbol
+.functor datalog_lang_builtin_string_replace_once(self: symbol, pattern: symbol, replacement: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_replace_all(self: symbol, pattern: symbol, replacement: symbol): symbol
+
+.type DBIndex = [type_id: number, load_path: number]
+.type int = number
+.type string = symbol
+.type microscope__xml__XmlDB = DBIndex
+.type microscope__xml__Location = int
+.type microscope__xml__XmlElement = int
+.type microscope__xml__XmlElementName = int
+.type microscope__xml__XmlFile = int
+.type microscope__xml__XmlCharacterDO = int
+.type microscope__xml__LocationDO = int
+.type microscope__xml__XmlFileDO = int
+.type microscope__xml__XmlElementNameDO = int
+.type microscope__xml__XmlElementDO = int
+.type microscope__xml__XmlCharacter = int
+.type ArtifactElement = int
+.type PomFile = int
+.type VersionElement = int
+.type GroupElement = int
+.type DependencyElement = int
+
+.decl schema_microscope__xml__Location(result: microscope__xml__Location, db_id: DBIndex, id: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, file_id: int)
+.decl schema_microscope__xml__XmlElement(result: microscope__xml__XmlElement, db_id: DBIndex, id: int, parent_id: int, index_order: int, location_id: int)
+.decl schema_microscope__xml__XmlElementName(result: microscope__xml__XmlElementName, db_id: DBIndex, name: string, id: int, parent_id: int, location_id: int)
+.decl schema_microscope__xml__XmlFile(result: microscope__xml__XmlFile, db_id: DBIndex, id: int, file_name: string, relative_path: string)
+.decl schema_microscope__xml__XmlCharacterDO(result: microscope__xml__XmlCharacterDO, db_id: DBIndex, id: int, text: string, parentid: int, index_order: int, is_cdata: int, location_id: int)
+.decl schema_microscope__xml__LocationDO(result: microscope__xml__LocationDO, db_id: DBIndex, id: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, file_id: int)
+.decl schema_microscope__xml__XmlFileDO(result: microscope__xml__XmlFileDO, db_id: DBIndex, id: int, file_name: string, relative_path: string)
+.decl schema_microscope__xml__XmlElementNameDO(result: microscope__xml__XmlElementNameDO, db_id: DBIndex, name: string, id: int, parent_id: int, location_id: int)
+.decl schema_microscope__xml__XmlElementDO(result: microscope__xml__XmlElementDO, db_id: DBIndex, id: int, parent_id: int, index_order: int, location_id: int)
+.decl schema_microscope__xml__XmlCharacter(result: microscope__xml__XmlCharacter, db_id: DBIndex, id: int, text: string, parentid: int, index_order: int, is_cdata: int, location_id: int)
+.decl schema_ArtifactElement(result: ArtifactElement, db_id: DBIndex, id: int, parent_id: int, index_order: int, location_id: int)
+.decl schema_PomFile(result: PomFile, db_id: DBIndex, id: int, file_name: string, relative_path: string)
+.decl schema_VersionElement(result: VersionElement, db_id: DBIndex, id: int, parent_id: int, index_order: int, location_id: int)
+.decl schema_GroupElement(result: GroupElement, db_id: DBIndex, id: int, parent_id: int, index_order: int, location_id: int)
+.decl schema_DependencyElement(result: DependencyElement, db_id: DBIndex, id: int, parent_id: int, index_order: int, location_id: int)
+
+.decl all_data_DBIndex(db_id: DBIndex)
+.decl rule_microscope__xml__Location__getFileId(result: int, self: microscope__xml__Location) inline
+.decl rule_microscope__xml__Location____all__(result: microscope__xml__Location, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__Location__getFile(result: microscope__xml__XmlFile, self: microscope__xml__Location)
+.decl rule_microscope__xml__XmlElement__getParentId(result: int, self: microscope__xml__XmlElement) inline
+.decl rule_microscope__xml__XmlElement____all__(result: microscope__xml__XmlElement, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__XmlElement__getLocation(result: microscope__xml__Location, self: microscope__xml__XmlElement)
+.decl rule_microscope__xml__XmlElement__getElementName(result: string, self: microscope__xml__XmlElement)
+.decl rule_microscope__xml__XmlElement__getLocationId(result: int, self: microscope__xml__XmlElement) inline
+.decl rule_microscope__xml__XmlElement__getParent(result: microscope__xml__XmlElement, self: microscope__xml__XmlElement)
+.decl rule_microscope__xml__XmlElementName__getName(result: string, self: microscope__xml__XmlElementName) inline
+.decl rule_microscope__xml__XmlElementName__getParentId(result: int, self: microscope__xml__XmlElementName) inline
+.decl rule_microscope__xml__XmlElementName____all__(result: microscope__xml__XmlElementName, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__XmlElementName__getParent(result: microscope__xml__XmlElement, self: microscope__xml__XmlElementName)
+.decl rule_microscope__xml__XmlFile__getFileName(result: string, self: microscope__xml__XmlFile) inline
+.decl rule_microscope__xml__XmlFile__getRelativePath(result: string, self: microscope__xml__XmlFile) inline
+.decl rule_microscope__xml__XmlFile____all__(result: microscope__xml__XmlFile, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__XmlCharacterDO__getParentid(result: int, self: microscope__xml__XmlCharacterDO)
+.decl rule_microscope__xml__XmlCharacterDO__getText(result: string, self: microscope__xml__XmlCharacterDO)
+.decl rule_microscope__xml__XmlCharacterDO____all__(result: microscope__xml__XmlCharacterDO, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__LocationDO____all__(result: microscope__xml__LocationDO, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__LocationDO__getFileId(result: int, self: microscope__xml__LocationDO)
+.decl rule_microscope__xml__XmlFileDO__getRelativePath(result: string, self: microscope__xml__XmlFileDO)
+.decl rule_microscope__xml__XmlFileDO__getFileName(result: string, self: microscope__xml__XmlFileDO)
+.decl rule_microscope__xml__XmlFileDO____all__(result: microscope__xml__XmlFileDO, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__XmlElementNameDO__getParentId(result: int, self: microscope__xml__XmlElementNameDO)
+.decl rule_microscope__xml__XmlElementNameDO__getName(result: string, self: microscope__xml__XmlElementNameDO)
+.decl rule_microscope__xml__XmlElementNameDO____all__(result: microscope__xml__XmlElementNameDO, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__XmlElementDO__getLocationId(result: int, self: microscope__xml__XmlElementDO)
+.decl rule_microscope__xml__XmlElementDO__getParentId(result: int, self: microscope__xml__XmlElementDO)
+.decl rule_microscope__xml__XmlElementDO____all__(result: microscope__xml__XmlElementDO, db: microscope__xml__XmlDB) inline
+.decl rule_microscope__xml__XmlCharacter__getText(result: string, self: microscope__xml__XmlCharacter) inline
+.decl rule_microscope__xml__XmlCharacter__getParentid(result: int, self: microscope__xml__XmlCharacter) inline
+.decl rule_microscope__xml__XmlCharacter__getBelongedElement(result: microscope__xml__XmlElement, self: microscope__xml__XmlCharacter)
+.decl rule_microscope__xml__XmlCharacter____all__(result: microscope__xml__XmlCharacter, db: microscope__xml__XmlDB) inline
+.decl get_field_microscope__xml__Location_id(result: int, self: microscope__xml__Location) inline
+.decl get_field_microscope__xml__XmlElement_id(result: int, self: microscope__xml__XmlElement) inline
+.decl get_field_microscope__xml__XmlElement_parent_id(result: int, self: microscope__xml__XmlElement) inline
+.decl get_field_microscope__xml__XmlElement_index_order(result: int, self: microscope__xml__XmlElement) inline
+.decl get_field_microscope__xml__XmlElement_location_id(result: int, self: microscope__xml__XmlElement) inline
+.decl get_field_microscope__xml__XmlFile_id(result: int, self: microscope__xml__XmlFile) inline
+.decl get_field_microscope__xml__XmlFile_file_name(result: string, self: microscope__xml__XmlFile) inline
+.decl get_field_microscope__xml__XmlFile_relative_path(result: string, self: microscope__xml__XmlFile) inline
+.decl get_field_microscope__xml__XmlCharacterDO_id(result: int, self: microscope__xml__XmlCharacterDO) inline
+.decl get_field_microscope__xml__XmlCharacterDO_text(result: string, self: microscope__xml__XmlCharacterDO) inline
+.decl get_field_microscope__xml__XmlCharacterDO_parentid(result: int, self: microscope__xml__XmlCharacterDO) inline
+.decl get_field_microscope__xml__XmlCharacterDO_index_order(result: int, self: microscope__xml__XmlCharacterDO) inline
+.decl get_field_microscope__xml__XmlCharacterDO_is_cdata(result: int, self: microscope__xml__XmlCharacterDO) inline
+.decl get_field_microscope__xml__XmlCharacterDO_location_id(result: int, self: microscope__xml__XmlCharacterDO) inline
+.decl get_field_microscope__xml__LocationDO_id(result: int, self: microscope__xml__LocationDO) inline
+.decl get_field_microscope__xml__LocationDO_start_line_number(result: int, self: microscope__xml__LocationDO) inline
+.decl get_field_microscope__xml__LocationDO_start_column_number(result: int, self: microscope__xml__LocationDO) inline
+.decl get_field_microscope__xml__LocationDO_end_line_number(result: int, self: microscope__xml__LocationDO) inline
+.decl get_field_microscope__xml__LocationDO_end_column_number(result: int, self: microscope__xml__LocationDO) inline
+.decl get_field_microscope__xml__LocationDO_file_id(result: int, self: microscope__xml__LocationDO) inline
+.decl get_field_microscope__xml__XmlFileDO_id(result: int, self: microscope__xml__XmlFileDO) inline
+.decl get_field_microscope__xml__XmlFileDO_file_name(result: string, self: microscope__xml__XmlFileDO) inline
+.decl get_field_microscope__xml__XmlFileDO_relative_path(result: string, self: microscope__xml__XmlFileDO) inline
+.decl get_field_microscope__xml__XmlElementNameDO_name(result: string, self: microscope__xml__XmlElementNameDO) inline
+.decl get_field_microscope__xml__XmlElementNameDO_id(result: int, self: microscope__xml__XmlElementNameDO) inline
+.decl get_field_microscope__xml__XmlElementNameDO_parent_id(result: int, self: microscope__xml__XmlElementNameDO) inline
+.decl get_field_microscope__xml__XmlElementNameDO_location_id(result: int, self: microscope__xml__XmlElementNameDO) inline
+.decl get_field_microscope__xml__XmlElementDO_id(result: int, self: microscope__xml__XmlElementDO) inline
+.decl get_field_microscope__xml__XmlElementDO_parent_id(result: int, self: microscope__xml__XmlElementDO) inline
+.decl get_field_microscope__xml__XmlElementDO_index_order(result: int, self: microscope__xml__XmlElementDO) inline
+.decl get_field_microscope__xml__XmlElementDO_location_id(result: int, self: microscope__xml__XmlElementDO) inline
+.decl rule_ArtifactElement__getParent(result: microscope__xml__XmlElement, self: ArtifactElement) inline
+.decl rule_ArtifactElement____all__(result: ArtifactElement, db: microscope__xml__XmlDB)
+.decl rule_PomFile__getRelativePath(result: string, self: PomFile) inline
+.decl rule_PomFile____all__(result: PomFile, db: microscope__xml__XmlDB)
+.decl rule_VersionElement__getParent(result: microscope__xml__XmlElement, self: VersionElement) inline
+.decl rule_VersionElement____all__(result: VersionElement, db: microscope__xml__XmlDB)
+.decl rule_GroupElement__getParent(result: microscope__xml__XmlElement, self: GroupElement) inline
+.decl rule_GroupElement____all__(result: GroupElement, db: microscope__xml__XmlDB)
+.decl rule_DependencyElement____all__(result: DependencyElement, db: microscope__xml__XmlDB)
+.decl rule_DependencyElement__getLocation(result: microscope__xml__Location, self: DependencyElement) inline
+.decl rule_out(fileName: string, m1: string, m2: string, m3: string)
+
+.decl input_microscope__xml__XmlDB_microscope__xml__LocationDO_0(id: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, file_id: int)
+.decl input_microscope__xml__XmlDB_microscope__xml__XmlElementNameDO_0(name: string, id: int, parent_id: int, location_id: int)
+.decl input_microscope__xml__XmlDB_microscope__xml__XmlFileDO_0(id: int, file_name: string, relative_path: string)
+.decl input_microscope__xml__XmlDB_microscope__xml__XmlCharacterDO_0(id: int, text: string, parentid: int, index_order: int, is_cdata: int, location_id: int)
+.decl input_microscope__xml__XmlDB_microscope__xml__XmlElementDO_0(id: int, parent_id: int, index_order: int, location_id: int)
+
+rule_microscope__xml__Location__getFileId(result, self) :- rule_microscope__xml__LocationDO__getFileId(result, self).
+rule_microscope__xml__XmlElement__getParentId(result, self) :- rule_microscope__xml__XmlElementDO__getParentId(result, self).
+rule_microscope__xml__XmlElement__getLocationId(result, self) :- rule_microscope__xml__XmlElementDO__getLocationId(result, self).
+rule_microscope__xml__XmlElementName__getName(result, self) :- rule_microscope__xml__XmlElementNameDO__getName(result, self).
+rule_microscope__xml__XmlElementName__getParentId(result, self) :- rule_microscope__xml__XmlElementNameDO__getParentId(result, self).
+rule_microscope__xml__XmlFile__getFileName(result, self) :- rule_microscope__xml__XmlFileDO__getFileName(result, self).
+rule_microscope__xml__XmlFile__getRelativePath(result, self) :- rule_microscope__xml__XmlFileDO__getRelativePath(result, self).
+rule_microscope__xml__XmlCharacter__getText(result, self) :- rule_microscope__xml__XmlCharacterDO__getText(result, self).
+rule_microscope__xml__XmlCharacter__getParentid(result, self) :- rule_microscope__xml__XmlCharacterDO__getParentid(result, self).
+rule_microscope__xml__XmlCharacterDO____all__(result, db) :- schema_microscope__xml__XmlCharacterDO(result, db, _, _, _, _, _, _).
+rule_microscope__xml__XmlCharacterDO__getText(result, self) :- get_field_microscope__xml__XmlCharacterDO_text(result, self).
+rule_microscope__xml__XmlCharacterDO__getParentid(result, self) :- get_field_microscope__xml__XmlCharacterDO_parentid(result, self).
+rule_microscope__xml__XmlElementNameDO____all__(result, db) :- schema_microscope__xml__XmlElementNameDO(result, db, _, _, _, _).
+rule_microscope__xml__XmlElementNameDO__getName(result, self) :- get_field_microscope__xml__XmlElementNameDO_name(result, self).
+rule_microscope__xml__XmlElementNameDO__getParentId(result, self) :- get_field_microscope__xml__XmlElementNameDO_parent_id(result, self).
+rule_microscope__xml__XmlElementDO____all__(result, db) :- schema_microscope__xml__XmlElementDO(result, db, _, _, _, _).
+rule_microscope__xml__XmlElementDO__getParentId(result, self) :- get_field_microscope__xml__XmlElementDO_parent_id(result, self).
+rule_microscope__xml__XmlElementDO__getLocationId(result, self) :- get_field_microscope__xml__XmlElementDO_location_id(result, self).
+rule_microscope__xml__XmlFileDO____all__(result, db) :- schema_microscope__xml__XmlFileDO(result, db, _, _, _).
+rule_microscope__xml__XmlFileDO__getFileName(result, self) :- get_field_microscope__xml__XmlFileDO_file_name(result, self).
+rule_microscope__xml__XmlFileDO__getRelativePath(result, self) :- get_field_microscope__xml__XmlFileDO_relative_path(result, self).
+rule_microscope__xml__LocationDO____all__(result, db) :- schema_microscope__xml__LocationDO(result, db, _, _, _, _, _, _).
+rule_microscope__xml__LocationDO__getFileId(result, self) :- get_field_microscope__xml__LocationDO_file_id(result, self).
+schema_microscope__xml__XmlCharacter(result, db, field_0x6669656c64_id_int, field_0x6669656c64_text_string, field_0x6669656c64_parentid_int, field_0x6669656c64_index_order_int, field_0x6669656c64_is_cdata_int, field_0x6669656c64_location_id_int) :- (
+  get_field_microscope__xml__XmlCharacterDO_id(field_0x6669656c64_id_int, tmp),
+  get_field_microscope__xml__XmlCharacterDO_text(field_0x6669656c64_text_string, tmp),
+  get_field_microscope__xml__XmlCharacterDO_parentid(field_0x6669656c64_parentid_int, tmp),
+  get_field_microscope__xml__XmlCharacterDO_index_order(field_0x6669656c64_index_order_int, tmp),
+  get_field_microscope__xml__XmlCharacterDO_is_cdata(field_0x6669656c64_is_cdata_int, tmp),
+  get_field_microscope__xml__XmlCharacterDO_location_id(field_0x6669656c64_location_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlCharacterDO____all__(tmp, db)
+).
+rule_microscope__xml__XmlCharacter____all__(result, db) :- schema_microscope__xml__XmlCharacter(result, db, _, _, _, _, _, _).
+rule_microscope__xml__XmlCharacter__getBelongedElement(result, self) :- (
+  get_field_microscope__xml__XmlElement_id(ssa_temp_0, e),
+  rule_microscope__xml__XmlCharacter__getParentid(ssa_temp_0, self),
+  result = e,
+  rule_microscope__xml__XmlElement____all__(e, _)
+).
+schema_microscope__xml__XmlElementName(result, db, field_0x6669656c64_name_string, field_0x6669656c64_id_int, field_0x6669656c64_parent_id_int, field_0x6669656c64_location_id_int) :- (
+  get_field_microscope__xml__XmlElementNameDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__xml__XmlElementNameDO_id(field_0x6669656c64_id_int, tmp),
+  get_field_microscope__xml__XmlElementNameDO_parent_id(field_0x6669656c64_parent_id_int, tmp),
+  get_field_microscope__xml__XmlElementNameDO_location_id(field_0x6669656c64_location_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlElementNameDO____all__(tmp, db)
+).
+rule_microscope__xml__XmlElementName____all__(result, db) :- schema_microscope__xml__XmlElementName(result, db, _, _, _, _).
+rule_microscope__xml__XmlElementName__getParent(result, self) :- (
+  get_field_microscope__xml__XmlElement_id(ssa_temp_0, parent),
+  rule_microscope__xml__XmlElementName__getParentId(ssa_temp_0, self),
+  result = parent,
+  rule_microscope__xml__XmlElement____all__(parent, _)
+).
+schema_microscope__xml__XmlElement(result, db, field_0x6669656c64_id_int, field_0x6669656c64_parent_id_int, field_0x6669656c64_index_order_int, field_0x6669656c64_location_id_int) :- (
+  get_field_microscope__xml__XmlElementDO_id(field_0x6669656c64_id_int, tmp),
+  get_field_microscope__xml__XmlElementDO_parent_id(field_0x6669656c64_parent_id_int, tmp),
+  get_field_microscope__xml__XmlElementDO_index_order(field_0x6669656c64_index_order_int, tmp),
+  get_field_microscope__xml__XmlElementDO_location_id(field_0x6669656c64_location_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlElementDO____all__(tmp, db)
+).
+rule_microscope__xml__XmlElement____all__(result, db) :- schema_microscope__xml__XmlElement(result, db, _, _, _, _).
+rule_microscope__xml__XmlElement__getParent(result, self) :- (
+  get_field_microscope__xml__XmlElement_id(ssa_temp_0, parent),
+  rule_microscope__xml__XmlElement__getParentId(ssa_temp_0, self),
+  result = parent,
+  rule_microscope__xml__XmlElement____all__(parent, _)
+).
+rule_microscope__xml__XmlElement__getElementName(result, self) :- (
+  rule_microscope__xml__XmlElementName__getParent(self, element),
+  rule_microscope__xml__XmlElementName__getName(name, element),
+  result = name,
+  rule_microscope__xml__XmlElementName____all__(element, _)
+).
+rule_microscope__xml__XmlElement__getLocation(result, self) :- (
+  get_field_microscope__xml__Location_id(ssa_temp_0, loc),
+  rule_microscope__xml__XmlElement__getLocationId(ssa_temp_0, self),
+  result = loc,
+  rule_microscope__xml__Location____all__(loc, _)
+).
+schema_microscope__xml__XmlFile(result, db, field_0x6669656c64_id_int, field_0x6669656c64_file_name_string, field_0x6669656c64_relative_path_string) :- (
+  get_field_microscope__xml__XmlFileDO_id(field_0x6669656c64_id_int, tmp),
+  get_field_microscope__xml__XmlFileDO_file_name(field_0x6669656c64_file_name_string, tmp),
+  get_field_microscope__xml__XmlFileDO_relative_path(field_0x6669656c64_relative_path_string, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlFileDO____all__(tmp, db)
+).
+rule_microscope__xml__XmlFile____all__(result, db) :- schema_microscope__xml__XmlFile(result, db, _, _, _).
+schema_microscope__xml__Location(result, db, field_0x6669656c64_id_int, field_0x6669656c64_start_line_number_int, field_0x6669656c64_start_column_number_int, field_0x6669656c64_end_line_number_int, field_0x6669656c64_end_column_number_int, field_0x6669656c64_file_id_int) :- (
+  get_field_microscope__xml__LocationDO_id(field_0x6669656c64_id_int, tmp),
+  get_field_microscope__xml__LocationDO_start_line_number(field_0x6669656c64_start_line_number_int, tmp),
+  get_field_microscope__xml__LocationDO_start_column_number(field_0x6669656c64_start_column_number_int, tmp),
+  get_field_microscope__xml__LocationDO_end_line_number(field_0x6669656c64_end_line_number_int, tmp),
+  get_field_microscope__xml__LocationDO_end_column_number(field_0x6669656c64_end_column_number_int, tmp),
+  get_field_microscope__xml__LocationDO_file_id(field_0x6669656c64_file_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__LocationDO____all__(tmp, db)
+).
+rule_microscope__xml__Location____all__(result, db) :- schema_microscope__xml__Location(result, db, _, _, _, _, _, _).
+rule_microscope__xml__Location__getFile(result, self) :- (
+  get_field_microscope__xml__XmlFile_id(ssa_temp_0, file),
+  rule_microscope__xml__Location__getFileId(ssa_temp_0, self),
+  result = file,
+  rule_microscope__xml__XmlFile____all__(file, _)
+).
+rule_ArtifactElement__getParent(result, self) :- rule_microscope__xml__XmlElement__getParent(result, self).
+rule_PomFile__getRelativePath(result, self) :- rule_microscope__xml__XmlFile__getRelativePath(result, self).
+rule_VersionElement__getParent(result, self) :- rule_microscope__xml__XmlElement__getParent(result, self).
+rule_GroupElement__getParent(result, self) :- rule_microscope__xml__XmlElement__getParent(result, self).
+rule_DependencyElement__getLocation(result, self) :- rule_microscope__xml__XmlElement__getLocation(result, self).
+schema_DependencyElement(result, db, field_0x6669656c64_id_int, field_0x6669656c64_parent_id_int, field_0x6669656c64_index_order_int, field_0x6669656c64_location_id_int) :- (
+  rule_microscope__xml__XmlElement__getElementName("dependency", e),
+  get_field_microscope__xml__XmlElement_id(field_0x6669656c64_id_int, e),
+  get_field_microscope__xml__XmlElement_location_id(field_0x6669656c64_location_id_int, e),
+  get_field_microscope__xml__XmlElement_parent_id(field_0x6669656c64_parent_id_int, e),
+  get_field_microscope__xml__XmlElement_index_order(field_0x6669656c64_index_order_int, e),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlElement____all__(e, db)
+).
+rule_DependencyElement____all__(result, db) :- schema_DependencyElement(result, db, _, _, _, _).
+schema_GroupElement(result, db, field_0x6669656c64_id_int, field_0x6669656c64_parent_id_int, field_0x6669656c64_index_order_int, field_0x6669656c64_location_id_int) :- (
+  rule_microscope__xml__XmlElement__getElementName("groupId", e),
+  get_field_microscope__xml__XmlElement_id(field_0x6669656c64_id_int, e),
+  get_field_microscope__xml__XmlElement_location_id(field_0x6669656c64_location_id_int, e),
+  get_field_microscope__xml__XmlElement_parent_id(field_0x6669656c64_parent_id_int, e),
+  get_field_microscope__xml__XmlElement_index_order(field_0x6669656c64_index_order_int, e),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlElement____all__(e, db)
+).
+rule_GroupElement____all__(result, db) :- schema_GroupElement(result, db, _, _, _, _).
+schema_VersionElement(result, db, field_0x6669656c64_id_int, field_0x6669656c64_parent_id_int, field_0x6669656c64_index_order_int, field_0x6669656c64_location_id_int) :- (
+  rule_microscope__xml__XmlElement__getElementName("version", e),
+  get_field_microscope__xml__XmlElement_id(field_0x6669656c64_id_int, e),
+  get_field_microscope__xml__XmlElement_location_id(field_0x6669656c64_location_id_int, e),
+  get_field_microscope__xml__XmlElement_parent_id(field_0x6669656c64_parent_id_int, e),
+  get_field_microscope__xml__XmlElement_index_order(field_0x6669656c64_index_order_int, e),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlElement____all__(e, db)
+).
+rule_VersionElement____all__(result, db) :- schema_VersionElement(result, db, _, _, _, _).
+schema_ArtifactElement(result, db, field_0x6669656c64_id_int, field_0x6669656c64_parent_id_int, field_0x6669656c64_index_order_int, field_0x6669656c64_location_id_int) :- (
+  rule_microscope__xml__XmlElement__getElementName("artifactId", e),
+  get_field_microscope__xml__XmlElement_id(field_0x6669656c64_id_int, e),
+  get_field_microscope__xml__XmlElement_location_id(field_0x6669656c64_location_id_int, e),
+  get_field_microscope__xml__XmlElement_parent_id(field_0x6669656c64_parent_id_int, e),
+  get_field_microscope__xml__XmlElement_index_order(field_0x6669656c64_index_order_int, e),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlElement____all__(e, db)
+).
+rule_ArtifactElement____all__(result, db) :- schema_ArtifactElement(result, db, _, _, _, _).
+schema_PomFile(result, db, field_0x6669656c64_id_int, field_0x6669656c64_file_name_string, field_0x6669656c64_relative_path_string) :- (
+  rule_microscope__xml__XmlFile__getFileName("pom.xml", f),
+  get_field_microscope__xml__XmlFile_id(field_0x6669656c64_id_int, f),
+  get_field_microscope__xml__XmlFile_file_name(field_0x6669656c64_file_name_string, f),
+  get_field_microscope__xml__XmlFile_relative_path(field_0x6669656c64_relative_path_string, f),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__xml__XmlFile____all__(f, db)
+).
+rule_PomFile____all__(result, db) :- schema_PomFile(result, db, _, _, _).
+rule_out(fileName, m1, m2, m3) :- (
+  db = [0, 0],
+  rule_DependencyElement__getLocation(ssa_temp_1, p),
+  rule_microscope__xml__Location__getFile(ssa_temp_2, ssa_temp_1),
+  f = ssa_temp_2,
+  rule_PomFile__getRelativePath(fileName, f),
+  rule_GroupElement__getParent(ssa_temp_5, e1),
+  p = ssa_temp_5,
+  rule_microscope__xml__XmlCharacter__getBelongedElement(ssa_temp_6, c1),
+  e1 = ssa_temp_6,
+  rule_microscope__xml__XmlCharacter__getText(m1, c1),
+  rule_VersionElement__getParent(ssa_temp_9, e2),
+  p = ssa_temp_9,
+  rule_microscope__xml__XmlCharacter__getBelongedElement(ssa_temp_10, c2),
+  e2 = ssa_temp_10,
+  rule_microscope__xml__XmlCharacter__getText(m2, c2),
+  rule_ArtifactElement__getParent(ssa_temp_13, e3),
+  p = ssa_temp_13,
+  rule_microscope__xml__XmlCharacter__getBelongedElement(ssa_temp_14, c3),
+  e3 = ssa_temp_14,
+  rule_microscope__xml__XmlCharacter__getText(m3, c3),
+  rule_PomFile____all__(f, db),
+  rule_GroupElement____all__(e1, db),
+  rule_VersionElement____all__(e2, db),
+  rule_ArtifactElement____all__(e3, db),
+  rule_microscope__xml__XmlCharacter____all__(c1, db),
+  rule_microscope__xml__XmlCharacter____all__(c2, db),
+  rule_microscope__xml__XmlCharacter____all__(c3, db),
+  rule_DependencyElement____all__(p, db)
+).
+
+all_data_DBIndex([0, 0]).
+all_data_DBIndex([-1, -1]).
+
+schema_microscope__xml__LocationDO(id, [0, 0], id, start_line_number, start_column_number, end_line_number, end_column_number, file_id) :- input_microscope__xml__XmlDB_microscope__xml__LocationDO_0(id, start_line_number, start_column_number, end_line_number, end_column_number, file_id).
+schema_microscope__xml__XmlElementNameDO(id, [0, 0], name, id, parent_id, location_id) :- input_microscope__xml__XmlDB_microscope__xml__XmlElementNameDO_0(name, id, parent_id, location_id).
+schema_microscope__xml__XmlFileDO(id, [0, 0], id, file_name, relative_path) :- input_microscope__xml__XmlDB_microscope__xml__XmlFileDO_0(id, file_name, relative_path).
+schema_microscope__xml__XmlCharacterDO(id, [0, 0], id, text, parentid, index_order, is_cdata, location_id) :- input_microscope__xml__XmlDB_microscope__xml__XmlCharacterDO_0(id, text, parentid, index_order, is_cdata, location_id).
+schema_microscope__xml__XmlElementDO(id, [0, 0], id, parent_id, index_order, location_id) :- input_microscope__xml__XmlDB_microscope__xml__XmlElementDO_0(id, parent_id, index_order, location_id).
+
+get_field_microscope__xml__Location_id(result, self) :- result = self.
+get_field_microscope__xml__XmlElement_id(result, self) :- result = self.
+get_field_microscope__xml__XmlElement_parent_id(result, self) :- schema_microscope__xml__XmlElement(self, _, _, result, _, _).
+get_field_microscope__xml__XmlElement_index_order(result, self) :- schema_microscope__xml__XmlElement(self, _, _, _, result, _).
+get_field_microscope__xml__XmlElement_location_id(result, self) :- schema_microscope__xml__XmlElement(self, _, _, _, _, result).
+get_field_microscope__xml__XmlFile_id(result, self) :- result = self.
+get_field_microscope__xml__XmlFile_file_name(result, self) :- schema_microscope__xml__XmlFile(self, _, _, result, _).
+get_field_microscope__xml__XmlFile_relative_path(result, self) :- schema_microscope__xml__XmlFile(self, _, _, _, result).
+get_field_microscope__xml__XmlCharacterDO_id(result, self) :- result = self.
+get_field_microscope__xml__XmlCharacterDO_text(result, self) :- schema_microscope__xml__XmlCharacterDO(self, _, _, result, _, _, _, _).
+get_field_microscope__xml__XmlCharacterDO_parentid(result, self) :- schema_microscope__xml__XmlCharacterDO(self, _, _, _, result, _, _, _).
+get_field_microscope__xml__XmlCharacterDO_index_order(result, self) :- schema_microscope__xml__XmlCharacterDO(self, _, _, _, _, result, _, _).
+get_field_microscope__xml__XmlCharacterDO_is_cdata(result, self) :- schema_microscope__xml__XmlCharacterDO(self, _, _, _, _, _, result, _).
+get_field_microscope__xml__XmlCharacterDO_location_id(result, self) :- schema_microscope__xml__XmlCharacterDO(self, _, _, _, _, _, _, result).
+get_field_microscope__xml__LocationDO_id(result, self) :- result = self.
+get_field_microscope__xml__LocationDO_start_line_number(result, self) :- schema_microscope__xml__LocationDO(self, _, _, result, _, _, _, _).
+get_field_microscope__xml__LocationDO_start_column_number(result, self) :- schema_microscope__xml__LocationDO(self, _, _, _, result, _, _, _).
+get_field_microscope__xml__LocationDO_end_line_number(result, self) :- schema_microscope__xml__LocationDO(self, _, _, _, _, result, _, _).
+get_field_microscope__xml__LocationDO_end_column_number(result, self) :- schema_microscope__xml__LocationDO(self, _, _, _, _, _, result, _).
+get_field_microscope__xml__LocationDO_file_id(result, self) :- schema_microscope__xml__LocationDO(self, _, _, _, _, _, _, result).
+get_field_microscope__xml__XmlFileDO_id(result, self) :- result = self.
+get_field_microscope__xml__XmlFileDO_file_name(result, self) :- schema_microscope__xml__XmlFileDO(self, _, _, result, _).
+get_field_microscope__xml__XmlFileDO_relative_path(result, self) :- schema_microscope__xml__XmlFileDO(self, _, _, _, result).
+get_field_microscope__xml__XmlElementNameDO_name(result, self) :- schema_microscope__xml__XmlElementNameDO(self, _, result, _, _, _).
+get_field_microscope__xml__XmlElementNameDO_id(result, self) :- result = self.
+get_field_microscope__xml__XmlElementNameDO_parent_id(result, self) :- schema_microscope__xml__XmlElementNameDO(self, _, _, _, result, _).
+get_field_microscope__xml__XmlElementNameDO_location_id(result, self) :- schema_microscope__xml__XmlElementNameDO(self, _, _, _, _, result).
+get_field_microscope__xml__XmlElementDO_id(result, self) :- result = self.
+get_field_microscope__xml__XmlElementDO_parent_id(result, self) :- schema_microscope__xml__XmlElementDO(self, _, _, result, _, _).
+get_field_microscope__xml__XmlElementDO_index_order(result, self) :- schema_microscope__xml__XmlElementDO(self, _, _, _, result, _).
+get_field_microscope__xml__XmlElementDO_location_id(result, self) :- schema_microscope__xml__XmlElementDO(self, _, _, _, _, result).
+
+.input input_microscope__xml__XmlDB_microscope__xml__LocationDO_0(IO="sqlite", dbname="microscope_xml_src.db", name="xml_location")
+.input input_microscope__xml__XmlDB_microscope__xml__XmlElementNameDO_0(IO="sqlite", dbname="microscope_xml_src.db", name="xml_element_name")
+.input input_microscope__xml__XmlDB_microscope__xml__XmlFileDO_0(IO="sqlite", dbname="microscope_xml_src.db", name="xml_file")
+.input input_microscope__xml__XmlDB_microscope__xml__XmlCharacterDO_0(IO="sqlite", dbname="microscope_xml_src.db", name="xml_character")
+.input input_microscope__xml__XmlDB_microscope__xml__XmlElementDO_0(IO="sqlite", dbname="microscope_xml_src.db", name="xml_element")
+
+.output rule_out(IO="stdout")
+

@@ -1,0 +1,661 @@
+.functor get_field_by_index(self: number, total: number, index: number): number stateful
+.functor datalog_lang_builtin_string_getMatchResult(self: symbol, pattern: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_to_upper(self: symbol): symbol
+.functor datalog_lang_builtin_string_to_lower(self: symbol): symbol
+.functor datalog_lang_builtin_string_replace_once(self: symbol, pattern: symbol, replacement: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_replace_all(self: symbol, pattern: symbol, replacement: symbol): symbol
+
+.type DBIndex = [type_id: number, load_path: number]
+.type int = number
+.type string = symbol
+.type PropertiesDB = DBIndex
+.type Folder = int
+.type Entry = int
+.type File = int
+.type Program = int
+.type NumberOfLines = int
+.type Location = int
+.type ContainerParent = int
+.type PropertiesCommentDO = int
+.type LocationDO = int
+.type FolderDO = int
+.type FileDO = int
+.type NumberOfLinesDO = int
+.type EmptyLineDO = int
+.type ProgramDO = int
+.type EntryDO = int
+.type Variable = int
+.type VariableDO = int
+.type PropertiesComment = int
+.type ContainerParentDO = int
+
+.decl schema_Folder(result: Folder, db_id: DBIndex, element_oid: int, relative_path: string, name: string, parent_oid: int)
+.decl schema_Entry(result: Entry, db_id: DBIndex, element_oid: int, key: string, value: string, printable_text: string, location_oid: int)
+.decl schema_File(result: File, db_id: DBIndex, element_oid: int, relative_path: string, extension: string, name: string)
+.decl schema_Program(result: Program, db_id: DBIndex, oid: int, absolute_path_prefix: string)
+.decl schema_NumberOfLines(result: NumberOfLines, db_id: DBIndex, oid: int, number_of_lines_edb: int, number_of_valid_lines: int, number_of_comment_lines: int)
+.decl schema_Location(result: Location, db_id: DBIndex, element_oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int)
+.decl schema_ContainerParent(result: ContainerParent, db_id: DBIndex, child_oid: int, parent_oid: int)
+.decl schema_PropertiesCommentDO(result: PropertiesCommentDO, db_id: DBIndex, element_oid: int, text: string, parent_oid: int, location_oid: int)
+.decl schema_LocationDO(result: LocationDO, db_id: DBIndex, element_oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int)
+.decl schema_FolderDO(result: FolderDO, db_id: DBIndex, element_oid: int, relative_path: string, name: string, parent_oid: int)
+.decl schema_FileDO(result: FileDO, db_id: DBIndex, element_oid: int, relative_path: string, extension: string, name: string)
+.decl schema_NumberOfLinesDO(result: NumberOfLinesDO, db_id: DBIndex, oid: int, number_of_lines_edb: int, number_of_valid_lines: int, number_of_comment_lines: int)
+.decl schema_EmptyLineDO(result: EmptyLineDO, db_id: DBIndex, oid: int, location_oid: int, file_oid: int)
+.decl schema_ProgramDO(result: ProgramDO, db_id: DBIndex, oid: int, absolute_path_prefix: string)
+.decl schema_EntryDO(result: EntryDO, db_id: DBIndex, element_oid: int, key: string, value: string, printable_text: string, location_oid: int)
+.decl schema_Variable(result: Variable, db_id: DBIndex, element_oid: int, parent_oid: int, start_index: int, name: string, printable_text: string)
+.decl schema_VariableDO(result: VariableDO, db_id: DBIndex, element_oid: int, parent_oid: int, start_index: int, name: string, printable_text: string)
+.decl schema_PropertiesComment(result: PropertiesComment, db_id: DBIndex, element_oid: int, text: string, parent_oid: int, location_oid: int)
+.decl schema_ContainerParentDO(result: ContainerParentDO, db_id: DBIndex, child_oid: int, parent_oid: int)
+
+.decl all_data_DBIndex(db_id: DBIndex)
+.decl get_table_PropertiesDB_number_of_lines(result: NumberOfLinesDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_program(result: ProgramDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_location(result: LocationDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_file(result: FileDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_variable(result: VariableDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_empty_line(result: EmptyLineDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_comment(result: PropertiesCommentDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_container_parent(result: ContainerParentDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_folder(result: FolderDO, db_id: DBIndex)
+.decl get_table_PropertiesDB_entry(result: EntryDO, db_id: DBIndex)
+.decl rule_Folder__getName(result: string, self: Folder) inline
+.decl rule_Folder__getParentOid(result: int, self: Folder) inline
+.decl rule_Folder__getRelativePath(result: string, self: Folder) inline
+.decl rule_Folder__getParent(result: Folder, self: Folder)
+.decl rule_Folder__getAllContainingFiles(result: File, self: Folder)
+.decl rule_Folder____all__(result: Folder, db: PropertiesDB) inline
+.decl rule_Entry__getKey(result: string, self: Entry) inline
+.decl rule_Entry__getLocationOid(result: int, self: Entry) inline
+.decl rule_Entry__getValue(result: string, self: Entry) inline
+.decl rule_Entry__getPrintableText(result: string, self: Entry) inline
+.decl rule_Entry__getLocation(result: Location, self: Entry)
+.decl rule_Entry____all__(result: Entry, db: PropertiesDB) inline
+.decl rule_File__getName(result: string, self: File) inline
+.decl rule_File__getNumberOfLinesOid(result: int, self: File) inline
+.decl rule_File__getExtension(result: string, self: File) inline
+.decl rule_File__getRelativePath(result: string, self: File) inline
+.decl rule_File__getBelongedFolder(result: Folder, self: File)
+.decl rule_File__getSize(result: NumberOfLines, self: File)
+.decl rule_File____all__(result: File, db: PropertiesDB) inline
+.decl rule_Program__getAbsolutePathPrefix(result: string, self: Program) inline
+.decl rule_Program____all__(result: Program, db: PropertiesDB) inline
+.decl rule_NumberOfLines__getNumberOfLines(result: int, self: NumberOfLines) inline
+.decl rule_NumberOfLines__getNumberOfValidLines(result: int, self: NumberOfLines) inline
+.decl rule_NumberOfLines__getNumberOfCommentLines(result: int, self: NumberOfLines) inline
+.decl rule_NumberOfLines____all__(result: NumberOfLines, db: PropertiesDB) inline
+.decl rule_Location__getFileOid(result: int, self: Location) inline
+.decl rule_Location__getStartLineNumber(result: int, self: Location) inline
+.decl rule_Location__getStartColumnNumber(result: int, self: Location) inline
+.decl rule_Location____all__(result: Location, db: PropertiesDB) inline
+.decl rule_Location__getEndLineNumber(result: int, self: Location) inline
+.decl rule_Location__getEndColumnNumber(result: int, self: Location) inline
+.decl rule_Location__getFile(result: File, self: Location)
+.decl rule_ContainerParent__getParentOid(result: int, self: ContainerParent) inline
+.decl rule_ContainerParent__getBelongedFolder(result: Folder, self: ContainerParent)
+.decl rule_ContainerParent____all__(result: ContainerParent, db: PropertiesDB) inline
+.decl rule_PropertiesCommentDO__getLocationOid(result: int, self: PropertiesCommentDO)
+.decl rule_PropertiesCommentDO__getParentOid(result: int, self: PropertiesCommentDO)
+.decl rule_PropertiesCommentDO__getText(result: string, self: PropertiesCommentDO)
+.decl rule_PropertiesCommentDO____all__(result: PropertiesCommentDO, db: PropertiesDB) inline
+.decl rule_LocationDO__getEndColumnNumber(result: int, self: LocationDO)
+.decl rule_LocationDO____all__(result: LocationDO, db: PropertiesDB) inline
+.decl rule_LocationDO__getEndLineNumber(result: int, self: LocationDO)
+.decl rule_LocationDO__getStartColumnNumber(result: int, self: LocationDO)
+.decl rule_LocationDO__getStartLineNumber(result: int, self: LocationDO)
+.decl rule_LocationDO__getFileOid(result: int, self: LocationDO)
+.decl rule_FolderDO__getParentOid(result: int, self: FolderDO)
+.decl rule_FolderDO__getRelativePath(result: string, self: FolderDO)
+.decl rule_FolderDO__getName(result: string, self: FolderDO)
+.decl rule_FolderDO____all__(result: FolderDO, db: PropertiesDB) inline
+.decl rule_FileDO__getNumberOfLinesOid(result: int, self: FileDO)
+.decl rule_FileDO__getExtension(result: string, self: FileDO)
+.decl rule_FileDO__getRelativePath(result: string, self: FileDO)
+.decl rule_FileDO__getName(result: string, self: FileDO)
+.decl rule_FileDO____all__(result: FileDO, db: PropertiesDB) inline
+.decl rule_NumberOfLinesDO__getNumberOfValidLines(result: int, self: NumberOfLinesDO)
+.decl rule_NumberOfLinesDO__getNumberOfLines(result: int, self: NumberOfLinesDO)
+.decl rule_NumberOfLinesDO__getNumberOfCommentLines(result: int, self: NumberOfLinesDO)
+.decl rule_NumberOfLinesDO____all__(result: NumberOfLinesDO, db: PropertiesDB) inline
+.decl rule_EmptyLineDO__getFileOid(result: int, self: EmptyLineDO)
+.decl rule_EmptyLineDO__getLocationOid(result: int, self: EmptyLineDO)
+.decl rule_EmptyLineDO____all__(result: EmptyLineDO, db: PropertiesDB) inline
+.decl rule_ProgramDO__getAbsolutePathPrefix(result: string, self: ProgramDO)
+.decl rule_ProgramDO____all__(result: ProgramDO, db: PropertiesDB) inline
+.decl rule_EntryDO__getPrintableText(result: string, self: EntryDO)
+.decl rule_EntryDO__getValue(result: string, self: EntryDO)
+.decl rule_EntryDO__getLocationOid(result: int, self: EntryDO)
+.decl rule_EntryDO__getKey(result: string, self: EntryDO)
+.decl rule_EntryDO____all__(result: EntryDO, db: PropertiesDB) inline
+.decl rule_Variable__getLocation(result: Location, self: Variable)
+.decl rule_Variable__getStartIndex(result: int, self: Variable) inline
+.decl rule_Variable__getName(result: string, self: Variable) inline
+.decl rule_Variable__getLengthOfPrintableText(result: int, self: Variable)
+.decl rule_Variable__getParentOid(result: int, self: Variable) inline
+.decl rule_Variable__getPrintableText(result: string, self: Variable) inline
+.decl rule_Variable__getBelongedEntry(result: Entry, self: Variable)
+.decl rule_Variable____all__(result: Variable, db: PropertiesDB) inline
+.decl rule_VariableDO__getPrintableText(result: string, self: VariableDO)
+.decl rule_VariableDO__getParentOid(result: int, self: VariableDO)
+.decl rule_VariableDO__getName(result: string, self: VariableDO)
+.decl rule_VariableDO__getStartIndex(result: int, self: VariableDO)
+.decl rule_VariableDO____all__(result: VariableDO, db: PropertiesDB) inline
+.decl rule_PropertiesComment__getText(result: string, self: PropertiesComment) inline
+.decl rule_PropertiesComment__getParentOid(result: int, self: PropertiesComment) inline
+.decl rule_PropertiesComment__getLocationOid(result: int, self: PropertiesComment) inline
+.decl rule_PropertiesComment__getLocation(result: Location, self: PropertiesComment)
+.decl rule_PropertiesComment____all__(result: PropertiesComment, db: PropertiesDB) inline
+.decl rule_ContainerParentDO__getParentOid(result: int, self: ContainerParentDO)
+.decl rule_ContainerParentDO____all__(result: ContainerParentDO, db: PropertiesDB) inline
+.decl typecheck_Folder(self: Folder) inline
+.decl typecheck_Entry(self: Entry) inline
+.decl typecheck_File(self: File) inline
+.decl typecheck_Program(self: Program) inline
+.decl typecheck_NumberOfLines(self: NumberOfLines) inline
+.decl typecheck_Location(self: Location) inline
+.decl typecheck_ContainerParent(self: ContainerParent) inline
+.decl typecheck_PropertiesCommentDO(self: PropertiesCommentDO) inline
+.decl typecheck_LocationDO(self: LocationDO) inline
+.decl typecheck_FolderDO(self: FolderDO) inline
+.decl typecheck_FileDO(self: FileDO) inline
+.decl typecheck_NumberOfLinesDO(self: NumberOfLinesDO) inline
+.decl typecheck_EmptyLineDO(self: EmptyLineDO) inline
+.decl typecheck_ProgramDO(self: ProgramDO) inline
+.decl typecheck_EntryDO(self: EntryDO) inline
+.decl typecheck_Variable(self: Variable) inline
+.decl typecheck_VariableDO(self: VariableDO) inline
+.decl typecheck_PropertiesComment(self: PropertiesComment) inline
+.decl typecheck_ContainerParentDO(self: ContainerParentDO) inline
+.decl get_field_Folder_element_oid(result: int, self: Folder) inline
+.decl get_field_Folder_relative_path(result: string, self: Folder) inline
+.decl get_field_Folder_name(result: string, self: Folder) inline
+.decl get_field_Folder_parent_oid(result: int, self: Folder) inline
+.decl get_field_Entry_element_oid(result: int, self: Entry) inline
+.decl get_field_Entry_key(result: string, self: Entry) inline
+.decl get_field_Entry_value(result: string, self: Entry) inline
+.decl get_field_Entry_printable_text(result: string, self: Entry) inline
+.decl get_field_Entry_location_oid(result: int, self: Entry) inline
+.decl get_field_File_element_oid(result: int, self: File) inline
+.decl get_field_File_relative_path(result: string, self: File) inline
+.decl get_field_File_extension(result: string, self: File) inline
+.decl get_field_File_name(result: string, self: File) inline
+.decl get_field_Program_oid(result: int, self: Program) inline
+.decl get_field_Program_absolute_path_prefix(result: string, self: Program) inline
+.decl get_field_NumberOfLines_oid(result: int, self: NumberOfLines) inline
+.decl get_field_NumberOfLines_number_of_lines_edb(result: int, self: NumberOfLines) inline
+.decl get_field_NumberOfLines_number_of_valid_lines(result: int, self: NumberOfLines) inline
+.decl get_field_NumberOfLines_number_of_comment_lines(result: int, self: NumberOfLines) inline
+.decl get_field_Location_element_oid(result: int, self: Location) inline
+.decl get_field_Location_file_oid(result: int, self: Location) inline
+.decl get_field_Location_start_line_number(result: int, self: Location) inline
+.decl get_field_Location_start_column_number(result: int, self: Location) inline
+.decl get_field_Location_end_line_number(result: int, self: Location) inline
+.decl get_field_Location_end_column_number(result: int, self: Location) inline
+.decl get_field_ContainerParent_child_oid(result: int, self: ContainerParent) inline
+.decl get_field_ContainerParent_parent_oid(result: int, self: ContainerParent) inline
+.decl get_field_PropertiesCommentDO_element_oid(result: int, self: PropertiesCommentDO) inline
+.decl get_field_PropertiesCommentDO_text(result: string, self: PropertiesCommentDO) inline
+.decl get_field_PropertiesCommentDO_parent_oid(result: int, self: PropertiesCommentDO) inline
+.decl get_field_PropertiesCommentDO_location_oid(result: int, self: PropertiesCommentDO) inline
+.decl get_field_LocationDO_element_oid(result: int, self: LocationDO) inline
+.decl get_field_LocationDO_file_oid(result: int, self: LocationDO) inline
+.decl get_field_LocationDO_start_line_number(result: int, self: LocationDO) inline
+.decl get_field_LocationDO_start_column_number(result: int, self: LocationDO) inline
+.decl get_field_LocationDO_end_line_number(result: int, self: LocationDO) inline
+.decl get_field_LocationDO_end_column_number(result: int, self: LocationDO) inline
+.decl get_field_FolderDO_element_oid(result: int, self: FolderDO) inline
+.decl get_field_FolderDO_relative_path(result: string, self: FolderDO) inline
+.decl get_field_FolderDO_name(result: string, self: FolderDO) inline
+.decl get_field_FolderDO_parent_oid(result: int, self: FolderDO) inline
+.decl get_field_FileDO_element_oid(result: int, self: FileDO) inline
+.decl get_field_FileDO_relative_path(result: string, self: FileDO) inline
+.decl get_field_FileDO_extension(result: string, self: FileDO) inline
+.decl get_field_FileDO_name(result: string, self: FileDO) inline
+.decl get_field_NumberOfLinesDO_oid(result: int, self: NumberOfLinesDO) inline
+.decl get_field_NumberOfLinesDO_number_of_lines_edb(result: int, self: NumberOfLinesDO) inline
+.decl get_field_NumberOfLinesDO_number_of_valid_lines(result: int, self: NumberOfLinesDO) inline
+.decl get_field_NumberOfLinesDO_number_of_comment_lines(result: int, self: NumberOfLinesDO) inline
+.decl get_field_EmptyLineDO_oid(result: int, self: EmptyLineDO) inline
+.decl get_field_EmptyLineDO_location_oid(result: int, self: EmptyLineDO) inline
+.decl get_field_EmptyLineDO_file_oid(result: int, self: EmptyLineDO) inline
+.decl get_field_ProgramDO_oid(result: int, self: ProgramDO) inline
+.decl get_field_ProgramDO_absolute_path_prefix(result: string, self: ProgramDO) inline
+.decl get_field_EntryDO_element_oid(result: int, self: EntryDO) inline
+.decl get_field_EntryDO_key(result: string, self: EntryDO) inline
+.decl get_field_EntryDO_value(result: string, self: EntryDO) inline
+.decl get_field_EntryDO_printable_text(result: string, self: EntryDO) inline
+.decl get_field_EntryDO_location_oid(result: int, self: EntryDO) inline
+.decl get_field_Variable_element_oid(result: int, self: Variable) inline
+.decl get_field_Variable_parent_oid(result: int, self: Variable) inline
+.decl get_field_Variable_start_index(result: int, self: Variable) inline
+.decl get_field_Variable_name(result: string, self: Variable) inline
+.decl get_field_Variable_printable_text(result: string, self: Variable) inline
+.decl get_field_VariableDO_element_oid(result: int, self: VariableDO) inline
+.decl get_field_VariableDO_parent_oid(result: int, self: VariableDO) inline
+.decl get_field_VariableDO_start_index(result: int, self: VariableDO) inline
+.decl get_field_VariableDO_name(result: string, self: VariableDO) inline
+.decl get_field_VariableDO_printable_text(result: string, self: VariableDO) inline
+.decl get_field_PropertiesComment_element_oid(result: int, self: PropertiesComment) inline
+.decl get_field_PropertiesComment_text(result: string, self: PropertiesComment) inline
+.decl get_field_PropertiesComment_parent_oid(result: int, self: PropertiesComment) inline
+.decl get_field_PropertiesComment_location_oid(result: int, self: PropertiesComment) inline
+.decl get_field_ContainerParentDO_child_oid(result: int, self: ContainerParentDO) inline
+.decl get_field_ContainerParentDO_parent_oid(result: int, self: ContainerParentDO) inline
+
+rule_Folder__getName(result, self) :- rule_FolderDO__getName(result, self).
+rule_Folder__getParentOid(result, self) :- rule_FolderDO__getParentOid(result, self).
+rule_Folder__getRelativePath(result, self) :- rule_FolderDO__getRelativePath(result, self).
+rule_Entry__getKey(result, self) :- rule_EntryDO__getKey(result, self).
+rule_Entry__getLocationOid(result, self) :- rule_EntryDO__getLocationOid(result, self).
+rule_Entry__getValue(result, self) :- rule_EntryDO__getValue(result, self).
+rule_Entry__getPrintableText(result, self) :- rule_EntryDO__getPrintableText(result, self).
+rule_File__getName(result, self) :- rule_FileDO__getName(result, self).
+rule_File__getNumberOfLinesOid(result, self) :- rule_FileDO__getNumberOfLinesOid(result, self).
+rule_File__getExtension(result, self) :- rule_FileDO__getExtension(result, self).
+rule_File__getRelativePath(result, self) :- rule_FileDO__getRelativePath(result, self).
+rule_Program__getAbsolutePathPrefix(result, self) :- rule_ProgramDO__getAbsolutePathPrefix(result, self).
+rule_NumberOfLines__getNumberOfLines(result, self) :- rule_NumberOfLinesDO__getNumberOfLines(result, self).
+rule_NumberOfLines__getNumberOfValidLines(result, self) :- rule_NumberOfLinesDO__getNumberOfValidLines(result, self).
+rule_NumberOfLines__getNumberOfCommentLines(result, self) :- rule_NumberOfLinesDO__getNumberOfCommentLines(result, self).
+rule_Location__getFileOid(result, self) :- rule_LocationDO__getFileOid(result, self).
+rule_Location__getStartLineNumber(result, self) :- rule_LocationDO__getStartLineNumber(result, self).
+rule_Location__getStartColumnNumber(result, self) :- rule_LocationDO__getStartColumnNumber(result, self).
+rule_Location__getEndLineNumber(result, self) :- rule_LocationDO__getEndLineNumber(result, self).
+rule_Location__getEndColumnNumber(result, self) :- rule_LocationDO__getEndColumnNumber(result, self).
+rule_ContainerParent__getParentOid(result, self) :- rule_ContainerParentDO__getParentOid(result, self).
+rule_Variable__getStartIndex(result, self) :- rule_VariableDO__getStartIndex(result, self).
+rule_Variable__getName(result, self) :- rule_VariableDO__getName(result, self).
+rule_Variable__getParentOid(result, self) :- rule_VariableDO__getParentOid(result, self).
+rule_Variable__getPrintableText(result, self) :- rule_VariableDO__getPrintableText(result, self).
+rule_PropertiesComment__getText(result, self) :- rule_PropertiesCommentDO__getText(result, self).
+rule_PropertiesComment__getParentOid(result, self) :- rule_PropertiesCommentDO__getParentOid(result, self).
+rule_PropertiesComment__getLocationOid(result, self) :- rule_PropertiesCommentDO__getLocationOid(result, self).
+typecheck_Folder(self) :- schema_Folder(self, _, _, _, _, _).
+typecheck_Entry(self) :- schema_Entry(self, _, _, _, _, _, _).
+typecheck_File(self) :- schema_File(self, _, _, _, _, _).
+typecheck_Program(self) :- schema_Program(self, _, _, _).
+typecheck_NumberOfLines(self) :- schema_NumberOfLines(self, _, _, _, _, _).
+typecheck_Location(self) :- schema_Location(self, _, _, _, _, _, _, _).
+typecheck_ContainerParent(self) :- schema_ContainerParent(self, _, _, _).
+typecheck_PropertiesCommentDO(self) :- schema_PropertiesCommentDO(self, _, _, _, _, _).
+typecheck_LocationDO(self) :- schema_LocationDO(self, _, _, _, _, _, _, _).
+typecheck_FolderDO(self) :- schema_FolderDO(self, _, _, _, _, _).
+typecheck_FileDO(self) :- schema_FileDO(self, _, _, _, _, _).
+typecheck_NumberOfLinesDO(self) :- schema_NumberOfLinesDO(self, _, _, _, _, _).
+typecheck_EmptyLineDO(self) :- schema_EmptyLineDO(self, _, _, _, _).
+typecheck_ProgramDO(self) :- schema_ProgramDO(self, _, _, _).
+typecheck_EntryDO(self) :- schema_EntryDO(self, _, _, _, _, _, _).
+typecheck_Variable(self) :- schema_Variable(self, _, _, _, _, _, _).
+typecheck_VariableDO(self) :- schema_VariableDO(self, _, _, _, _, _, _).
+typecheck_PropertiesComment(self) :- schema_PropertiesComment(self, _, _, _, _, _).
+typecheck_ContainerParentDO(self) :- schema_ContainerParentDO(self, _, _, _).
+rule_PropertiesCommentDO____all__(result, db) :- schema_PropertiesCommentDO(result, db, _, _, _, _).
+rule_PropertiesCommentDO__getText(result, self) :- (
+  get_field_PropertiesCommentDO_text(result, self),
+  typecheck_PropertiesCommentDO(self)
+).
+rule_PropertiesCommentDO__getParentOid(result, self) :- (
+  get_field_PropertiesCommentDO_parent_oid(result, self),
+  typecheck_PropertiesCommentDO(self)
+).
+rule_PropertiesCommentDO__getLocationOid(result, self) :- (
+  get_field_PropertiesCommentDO_location_oid(result, self),
+  typecheck_PropertiesCommentDO(self)
+).
+rule_ContainerParentDO____all__(result, db) :- schema_ContainerParentDO(result, db, _, _).
+rule_ContainerParentDO__getParentOid(result, self) :- (
+  get_field_ContainerParentDO_parent_oid(result, self),
+  typecheck_ContainerParentDO(self)
+).
+rule_EmptyLineDO____all__(result, db) :- schema_EmptyLineDO(result, db, _, _, _).
+rule_EmptyLineDO__getLocationOid(result, self) :- (
+  get_field_EmptyLineDO_location_oid(result, self),
+  typecheck_EmptyLineDO(self)
+).
+rule_EmptyLineDO__getFileOid(result, self) :- (
+  get_field_EmptyLineDO_file_oid(result, self),
+  typecheck_EmptyLineDO(self)
+).
+rule_EntryDO____all__(result, db) :- schema_EntryDO(result, db, _, _, _, _, _).
+rule_EntryDO__getKey(result, self) :- (
+  get_field_EntryDO_key(result, self),
+  typecheck_EntryDO(self)
+).
+rule_EntryDO__getValue(result, self) :- (
+  get_field_EntryDO_value(result, self),
+  typecheck_EntryDO(self)
+).
+rule_EntryDO__getPrintableText(result, self) :- (
+  get_field_EntryDO_printable_text(result, self),
+  typecheck_EntryDO(self)
+).
+rule_EntryDO__getLocationOid(result, self) :- (
+  get_field_EntryDO_location_oid(result, self),
+  typecheck_EntryDO(self)
+).
+rule_FileDO____all__(result, db) :- schema_FileDO(result, db, _, _, _, _).
+rule_FileDO__getRelativePath(result, self) :- (
+  get_field_FileDO_relative_path(result, self),
+  typecheck_FileDO(self)
+).
+rule_FileDO__getExtension(result, self) :- (
+  get_field_FileDO_extension(result, self),
+  typecheck_FileDO(self)
+).
+rule_FileDO__getName(result, self) :- (
+  get_field_FileDO_name(result, self),
+  typecheck_FileDO(self)
+).
+rule_FileDO__getNumberOfLinesOid(result, self) :- (
+  get_field_FileDO_element_oid(result, self),
+  typecheck_FileDO(self)
+).
+rule_FolderDO____all__(result, db) :- schema_FolderDO(result, db, _, _, _, _).
+rule_FolderDO__getRelativePath(result, self) :- (
+  get_field_FolderDO_relative_path(result, self),
+  typecheck_FolderDO(self)
+).
+rule_FolderDO__getName(result, self) :- (
+  get_field_FolderDO_name(result, self),
+  typecheck_FolderDO(self)
+).
+rule_FolderDO__getParentOid(result, self) :- (
+  get_field_FolderDO_parent_oid(result, self),
+  typecheck_FolderDO(self)
+).
+rule_LocationDO____all__(result, db) :- schema_LocationDO(result, db, _, _, _, _, _, _).
+rule_LocationDO__getFileOid(result, self) :- (
+  get_field_LocationDO_file_oid(result, self),
+  typecheck_LocationDO(self)
+).
+rule_LocationDO__getStartLineNumber(result, self) :- (
+  get_field_LocationDO_start_line_number(result, self),
+  typecheck_LocationDO(self)
+).
+rule_LocationDO__getStartColumnNumber(result, self) :- (
+  get_field_LocationDO_start_column_number(result, self),
+  typecheck_LocationDO(self)
+).
+rule_LocationDO__getEndLineNumber(result, self) :- (
+  get_field_LocationDO_end_line_number(result, self),
+  typecheck_LocationDO(self)
+).
+rule_LocationDO__getEndColumnNumber(result, self) :- (
+  get_field_LocationDO_end_column_number(result, self),
+  typecheck_LocationDO(self)
+).
+rule_NumberOfLinesDO____all__(result, db) :- schema_NumberOfLinesDO(result, db, _, _, _, _).
+rule_NumberOfLinesDO__getNumberOfLines(result, self) :- (
+  get_field_NumberOfLinesDO_number_of_lines_edb(result, self),
+  typecheck_NumberOfLinesDO(self)
+).
+rule_NumberOfLinesDO__getNumberOfValidLines(result, self) :- (
+  get_field_NumberOfLinesDO_number_of_valid_lines(result, self),
+  typecheck_NumberOfLinesDO(self)
+).
+rule_NumberOfLinesDO__getNumberOfCommentLines(result, self) :- (
+  get_field_NumberOfLinesDO_number_of_comment_lines(result, self),
+  typecheck_NumberOfLinesDO(self)
+).
+rule_ProgramDO____all__(result, db) :- schema_ProgramDO(result, db, _, _).
+rule_ProgramDO__getAbsolutePathPrefix(result, self) :- (
+  get_field_ProgramDO_absolute_path_prefix(result, self),
+  typecheck_ProgramDO(self)
+).
+rule_VariableDO____all__(result, db) :- schema_VariableDO(result, db, _, _, _, _, _).
+rule_VariableDO__getParentOid(result, self) :- (
+  get_field_VariableDO_parent_oid(result, self),
+  typecheck_VariableDO(self)
+).
+rule_VariableDO__getStartIndex(result, self) :- (
+  get_field_VariableDO_start_index(result, self),
+  typecheck_VariableDO(self)
+).
+rule_VariableDO__getName(result, self) :- (
+  get_field_VariableDO_name(result, self),
+  typecheck_VariableDO(self)
+).
+rule_VariableDO__getPrintableText(result, self) :- (
+  get_field_VariableDO_printable_text(result, self),
+  typecheck_VariableDO(self)
+).
+schema_Location(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_file_oid_int, field_0x6669656c64_start_line_number_int, field_0x6669656c64_start_column_number_int, field_0x6669656c64_end_line_number_int, field_0x6669656c64_end_column_number_int) :- (
+  rule_LocationDO____all__(tmp, db),
+  get_field_LocationDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_LocationDO_file_oid(field_0x6669656c64_file_oid_int, tmp),
+  get_field_LocationDO_start_line_number(field_0x6669656c64_start_line_number_int, tmp),
+  get_field_LocationDO_start_column_number(field_0x6669656c64_start_column_number_int, tmp),
+  get_field_LocationDO_end_line_number(field_0x6669656c64_end_line_number_int, tmp),
+  get_field_LocationDO_end_column_number(field_0x6669656c64_end_column_number_int, tmp),
+  result = field_0x6669656c64_element_oid_int
+).
+rule_Location____all__(result, db) :- schema_Location(result, db, _, _, _, _, _, _).
+rule_Location__getFile(result, self) :- (
+  rule_File____all__(f, _),
+  get_field_File_element_oid(ssa_temp_1, f),
+  rule_Location__getFileOid(ssa_temp_1, self),
+  result = f,
+  typecheck_Location(self)
+).
+schema_NumberOfLines(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_number_of_lines_edb_int, field_0x6669656c64_number_of_valid_lines_int, field_0x6669656c64_number_of_comment_lines_int) :- (
+  rule_NumberOfLinesDO____all__(tmp, db),
+  get_field_NumberOfLinesDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_NumberOfLinesDO_number_of_lines_edb(field_0x6669656c64_number_of_lines_edb_int, tmp),
+  get_field_NumberOfLinesDO_number_of_valid_lines(field_0x6669656c64_number_of_valid_lines_int, tmp),
+  get_field_NumberOfLinesDO_number_of_comment_lines(field_0x6669656c64_number_of_comment_lines_int, tmp),
+  result = field_0x6669656c64_oid_int
+).
+rule_NumberOfLines____all__(result, db) :- schema_NumberOfLines(result, db, _, _, _, _).
+schema_Program(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_absolute_path_prefix_string) :- (
+  rule_ProgramDO____all__(tmp, db),
+  get_field_ProgramDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_ProgramDO_absolute_path_prefix(field_0x6669656c64_absolute_path_prefix_string, tmp),
+  result = field_0x6669656c64_oid_int
+).
+rule_Program____all__(result, db) :- schema_Program(result, db, _, _).
+schema_File(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_relative_path_string, field_0x6669656c64_extension_string, field_0x6669656c64_name_string) :- (
+  rule_FileDO____all__(tmp, db),
+  get_field_FileDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_FileDO_relative_path(field_0x6669656c64_relative_path_string, tmp),
+  get_field_FileDO_extension(field_0x6669656c64_extension_string, tmp),
+  get_field_FileDO_name(field_0x6669656c64_name_string, tmp),
+  result = field_0x6669656c64_element_oid_int
+).
+rule_File____all__(result, db) :- schema_File(result, db, _, _, _, _).
+rule_File__getBelongedFolder(result, self) :- (
+  rule_Folder____all__(f, _),
+  rule_ContainerParent____all__(container, _),
+  self = container,
+  get_field_Folder_element_oid(ssa_temp_2, f),
+  rule_ContainerParent__getParentOid(ssa_temp_2, container),
+  result = f,
+  typecheck_File(self)
+).
+rule_File__getSize(result, self) :- (
+  rule_NumberOfLines____all__(n, _),
+  get_field_NumberOfLines_oid(ssa_temp_1, n),
+  rule_File__getNumberOfLinesOid(ssa_temp_1, self),
+  result = n,
+  typecheck_File(self)
+).
+schema_Folder(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_relative_path_string, field_0x6669656c64_name_string, field_0x6669656c64_parent_oid_int) :- (
+  rule_FolderDO____all__(tmp, db),
+  get_field_FolderDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_FolderDO_relative_path(field_0x6669656c64_relative_path_string, tmp),
+  get_field_FolderDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_FolderDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int
+).
+rule_Folder____all__(result, db) :- schema_Folder(result, db, _, _, _, _).
+rule_Folder__getAllContainingFiles(result, self) :- (
+  rule_File____all__(f, _),
+  rule_ContainerParent____all__(container, _),
+  f = container,
+  get_field_Folder_element_oid(ssa_temp_2, self),
+  rule_ContainerParent__getParentOid(ssa_temp_2, container),
+  result = f,
+  typecheck_Folder(self)
+).
+rule_Folder__getParent(result, self) :- (
+  rule_Folder____all__(f, _),
+  get_field_Folder_element_oid(ssa_temp_1, f),
+  rule_Folder__getParentOid(ssa_temp_1, self),
+  result = f,
+  typecheck_Folder(self)
+).
+schema_ContainerParent(result, db, field_0x6669656c64_child_oid_int, field_0x6669656c64_parent_oid_int) :- (
+  rule_ContainerParentDO____all__(tmp, db),
+  get_field_ContainerParentDO_child_oid(field_0x6669656c64_child_oid_int, tmp),
+  get_field_ContainerParentDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  result = field_0x6669656c64_child_oid_int
+).
+rule_ContainerParent____all__(result, db) :- schema_ContainerParent(result, db, _, _).
+rule_ContainerParent__getBelongedFolder(result, self) :- (
+  rule_Folder____all__(f, _),
+  get_field_Folder_element_oid(ssa_temp_1, f),
+  rule_ContainerParent__getParentOid(ssa_temp_1, self),
+  result = f,
+  typecheck_ContainerParent(self)
+).
+schema_PropertiesComment(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_text_string, field_0x6669656c64_parent_oid_int, field_0x6669656c64_location_oid_int) :- (
+  rule_PropertiesCommentDO____all__(tmp, db),
+  get_field_PropertiesCommentDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_PropertiesCommentDO_text(field_0x6669656c64_text_string, tmp),
+  get_field_PropertiesCommentDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_PropertiesCommentDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int
+).
+rule_PropertiesComment____all__(result, db) :- schema_PropertiesComment(result, db, _, _, _, _).
+rule_PropertiesComment__getLocation(result, self) :- (
+  rule_Location____all__(loc, _),
+  get_field_Location_element_oid(ssa_temp_1, loc),
+  rule_PropertiesComment__getLocationOid(ssa_temp_1, self),
+  result = loc,
+  typecheck_PropertiesComment(self)
+).
+schema_Entry(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_key_string, field_0x6669656c64_value_string, field_0x6669656c64_printable_text_string, field_0x6669656c64_location_oid_int) :- (
+  rule_EntryDO____all__(tmp, db),
+  get_field_EntryDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_EntryDO_key(field_0x6669656c64_key_string, tmp),
+  get_field_EntryDO_value(field_0x6669656c64_value_string, tmp),
+  get_field_EntryDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  get_field_EntryDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  result = field_0x6669656c64_element_oid_int
+).
+rule_Entry____all__(result, db) :- schema_Entry(result, db, _, _, _, _, _).
+rule_Entry__getLocation(result, self) :- (
+  rule_Location____all__(loc, _),
+  get_field_Location_element_oid(ssa_temp_1, loc),
+  rule_Entry__getLocationOid(ssa_temp_1, self),
+  result = loc,
+  typecheck_Entry(self)
+).
+schema_Variable(result, db, field_0x6669656c64_element_oid_int, field_0x6669656c64_parent_oid_int, field_0x6669656c64_start_index_int, field_0x6669656c64_name_string, field_0x6669656c64_printable_text_string) :- (
+  rule_VariableDO____all__(tmp, db),
+  get_field_VariableDO_element_oid(field_0x6669656c64_element_oid_int, tmp),
+  get_field_VariableDO_parent_oid(field_0x6669656c64_parent_oid_int, tmp),
+  get_field_VariableDO_start_index(field_0x6669656c64_start_index_int, tmp),
+  get_field_VariableDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_VariableDO_printable_text(field_0x6669656c64_printable_text_string, tmp),
+  result = field_0x6669656c64_element_oid_int
+).
+rule_Variable____all__(result, db) :- schema_Variable(result, db, _, _, _, _, _).
+rule_Variable__getBelongedEntry(result, self) :- (
+  rule_Entry____all__(entry, _),
+  get_field_Entry_element_oid(ssa_temp_2, entry),
+  rule_Variable__getParentOid(ssa_temp_2, self),
+  result = entry,
+  typecheck_Variable(self)
+).
+rule_Variable__getLengthOfPrintableText(result, self) :- (
+  rule_Variable__getPrintableText(ssa_temp_0, self),
+  result = strlen(ssa_temp_0),
+  typecheck_Variable(self)
+).
+rule_Variable__getLocation(result, self) :- (
+  rule_Location____all__(loc, _),
+  get_field_Location_element_oid(ssa_temp_1, loc),
+  rule_Variable__getParentOid(ssa_temp_1, self),
+  result = loc,
+  typecheck_Variable(self)
+).
+
+all_data_DBIndex([-1, -1]).
+
+get_field_Folder_element_oid(result, self) :- result = self.
+get_field_Folder_relative_path(result, self) :- schema_Folder(self, _, _, result, _, _).
+get_field_Folder_name(result, self) :- schema_Folder(self, _, _, _, result, _).
+get_field_Folder_parent_oid(result, self) :- schema_Folder(self, _, _, _, _, result).
+get_field_Entry_element_oid(result, self) :- result = self.
+get_field_Entry_key(result, self) :- schema_Entry(self, _, _, result, _, _, _).
+get_field_Entry_value(result, self) :- schema_Entry(self, _, _, _, result, _, _).
+get_field_Entry_printable_text(result, self) :- schema_Entry(self, _, _, _, _, result, _).
+get_field_Entry_location_oid(result, self) :- schema_Entry(self, _, _, _, _, _, result).
+get_field_File_element_oid(result, self) :- result = self.
+get_field_File_relative_path(result, self) :- schema_File(self, _, _, result, _, _).
+get_field_File_extension(result, self) :- schema_File(self, _, _, _, result, _).
+get_field_File_name(result, self) :- schema_File(self, _, _, _, _, result).
+get_field_Program_oid(result, self) :- result = self.
+get_field_Program_absolute_path_prefix(result, self) :- schema_Program(self, _, _, result).
+get_field_NumberOfLines_oid(result, self) :- result = self.
+get_field_NumberOfLines_number_of_lines_edb(result, self) :- schema_NumberOfLines(self, _, _, result, _, _).
+get_field_NumberOfLines_number_of_valid_lines(result, self) :- schema_NumberOfLines(self, _, _, _, result, _).
+get_field_NumberOfLines_number_of_comment_lines(result, self) :- schema_NumberOfLines(self, _, _, _, _, result).
+get_field_Location_element_oid(result, self) :- result = self.
+get_field_Location_file_oid(result, self) :- schema_Location(self, _, _, result, _, _, _, _).
+get_field_Location_start_line_number(result, self) :- schema_Location(self, _, _, _, result, _, _, _).
+get_field_Location_start_column_number(result, self) :- schema_Location(self, _, _, _, _, result, _, _).
+get_field_Location_end_line_number(result, self) :- schema_Location(self, _, _, _, _, _, result, _).
+get_field_Location_end_column_number(result, self) :- schema_Location(self, _, _, _, _, _, _, result).
+get_field_ContainerParent_child_oid(result, self) :- result = self.
+get_field_ContainerParent_parent_oid(result, self) :- schema_ContainerParent(self, _, _, result).
+get_field_PropertiesCommentDO_element_oid(result, self) :- result = self.
+get_field_PropertiesCommentDO_text(result, self) :- schema_PropertiesCommentDO(self, _, _, result, _, _).
+get_field_PropertiesCommentDO_parent_oid(result, self) :- schema_PropertiesCommentDO(self, _, _, _, result, _).
+get_field_PropertiesCommentDO_location_oid(result, self) :- schema_PropertiesCommentDO(self, _, _, _, _, result).
+get_field_LocationDO_element_oid(result, self) :- result = self.
+get_field_LocationDO_file_oid(result, self) :- schema_LocationDO(self, _, _, result, _, _, _, _).
+get_field_LocationDO_start_line_number(result, self) :- schema_LocationDO(self, _, _, _, result, _, _, _).
+get_field_LocationDO_start_column_number(result, self) :- schema_LocationDO(self, _, _, _, _, result, _, _).
+get_field_LocationDO_end_line_number(result, self) :- schema_LocationDO(self, _, _, _, _, _, result, _).
+get_field_LocationDO_end_column_number(result, self) :- schema_LocationDO(self, _, _, _, _, _, _, result).
+get_field_FolderDO_element_oid(result, self) :- result = self.
+get_field_FolderDO_relative_path(result, self) :- schema_FolderDO(self, _, _, result, _, _).
+get_field_FolderDO_name(result, self) :- schema_FolderDO(self, _, _, _, result, _).
+get_field_FolderDO_parent_oid(result, self) :- schema_FolderDO(self, _, _, _, _, result).
+get_field_FileDO_element_oid(result, self) :- result = self.
+get_field_FileDO_relative_path(result, self) :- schema_FileDO(self, _, _, result, _, _).
+get_field_FileDO_extension(result, self) :- schema_FileDO(self, _, _, _, result, _).
+get_field_FileDO_name(result, self) :- schema_FileDO(self, _, _, _, _, result).
+get_field_NumberOfLinesDO_oid(result, self) :- result = self.
+get_field_NumberOfLinesDO_number_of_lines_edb(result, self) :- schema_NumberOfLinesDO(self, _, _, result, _, _).
+get_field_NumberOfLinesDO_number_of_valid_lines(result, self) :- schema_NumberOfLinesDO(self, _, _, _, result, _).
+get_field_NumberOfLinesDO_number_of_comment_lines(result, self) :- schema_NumberOfLinesDO(self, _, _, _, _, result).
+get_field_EmptyLineDO_oid(result, self) :- result = self.
+get_field_EmptyLineDO_location_oid(result, self) :- schema_EmptyLineDO(self, _, _, result, _).
+get_field_EmptyLineDO_file_oid(result, self) :- schema_EmptyLineDO(self, _, _, _, result).
+get_field_ProgramDO_oid(result, self) :- result = self.
+get_field_ProgramDO_absolute_path_prefix(result, self) :- schema_ProgramDO(self, _, _, result).
+get_field_EntryDO_element_oid(result, self) :- result = self.
+get_field_EntryDO_key(result, self) :- schema_EntryDO(self, _, _, result, _, _, _).
+get_field_EntryDO_value(result, self) :- schema_EntryDO(self, _, _, _, result, _, _).
+get_field_EntryDO_printable_text(result, self) :- schema_EntryDO(self, _, _, _, _, result, _).
+get_field_EntryDO_location_oid(result, self) :- schema_EntryDO(self, _, _, _, _, _, result).
+get_field_Variable_element_oid(result, self) :- result = self.
+get_field_Variable_parent_oid(result, self) :- schema_Variable(self, _, _, result, _, _, _).
+get_field_Variable_start_index(result, self) :- schema_Variable(self, _, _, _, result, _, _).
+get_field_Variable_name(result, self) :- schema_Variable(self, _, _, _, _, result, _).
+get_field_Variable_printable_text(result, self) :- schema_Variable(self, _, _, _, _, _, result).
+get_field_VariableDO_element_oid(result, self) :- result = self.
+get_field_VariableDO_parent_oid(result, self) :- schema_VariableDO(self, _, _, result, _, _, _).
+get_field_VariableDO_start_index(result, self) :- schema_VariableDO(self, _, _, _, result, _, _).
+get_field_VariableDO_name(result, self) :- schema_VariableDO(self, _, _, _, _, result, _).
+get_field_VariableDO_printable_text(result, self) :- schema_VariableDO(self, _, _, _, _, _, result).
+get_field_PropertiesComment_element_oid(result, self) :- result = self.
+get_field_PropertiesComment_text(result, self) :- schema_PropertiesComment(self, _, _, result, _, _).
+get_field_PropertiesComment_parent_oid(result, self) :- schema_PropertiesComment(self, _, _, _, result, _).
+get_field_PropertiesComment_location_oid(result, self) :- schema_PropertiesComment(self, _, _, _, _, result).
+get_field_ContainerParentDO_child_oid(result, self) :- result = self.
+get_field_ContainerParentDO_parent_oid(result, self) :- schema_ContainerParentDO(self, _, _, result).
+

@@ -1,0 +1,919 @@
+.functor get_field_by_index(self: number, total: number, index: number): number stateful
+.functor datalog_lang_builtin_string_getMatchResult(self: symbol, pattern: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_to_upper(self: symbol): symbol
+.functor datalog_lang_builtin_string_to_lower(self: symbol): symbol
+.functor datalog_lang_builtin_string_replace_once(self: symbol, pattern: symbol, replacement: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_replace_all(self: symbol, pattern: symbol, replacement: symbol): symbol
+
+.type DBIndex = [type_id: number, load_path: number]
+.type int = number
+.type string = symbol
+.type microscope__javascript__JavascriptDB = DBIndex
+.type microscope__javascript__Node = int
+.type microscope__javascript__Symbol = int
+.type microscope__javascript__MayInvokeExpression = int
+.type microscope__javascript__Location = int
+.type microscope__javascript__NodeDO = int
+.type microscope__javascript__File = int
+.type microscope__javascript__Expression = int
+.type microscope__javascript__SymbolDO = int
+.type microscope__javascript__NodeSymbolDO = int
+.type microscope__javascript__FileDO = int
+.type microscope__javascript__FunctionLikeDeclaration = int
+.type microscope__javascript__FunctionEnclosingNodeDO = int
+.type microscope__javascript__CallSiteDO = int
+.type microscope__javascript__FunctionLike = int
+.type microscope__javascript__TopLevelDO = int
+.type microscope__javascript__LocationDO = int
+.type microscope__javascript__CallSite = int
+
+.decl schema_microscope__javascript__Node(result: microscope__javascript__Node, db_id: DBIndex, id: int)
+.decl schema_microscope__javascript__Symbol(result: microscope__javascript__Symbol, db_id: DBIndex, oid: int, name: string, description: string)
+.decl schema_microscope__javascript__MayInvokeExpression(result: microscope__javascript__MayInvokeExpression, db_id: DBIndex, id: int)
+.decl schema_microscope__javascript__Location(result: microscope__javascript__Location, db_id: DBIndex, oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, text: string)
+.decl schema_microscope__javascript__NodeDO(result: microscope__javascript__NodeDO, db_id: DBIndex, oid: int, kind: int, parent_oid: int, index: int, location_oid: int)
+.decl schema_microscope__javascript__File(result: microscope__javascript__File, db_id: DBIndex, oid: int, name: string, extension: string, relative_path: string, location_oid: int)
+.decl schema_microscope__javascript__Expression(result: microscope__javascript__Expression, db_id: DBIndex, id: int)
+.decl schema_microscope__javascript__SymbolDO(result: microscope__javascript__SymbolDO, db_id: DBIndex, oid: int, name: string, description: string)
+.decl schema_microscope__javascript__NodeSymbolDO(result: microscope__javascript__NodeSymbolDO, db_id: DBIndex, node_oid: int, symbol_oid: int)
+.decl schema_microscope__javascript__FileDO(result: microscope__javascript__FileDO, db_id: DBIndex, oid: int, name: string, extension: string, relative_path: string, location_oid: int)
+.decl schema_microscope__javascript__FunctionLikeDeclaration(result: microscope__javascript__FunctionLikeDeclaration, db_id: DBIndex, id: int)
+.decl schema_microscope__javascript__FunctionEnclosingNodeDO(result: microscope__javascript__FunctionEnclosingNodeDO, db_id: DBIndex, node_oid: int, function_oid: int)
+.decl schema_microscope__javascript__CallSiteDO(result: microscope__javascript__CallSiteDO, db_id: DBIndex, invoke_expression_oid: int, callee_oid: int)
+.decl schema_microscope__javascript__FunctionLike(result: microscope__javascript__FunctionLike, db_id: DBIndex, id: int)
+.decl schema_microscope__javascript__TopLevelDO(result: microscope__javascript__TopLevelDO, db_id: DBIndex, oid: int, kind: int, location_oid: int)
+.decl schema_microscope__javascript__LocationDO(result: microscope__javascript__LocationDO, db_id: DBIndex, oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, text: string)
+.decl schema_microscope__javascript__CallSite(result: microscope__javascript__CallSite, db_id: DBIndex, invoke_expression_oid: int, callee_oid: int)
+
+.decl all_data_DBIndex(db_id: DBIndex)
+.decl rule_microscope__javascript__Node__getSymbol(result: microscope__javascript__Symbol, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node__getParent(result: microscope__javascript__Node, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node__getKind(result: int, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node____all__(result: microscope__javascript__Node, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__Node__getLocation(result: microscope__javascript__Location, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node__getEnclosingFunction(result: microscope__javascript__FunctionLikeDeclaration, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node__getParentOid(result: int, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Symbol__getDescription(result: string, self: microscope__javascript__Symbol) inline
+.decl rule_microscope__javascript__Symbol____all__(result: microscope__javascript__Symbol, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__MayInvokeExpression__getEnclosingFunction(result: microscope__javascript__FunctionLikeDeclaration, self: microscope__javascript__MayInvokeExpression) inline
+.decl rule_microscope__javascript__MayInvokeExpression__getCallee(result: microscope__javascript__FunctionLikeDeclaration, self: microscope__javascript__MayInvokeExpression)
+.decl rule_microscope__javascript__MayInvokeExpression____all__(result: microscope__javascript__MayInvokeExpression, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__Location__getFileOid(result: int, self: microscope__javascript__Location) inline
+.decl rule_microscope__javascript__Location__getStartLineNumber(result: int, self: microscope__javascript__Location) inline
+.decl rule_microscope__javascript__Location__getFile(result: microscope__javascript__File, self: microscope__javascript__Location)
+.decl rule_microscope__javascript__Location__getRelativePath(result: string, self: microscope__javascript__Location)
+.decl rule_microscope__javascript__Location__getEndLineNumber(result: int, self: microscope__javascript__Location) inline
+.decl rule_microscope__javascript__Location____all__(result: microscope__javascript__Location, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__NodeDO__getLocationOid(result: int, self: microscope__javascript__NodeDO)
+.decl rule_microscope__javascript__NodeDO__getParentOid(result: int, self: microscope__javascript__NodeDO)
+.decl rule_microscope__javascript__NodeDO__getKind(result: int, self: microscope__javascript__NodeDO)
+.decl rule_microscope__javascript__NodeDO____all__(result: microscope__javascript__NodeDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__File__getRelativePath(result: string, self: microscope__javascript__File) inline
+.decl rule_microscope__javascript__File____all__(result: microscope__javascript__File, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__Expression__getEnclosingFunction(result: microscope__javascript__FunctionLikeDeclaration, self: microscope__javascript__Expression) inline
+.decl rule_microscope__javascript__Expression____all__(result: microscope__javascript__Expression, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__SymbolDO__getDescription(result: string, self: microscope__javascript__SymbolDO)
+.decl rule_microscope__javascript__SymbolDO____all__(result: microscope__javascript__SymbolDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__NodeSymbolDO__getSymbolOid(result: int, self: microscope__javascript__NodeSymbolDO)
+.decl rule_microscope__javascript__NodeSymbolDO____all__(result: microscope__javascript__NodeSymbolDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__FileDO__getRelativePath(result: string, self: microscope__javascript__FileDO)
+.decl rule_microscope__javascript__FileDO____all__(result: microscope__javascript__FileDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__FunctionLikeDeclaration__getLocation(result: microscope__javascript__Location, self: microscope__javascript__FunctionLikeDeclaration) inline
+.decl rule_microscope__javascript__FunctionLikeDeclaration__getSymbol(result: microscope__javascript__Symbol, self: microscope__javascript__FunctionLikeDeclaration) inline
+.decl rule_microscope__javascript__FunctionLikeDeclaration__getACallSite(result: microscope__javascript__MayInvokeExpression, self: microscope__javascript__FunctionLikeDeclaration)
+.decl rule_microscope__javascript__FunctionLikeDeclaration____all__(result: microscope__javascript__FunctionLikeDeclaration, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__FunctionEnclosingNodeDO__getFunctionOid(result: int, self: microscope__javascript__FunctionEnclosingNodeDO)
+.decl rule_microscope__javascript__FunctionEnclosingNodeDO____all__(result: microscope__javascript__FunctionEnclosingNodeDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__CallSiteDO__getCalleeOid(result: int, self: microscope__javascript__CallSiteDO)
+.decl rule_microscope__javascript__CallSiteDO____all__(result: microscope__javascript__CallSiteDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__FunctionLike__getSymbol(result: microscope__javascript__Symbol, self: microscope__javascript__FunctionLike) inline
+.decl rule_microscope__javascript__FunctionLike__getLocation(result: microscope__javascript__Location, self: microscope__javascript__FunctionLike) inline
+.decl rule_microscope__javascript__FunctionLike____all__(result: microscope__javascript__FunctionLike, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__TopLevelDO__getLocationOid(result: int, self: microscope__javascript__TopLevelDO)
+.decl rule_microscope__javascript__TopLevelDO____all__(result: microscope__javascript__TopLevelDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__LocationDO____all__(result: microscope__javascript__LocationDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__LocationDO__getEndLineNumber(result: int, self: microscope__javascript__LocationDO)
+.decl rule_microscope__javascript__LocationDO__getStartLineNumber(result: int, self: microscope__javascript__LocationDO)
+.decl rule_microscope__javascript__LocationDO__getFileOid(result: int, self: microscope__javascript__LocationDO)
+.decl rule_microscope__javascript__CallSite__getCalleeOid(result: int, self: microscope__javascript__CallSite) inline
+.decl rule_microscope__javascript__CallSite__getCallee(result: microscope__javascript__FunctionLikeDeclaration, self: microscope__javascript__CallSite)
+.decl rule_microscope__javascript__CallSite____all__(result: microscope__javascript__CallSite, db: microscope__javascript__JavascriptDB) inline
+.decl typecheck_microscope__javascript__Node(self: microscope__javascript__Node) inline
+.decl typecheck_microscope__javascript__Symbol(self: microscope__javascript__Symbol) inline
+.decl typecheck_microscope__javascript__Location(self: microscope__javascript__Location) inline
+.decl typecheck_microscope__javascript__FunctionLikeDeclaration(self: microscope__javascript__FunctionLikeDeclaration) inline
+.decl get_field_microscope__javascript__Node_id(result: int, self: microscope__javascript__Node) inline
+.decl get_field_microscope__javascript__Symbol_oid(result: int, self: microscope__javascript__Symbol) inline
+.decl get_field_microscope__javascript__Location_oid(result: int, self: microscope__javascript__Location) inline
+.decl get_field_microscope__javascript__NodeDO_oid(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__NodeDO_kind(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__NodeDO_parent_oid(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__NodeDO_location_oid(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__File_oid(result: int, self: microscope__javascript__File) inline
+.decl get_field_microscope__javascript__Expression_id(result: int, self: microscope__javascript__Expression) inline
+.decl get_field_microscope__javascript__SymbolDO_oid(result: int, self: microscope__javascript__SymbolDO) inline
+.decl get_field_microscope__javascript__SymbolDO_name(result: string, self: microscope__javascript__SymbolDO) inline
+.decl get_field_microscope__javascript__SymbolDO_description(result: string, self: microscope__javascript__SymbolDO) inline
+.decl get_field_microscope__javascript__NodeSymbolDO_symbol_oid(result: int, self: microscope__javascript__NodeSymbolDO) inline
+.decl get_field_microscope__javascript__FileDO_oid(result: int, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_name(result: string, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_extension(result: string, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_relative_path(result: string, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_location_oid(result: int, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FunctionLikeDeclaration_id(result: int, self: microscope__javascript__FunctionLikeDeclaration) inline
+.decl get_field_microscope__javascript__FunctionEnclosingNodeDO_function_oid(result: int, self: microscope__javascript__FunctionEnclosingNodeDO) inline
+.decl get_field_microscope__javascript__CallSiteDO_invoke_expression_oid(result: int, self: microscope__javascript__CallSiteDO) inline
+.decl get_field_microscope__javascript__CallSiteDO_callee_oid(result: int, self: microscope__javascript__CallSiteDO) inline
+.decl get_field_microscope__javascript__FunctionLike_id(result: int, self: microscope__javascript__FunctionLike) inline
+.decl get_field_microscope__javascript__TopLevelDO_oid(result: int, self: microscope__javascript__TopLevelDO) inline
+.decl get_field_microscope__javascript__TopLevelDO_location_oid(result: int, self: microscope__javascript__TopLevelDO) inline
+.decl get_field_microscope__javascript__LocationDO_oid(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_file_oid(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_start_line_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_start_column_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_end_line_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_end_column_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_text(result: string, self: microscope__javascript__LocationDO) inline
+.decl rule_microscope__javascript__isJsxExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxClosingFragment(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxOpeningFragment(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxClosingElement(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxOpeningElement(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxElement(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isBigIntLiteral(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isImportKeyword(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isClassExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isDeleteExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isPrimaryExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isCallLikeExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isDecorator(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isAccessExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isPartiallyEmittedExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxAttributes(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isNullLiteral(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isNewExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isUnaryExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isUpdateExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isSpreadElement(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isLeftHandSideExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isMemberExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isThisExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isArrayLiteralExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isBooleanLiteral(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isOmittedExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isBinaryExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isTaggedTemplateExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isNoSubstitutionTemplateLiteral(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isAsExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isPrefixUnaryExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isTypeOfExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isArrowFunction(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isParenthesizedExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isFunctionExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isElementAccessExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isObjectLiteralExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isPropertyAccessExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isYieldExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isCommaListExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isTrueKeyword(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isThisKeyword(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isSyntheticReferenceExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isStringLiteral(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isImportExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isLiteralExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isFunctionTypeOrSignatureKind(kind: int)
+.decl rule_microscope__javascript__isAwaitExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isSuperKeyword(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isFunctionLikeKind(kind: int)
+.decl rule_microscope__javascript__isPrivateIdentifier(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isNumericLiteral(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isNullKeyword(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isRegularExpressionLiteral(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxSelfClosingElement(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isSuperExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isVoidExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isFunctionLike(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isTemplateExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isTypeAssertionExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isSyntheticExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isFunctionLikeDeclarationKind(kind: int)
+.decl rule_microscope__javascript__isFalseKeyword(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isMetaProperty(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isPostfixUnaryExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isFunctionLikeDeclaration(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isConditionalExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isNonNullExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isIdentifier(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isCallExpression(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isJsxFragment(node: microscope__javascript__Node)
+.decl rule_microscope__javascript__isMayInvokeExpression(node: microscope__javascript__Node)
+.decl rule_out(function: microscope__javascript__FunctionLikeDeclaration, signature: string, functionPath: string, startLine: int, endLine: int, effectedFunction: microscope__javascript__FunctionLikeDeclaration, effectedSignature: string, effectedFunctionPath: string, effectedStartLine: int, effectedEndLine: int)
+.decl rule_getAnEffectedFunction(function: microscope__javascript__FunctionLikeDeclaration, effectedFunction: microscope__javascript__FunctionLikeDeclaration)
+.decl rule_getACallerFunction(function: microscope__javascript__FunctionLikeDeclaration, callerFunction: microscope__javascript__FunctionLikeDeclaration)
+.decl rule_default_db(result: microscope__javascript__JavascriptDB)
+
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__TopLevelDO_0(oid: int, kind: int, location_oid: int)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__NodeSymbolDO_0(node_oid: int, symbol_oid: int)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__SymbolDO_0(oid: int, name: string, description: string)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__NodeDO_0(oid: int, kind: int, parent_oid: int, index: int, location_oid: int)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__FunctionEnclosingNodeDO_0(node_oid: int, function_oid: int)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__LocationDO_0(oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, text: string)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__CallSiteDO_0(invoke_expression_oid: int, callee_oid: int)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__FileDO_0(oid: int, name: string, extension: string, relative_path: string, location_oid: int)
+
+rule_microscope__javascript__Symbol__getDescription(result, self) :- rule_microscope__javascript__SymbolDO__getDescription(result, self).
+rule_microscope__javascript__MayInvokeExpression__getEnclosingFunction(result, self) :- rule_microscope__javascript__Expression__getEnclosingFunction(result, self).
+rule_microscope__javascript__Location__getFileOid(result, self) :- rule_microscope__javascript__LocationDO__getFileOid(result, self).
+rule_microscope__javascript__Location__getStartLineNumber(result, self) :- rule_microscope__javascript__LocationDO__getStartLineNumber(result, self).
+rule_microscope__javascript__Location__getEndLineNumber(result, self) :- rule_microscope__javascript__LocationDO__getEndLineNumber(result, self).
+rule_microscope__javascript__File__getRelativePath(result, self) :- rule_microscope__javascript__FileDO__getRelativePath(result, self).
+rule_microscope__javascript__Expression__getEnclosingFunction(result, self) :- rule_microscope__javascript__Node__getEnclosingFunction(result, self).
+rule_microscope__javascript__FunctionLikeDeclaration__getLocation(result, self) :- rule_microscope__javascript__FunctionLike__getLocation(result, self).
+rule_microscope__javascript__FunctionLikeDeclaration__getSymbol(result, self) :- rule_microscope__javascript__FunctionLike__getSymbol(result, self).
+rule_microscope__javascript__FunctionLike__getSymbol(result, self) :- rule_microscope__javascript__Node__getSymbol(result, self).
+rule_microscope__javascript__FunctionLike__getLocation(result, self) :- rule_microscope__javascript__Node__getLocation(result, self).
+rule_microscope__javascript__CallSite__getCalleeOid(result, self) :- rule_microscope__javascript__CallSiteDO__getCalleeOid(result, self).
+typecheck_microscope__javascript__Node(self) :- schema_microscope__javascript__Node(self, _, _).
+typecheck_microscope__javascript__Symbol(self) :- schema_microscope__javascript__Symbol(self, _, _, _, _).
+typecheck_microscope__javascript__Location(self) :- schema_microscope__javascript__Location(self, _, _, _, _, _, _, _, _).
+typecheck_microscope__javascript__FunctionLikeDeclaration(self) :- schema_microscope__javascript__FunctionLikeDeclaration(self, _, _).
+rule_microscope__javascript__LocationDO____all__(result, db) :- schema_microscope__javascript__LocationDO(result, db, _, _, _, _, _, _, _).
+rule_microscope__javascript__LocationDO__getFileOid(result, self) :- get_field_microscope__javascript__LocationDO_file_oid(result, self).
+rule_microscope__javascript__LocationDO__getStartLineNumber(result, self) :- get_field_microscope__javascript__LocationDO_start_line_number(result, self).
+rule_microscope__javascript__LocationDO__getEndLineNumber(result, self) :- get_field_microscope__javascript__LocationDO_end_line_number(result, self).
+rule_microscope__javascript__FileDO____all__(result, db) :- schema_microscope__javascript__FileDO(result, db, _, _, _, _, _).
+rule_microscope__javascript__FileDO__getRelativePath(result, self) :- get_field_microscope__javascript__FileDO_relative_path(result, self).
+rule_microscope__javascript__TopLevelDO____all__(result, db) :- schema_microscope__javascript__TopLevelDO(result, db, _, _, _).
+rule_microscope__javascript__TopLevelDO__getLocationOid(result, self) :- get_field_microscope__javascript__TopLevelDO_location_oid(result, self).
+rule_microscope__javascript__NodeDO____all__(result, db) :- schema_microscope__javascript__NodeDO(result, db, _, _, _, _, _).
+rule_microscope__javascript__NodeDO__getKind(result, self) :- get_field_microscope__javascript__NodeDO_kind(result, self).
+rule_microscope__javascript__NodeDO__getParentOid(result, self) :- get_field_microscope__javascript__NodeDO_parent_oid(result, self).
+rule_microscope__javascript__NodeDO__getLocationOid(result, self) :- get_field_microscope__javascript__NodeDO_location_oid(result, self).
+rule_microscope__javascript__FunctionEnclosingNodeDO____all__(result, db) :- schema_microscope__javascript__FunctionEnclosingNodeDO(result, db, _, _).
+rule_microscope__javascript__FunctionEnclosingNodeDO__getFunctionOid(result, self) :- get_field_microscope__javascript__FunctionEnclosingNodeDO_function_oid(result, self).
+rule_microscope__javascript__SymbolDO____all__(result, db) :- schema_microscope__javascript__SymbolDO(result, db, _, _, _).
+rule_microscope__javascript__SymbolDO__getDescription(result, self) :- get_field_microscope__javascript__SymbolDO_description(result, self).
+rule_microscope__javascript__NodeSymbolDO____all__(result, db) :- schema_microscope__javascript__NodeSymbolDO(result, db, _, _).
+rule_microscope__javascript__NodeSymbolDO__getSymbolOid(result, self) :- get_field_microscope__javascript__NodeSymbolDO_symbol_oid(result, self).
+rule_microscope__javascript__CallSiteDO____all__(result, db) :- schema_microscope__javascript__CallSiteDO(result, db, _, _).
+rule_microscope__javascript__CallSiteDO__getCalleeOid(result, self) :- get_field_microscope__javascript__CallSiteDO_callee_oid(result, self).
+schema_microscope__javascript__File(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_name_string, field_0x6669656c64_extension_string, field_0x6669656c64_relative_path_string, field_0x6669656c64_location_oid_int) :- (
+  get_field_microscope__javascript__FileDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_microscope__javascript__FileDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__javascript__FileDO_extension(field_0x6669656c64_extension_string, tmp),
+  get_field_microscope__javascript__FileDO_relative_path(field_0x6669656c64_relative_path_string, tmp),
+  get_field_microscope__javascript__FileDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  result = field_0x6669656c64_oid_int,
+  rule_microscope__javascript__FileDO____all__(tmp, db)
+).
+rule_microscope__javascript__File____all__(result, db) :- schema_microscope__javascript__File(result, db, _, _, _, _, _).
+schema_microscope__javascript__FunctionLike(result, db, field_0x6669656c64_id_int) :- (
+  rule_microscope__javascript__isFunctionLike(tmp),
+  get_field_microscope__javascript__Node_id(field_0x6669656c64_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__javascript__Node____all__(tmp, db)
+).
+rule_microscope__javascript__FunctionLike____all__(result, db) :- schema_microscope__javascript__FunctionLike(result, db, _).
+schema_microscope__javascript__CallSite(result, db, field_0x6669656c64_invoke_expression_oid_int, field_0x6669656c64_callee_oid_int) :- (
+  get_field_microscope__javascript__CallSiteDO_invoke_expression_oid(field_0x6669656c64_invoke_expression_oid_int, tmp),
+  get_field_microscope__javascript__CallSiteDO_callee_oid(field_0x6669656c64_callee_oid_int, tmp),
+  result = field_0x6669656c64_invoke_expression_oid_int,
+  rule_microscope__javascript__CallSiteDO____all__(tmp, db)
+).
+rule_microscope__javascript__CallSite____all__(result, db) :- schema_microscope__javascript__CallSite(result, db, _, _).
+rule_microscope__javascript__CallSite__getCallee(result, self) :- (
+  get_field_microscope__javascript__FunctionLikeDeclaration_id(ssa_temp_0, callee),
+  rule_microscope__javascript__CallSite__getCalleeOid(ssa_temp_0, self),
+  result = callee,
+  rule_microscope__javascript__FunctionLikeDeclaration____all__(callee, _)
+).
+schema_microscope__javascript__FunctionLikeDeclaration(result, db, field_0x6669656c64_id_int) :- (
+  get_field_microscope__javascript__FunctionLike_id(ssa_temp_0, tmp),
+  schema_microscope__javascript__Node(ssa_temp_1, _, ssa_temp_0),
+  rule_microscope__javascript__isFunctionLikeDeclaration(ssa_temp_1),
+  get_field_microscope__javascript__FunctionLike_id(field_0x6669656c64_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__javascript__FunctionLike____all__(tmp, db)
+).
+rule_microscope__javascript__FunctionLikeDeclaration____all__(result, db) :- schema_microscope__javascript__FunctionLikeDeclaration(result, db, _).
+rule_microscope__javascript__FunctionLikeDeclaration__getACallSite(result, self) :- (
+  rule_microscope__javascript__MayInvokeExpression__getCallee(self, callSite),
+  result = callSite,
+  rule_microscope__javascript__MayInvokeExpression____all__(callSite, _)
+).
+rule_microscope__javascript__isFunctionLikeDeclaration(node) :- (
+  rule_microscope__javascript__Node__getKind(kind, node),
+  rule_microscope__javascript__isFunctionLikeDeclarationKind(kind),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isFunctionLikeKind(kind) :- (
+  rule_microscope__javascript__isFunctionLikeDeclarationKind(kind);
+  rule_microscope__javascript__isFunctionTypeOrSignatureKind(kind)
+).
+rule_microscope__javascript__isFunctionLike(node) :- (
+  rule_microscope__javascript__Node__getKind(kind, node),
+  rule_microscope__javascript__isFunctionLikeKind(kind),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isFunctionTypeOrSignatureKind(kind) :- (
+  (kind = 167);
+  (kind = 173);
+  (kind = 174);
+  (kind = 175);
+  (kind = 178);
+  (kind = 179);
+  (kind = 315);
+  (kind = 321)
+).
+rule_microscope__javascript__isFunctionLikeDeclarationKind(kind) :- (
+  (kind = 168);
+  (kind = 170);
+  (kind = 171);
+  (kind = 172);
+  (kind = 212);
+  (kind = 213);
+  (kind = 255)
+).
+rule_microscope__javascript__isNumericLiteral(node) :- (
+  rule_microscope__javascript__Node__getKind(8, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isBigIntLiteral(node) :- (
+  rule_microscope__javascript__Node__getKind(9, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isStringLiteral(node) :- (
+  rule_microscope__javascript__Node__getKind(10, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isRegularExpressionLiteral(node) :- (
+  rule_microscope__javascript__Node__getKind(13, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isNoSubstitutionTemplateLiteral(node) :- (
+  rule_microscope__javascript__Node__getKind(14, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isIdentifier(node) :- (
+  rule_microscope__javascript__Node__getKind(79, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isPrivateIdentifier(node) :- (
+  rule_microscope__javascript__Node__getKind(80, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isFalseKeyword(node) :- (
+  rule_microscope__javascript__Node__getKind(95, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isImportKeyword(node) :- (
+  rule_microscope__javascript__Node__getKind(100, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isNullKeyword(node) :- (
+  rule_microscope__javascript__Node__getKind(104, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isSuperKeyword(node) :- (
+  rule_microscope__javascript__Node__getKind(106, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isThisKeyword(node) :- (
+  rule_microscope__javascript__Node__getKind(108, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isTrueKeyword(node) :- (
+  rule_microscope__javascript__Node__getKind(110, node),
+  typecheck_microscope__javascript__Node(node)
+).
+schema_microscope__javascript__Expression(result, db, field_0x6669656c64_id_int) :- (
+  rule_microscope__javascript__isExpression(tmp),
+  get_field_microscope__javascript__Node_id(field_0x6669656c64_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__javascript__Node____all__(tmp, db)
+).
+rule_microscope__javascript__Expression____all__(result, db) :- schema_microscope__javascript__Expression(result, db, _).
+schema_microscope__javascript__MayInvokeExpression(result, db, field_0x6669656c64_id_int) :- (
+  get_field_microscope__javascript__Expression_id(ssa_temp_0, tmp),
+  schema_microscope__javascript__Node(ssa_temp_1, _, ssa_temp_0),
+  rule_microscope__javascript__isMayInvokeExpression(ssa_temp_1),
+  get_field_microscope__javascript__Expression_id(field_0x6669656c64_id_int, tmp),
+  result = field_0x6669656c64_id_int,
+  rule_microscope__javascript__Expression____all__(tmp, db)
+).
+rule_microscope__javascript__MayInvokeExpression____all__(result, db) :- schema_microscope__javascript__MayInvokeExpression(result, db, _).
+rule_microscope__javascript__MayInvokeExpression__getCallee(result, self) :- (
+  self = callSite,
+  rule_microscope__javascript__CallSite__getCallee(callee, callSite),
+  result = callee,
+  typecheck_microscope__javascript__FunctionLikeDeclaration(callee),
+  rule_microscope__javascript__CallSite____all__(callSite, _)
+).
+rule_microscope__javascript__isArrayLiteralExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(203, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isObjectLiteralExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(204, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isPropertyAccessExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(205, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isElementAccessExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(206, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isCallExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(207, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isNewExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(208, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isTaggedTemplateExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(209, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isTypeAssertionExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(210, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isParenthesizedExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(211, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isFunctionExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(212, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isArrowFunction(node) :- (
+  rule_microscope__javascript__Node__getKind(213, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isDeleteExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(214, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isTypeOfExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(215, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isVoidExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(216, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isAwaitExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(217, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isPrefixUnaryExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(218, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isPostfixUnaryExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(219, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isBinaryExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(220, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isConditionalExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(221, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isTemplateExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(222, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isYieldExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(223, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isSpreadElement(node) :- (
+  rule_microscope__javascript__Node__getKind(224, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isClassExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(225, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isOmittedExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(226, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isAsExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(228, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isNonNullExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(229, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isMetaProperty(node) :- (
+  rule_microscope__javascript__Node__getKind(230, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isSyntheticExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(231, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isPartiallyEmittedExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(348, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isCommaListExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(349, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isSyntheticReferenceExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(352, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isNullLiteral(node) :- (
+  rule_microscope__javascript__isNullKeyword(node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isBooleanLiteral(node) :- (
+  (
+    rule_microscope__javascript__isTrueKeyword(node);
+    rule_microscope__javascript__isFalseKeyword(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isLiteralExpression(node) :- (
+  (
+    rule_microscope__javascript__isNumericLiteral(node);
+    rule_microscope__javascript__isBigIntLiteral(node);
+    rule_microscope__javascript__isStringLiteral(node);
+    rule_microscope__javascript__isRegularExpressionLiteral(node);
+    rule_microscope__javascript__isNoSubstitutionTemplateLiteral(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isThisExpression(node) :- (
+  rule_microscope__javascript__isThisKeyword(node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isSuperExpression(node) :- (
+  rule_microscope__javascript__isSuperKeyword(node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isImportExpression(node) :- (
+  rule_microscope__javascript__isImportKeyword(node),
+  rule_microscope__javascript__Node__getParent(parent, node),
+  rule_microscope__javascript__isCallExpression(parent),
+  typecheck_microscope__javascript__Node(parent),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isPrimaryExpression(node) :- (
+  (
+    rule_microscope__javascript__isLiteralExpression(node);
+    rule_microscope__javascript__isNullLiteral(node);
+    rule_microscope__javascript__isBooleanLiteral(node);
+    rule_microscope__javascript__isIdentifier(node);
+    rule_microscope__javascript__isPrivateIdentifier(node);
+    rule_microscope__javascript__isThisExpression(node);
+    rule_microscope__javascript__isSuperExpression(node);
+    rule_microscope__javascript__isImportExpression(node);
+    rule_microscope__javascript__isArrayLiteralExpression(node);
+    rule_microscope__javascript__isObjectLiteralExpression(node);
+    rule_microscope__javascript__isJsxAttributes(node);
+    rule_microscope__javascript__isNewExpression(node);
+    rule_microscope__javascript__isParenthesizedExpression(node);
+    rule_microscope__javascript__isFunctionExpression(node);
+    rule_microscope__javascript__isTemplateExpression(node);
+    rule_microscope__javascript__isClassExpression(node);
+    rule_microscope__javascript__isMetaProperty(node);
+    rule_microscope__javascript__isJsxElement(node);
+    rule_microscope__javascript__isJsxSelfClosingElement(node);
+    rule_microscope__javascript__isJsxFragment(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isMemberExpression(node) :- (
+  (
+    rule_microscope__javascript__isPrimaryExpression(node);
+    rule_microscope__javascript__isPropertyAccessExpression(node);
+    rule_microscope__javascript__isElementAccessExpression(node);
+    rule_microscope__javascript__isTaggedTemplateExpression(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isLeftHandSideExpression(node) :- (
+  (
+    rule_microscope__javascript__isMemberExpression(node);
+    rule_microscope__javascript__isPartiallyEmittedExpression(node);
+    rule_microscope__javascript__isCallExpression(node);
+    rule_microscope__javascript__isNonNullExpression(node);
+    rule_microscope__javascript__isSyntheticReferenceExpression(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isUpdateExpression(node) :- (
+  (
+    rule_microscope__javascript__isLeftHandSideExpression(node);
+    rule_microscope__javascript__isPrefixUnaryExpression(node);
+    rule_microscope__javascript__isPostfixUnaryExpression(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isUnaryExpression(node) :- (
+  (
+    rule_microscope__javascript__isUpdateExpression(node);
+    rule_microscope__javascript__isTypeAssertionExpression(node);
+    rule_microscope__javascript__isDeleteExpression(node);
+    rule_microscope__javascript__isTypeOfExpression(node);
+    rule_microscope__javascript__isVoidExpression(node);
+    rule_microscope__javascript__isAwaitExpression(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isExpression(node) :- (
+  (
+    rule_microscope__javascript__isUnaryExpression(node);
+    rule_microscope__javascript__isArrowFunction(node);
+    rule_microscope__javascript__isBinaryExpression(node);
+    rule_microscope__javascript__isConditionalExpression(node);
+    rule_microscope__javascript__isYieldExpression(node);
+    rule_microscope__javascript__isSpreadElement(node);
+    rule_microscope__javascript__isOmittedExpression(node);
+    rule_microscope__javascript__isAsExpression(node);
+    rule_microscope__javascript__isSyntheticExpression(node);
+    rule_microscope__javascript__isCommaListExpression(node);
+    rule_microscope__javascript__isJsxOpeningElement(node);
+    rule_microscope__javascript__isJsxClosingElement(node);
+    rule_microscope__javascript__isJsxOpeningFragment(node);
+    rule_microscope__javascript__isJsxClosingFragment(node);
+    rule_microscope__javascript__isJsxExpression(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isAccessExpression(node) :- (
+  (
+    rule_microscope__javascript__isPropertyAccessExpression(node);
+    rule_microscope__javascript__isElementAccessExpression(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isDecorator(node) :- (
+  rule_microscope__javascript__Node__getKind(164, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isCallLikeExpression(node) :- (
+  (
+    rule_microscope__javascript__isCallExpression(node);
+    rule_microscope__javascript__isNewExpression(node);
+    rule_microscope__javascript__isTaggedTemplateExpression(node);
+    rule_microscope__javascript__isDecorator(node);
+    rule_microscope__javascript__isJsxOpeningElement(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isMayInvokeExpression(node) :- (
+  (
+    rule_microscope__javascript__isCallLikeExpression(node);
+    rule_microscope__javascript__isAccessExpression(node)
+  ),
+  typecheck_microscope__javascript__Node(node)
+).
+schema_microscope__javascript__Symbol(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_name_string, field_0x6669656c64_description_string) :- (
+  get_field_microscope__javascript__SymbolDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_microscope__javascript__SymbolDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__javascript__SymbolDO_description(field_0x6669656c64_description_string, tmp),
+  result = field_0x6669656c64_oid_int,
+  rule_microscope__javascript__SymbolDO____all__(tmp, db)
+).
+rule_microscope__javascript__Symbol____all__(result, db) :- schema_microscope__javascript__Symbol(result, db, _, _, _).
+schema_microscope__javascript__Location(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_file_oid_int, field_0x6669656c64_start_line_number_int, field_0x6669656c64_start_column_number_int, field_0x6669656c64_end_line_number_int, field_0x6669656c64_end_column_number_int, field_0x6669656c64_text_string) :- (
+  get_field_microscope__javascript__LocationDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_microscope__javascript__LocationDO_file_oid(field_0x6669656c64_file_oid_int, tmp),
+  get_field_microscope__javascript__LocationDO_start_line_number(field_0x6669656c64_start_line_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_start_column_number(field_0x6669656c64_start_column_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_end_line_number(field_0x6669656c64_end_line_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_end_column_number(field_0x6669656c64_end_column_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_text(field_0x6669656c64_text_string, tmp),
+  result = field_0x6669656c64_oid_int,
+  rule_microscope__javascript__LocationDO____all__(tmp, db)
+).
+rule_microscope__javascript__Location____all__(result, db) :- schema_microscope__javascript__Location(result, db, _, _, _, _, _, _, _).
+rule_microscope__javascript__Location__getFile(result, self) :- (
+  get_field_microscope__javascript__File_oid(ssa_temp_0, file),
+  rule_microscope__javascript__Location__getFileOid(ssa_temp_0, self),
+  result = file,
+  rule_microscope__javascript__File____all__(file, _)
+).
+rule_microscope__javascript__Location__getRelativePath(result, self) :- (
+  rule_microscope__javascript__Location__getFile(ssa_temp_0, self),
+  rule_microscope__javascript__File__getRelativePath(result, ssa_temp_0)
+).
+schema_microscope__javascript__Node(result, db, field_0x6669656c64_id_int) :- (
+  (
+    get_field_microscope__javascript__NodeDO_oid(field_0x6669656c64_id_int, nodeDO),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__javascript__NodeDO____all__(nodeDO, db)
+  );
+  (
+    get_field_microscope__javascript__TopLevelDO_oid(field_0x6669656c64_id_int, topLevelDO),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__javascript__TopLevelDO____all__(topLevelDO, db)
+  )
+).
+rule_microscope__javascript__Node____all__(result, db) :- schema_microscope__javascript__Node(result, db, _).
+rule_microscope__javascript__Node__getKind(result, self) :- (
+  (
+    nodeDO = self,
+    rule_microscope__javascript__NodeDO__getKind(result, nodeDO),
+    rule_microscope__javascript__NodeDO____all__(nodeDO, _)
+  );
+  (
+    topLevelDO = self,
+    result = 303,
+    rule_microscope__javascript__TopLevelDO____all__(topLevelDO, _)
+  )
+).
+rule_microscope__javascript__Node__getParentOid(result, self) :- (
+  nodeDO = self,
+  rule_microscope__javascript__NodeDO__getParentOid(result, nodeDO),
+  rule_microscope__javascript__NodeDO____all__(nodeDO, _)
+).
+rule_microscope__javascript__Node__getParent(result, self) :- (
+  rule_microscope__javascript__Node__getParentOid(ssa_temp_0, self),
+  schema_microscope__javascript__Node(parent, _, ssa_temp_0),
+  result = parent,
+  typecheck_microscope__javascript__Node(parent)
+).
+rule_microscope__javascript__Node__getLocation(result, self) :- (
+  (
+    nodeDO = self,
+    get_field_microscope__javascript__Location_oid(ssa_temp_0, location),
+    rule_microscope__javascript__NodeDO__getLocationOid(ssa_temp_0, nodeDO),
+    result = location,
+    rule_microscope__javascript__Location____all__(location, _),
+    rule_microscope__javascript__NodeDO____all__(nodeDO, _)
+  );
+  (
+    topLevelDO = self,
+    get_field_microscope__javascript__Location_oid(ssa_temp_5, location),
+    rule_microscope__javascript__TopLevelDO__getLocationOid(ssa_temp_5, topLevelDO),
+    result = location,
+    rule_microscope__javascript__Location____all__(location, _),
+    rule_microscope__javascript__TopLevelDO____all__(topLevelDO, _)
+  )
+).
+rule_microscope__javascript__Node__getEnclosingFunction(result, self) :- (
+  rule_microscope__javascript__FunctionEnclosingNodeDO__getFunctionOid(ssa_temp_0, functionEnclosingNode),
+  get_field_microscope__javascript__FunctionLikeDeclaration_id(ssa_temp_0, function),
+  functionEnclosingNode = self,
+  result = function,
+  rule_microscope__javascript__FunctionLikeDeclaration____all__(function, _),
+  rule_microscope__javascript__FunctionEnclosingNodeDO____all__(functionEnclosingNode, _)
+).
+rule_microscope__javascript__Node__getSymbol(result, self) :- (
+  nodeSymbol = self,
+  get_field_microscope__javascript__Symbol_oid(ssa_temp_0, symbol),
+  rule_microscope__javascript__NodeSymbolDO__getSymbolOid(ssa_temp_0, nodeSymbol),
+  result = symbol,
+  rule_microscope__javascript__Symbol____all__(symbol, _),
+  rule_microscope__javascript__NodeSymbolDO____all__(nodeSymbol, _)
+).
+rule_microscope__javascript__isJsxElement(node) :- (
+  rule_microscope__javascript__Node__getKind(277, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxSelfClosingElement(node) :- (
+  rule_microscope__javascript__Node__getKind(278, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxOpeningElement(node) :- (
+  rule_microscope__javascript__Node__getKind(279, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxClosingElement(node) :- (
+  rule_microscope__javascript__Node__getKind(280, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxFragment(node) :- (
+  rule_microscope__javascript__Node__getKind(281, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxOpeningFragment(node) :- (
+  rule_microscope__javascript__Node__getKind(282, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxClosingFragment(node) :- (
+  rule_microscope__javascript__Node__getKind(283, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxAttributes(node) :- (
+  rule_microscope__javascript__Node__getKind(285, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_microscope__javascript__isJsxExpression(node) :- (
+  rule_microscope__javascript__Node__getKind(287, node),
+  typecheck_microscope__javascript__Node(node)
+).
+rule_default_db(result) :- result = [0, 0].
+rule_getACallerFunction(function, callerFunction) :- (
+  rule_microscope__javascript__FunctionLikeDeclaration__getACallSite(mayInvokeExpression, function),
+  rule_microscope__javascript__MayInvokeExpression__getEnclosingFunction(callerFunction, mayInvokeExpression),
+  rule_default_db(ssa_temp_4),
+  rule_microscope__javascript__MayInvokeExpression____all__(mayInvokeExpression, ssa_temp_4),
+  typecheck_microscope__javascript__FunctionLikeDeclaration(function),
+  typecheck_microscope__javascript__FunctionLikeDeclaration(callerFunction)
+).
+rule_getAnEffectedFunction(function, effectedFunction) :- (
+  (
+    rule_getACallerFunction(function, effectedFunction);
+    (
+      rule_getACallerFunction(function, callerFunction),
+      rule_getAnEffectedFunction(callerFunction, effectedFunction),
+      rule_default_db(ssa_temp_0),
+      rule_microscope__javascript__FunctionLikeDeclaration____all__(callerFunction, ssa_temp_0)
+    )
+  ),
+  typecheck_microscope__javascript__FunctionLikeDeclaration(function),
+  typecheck_microscope__javascript__FunctionLikeDeclaration(effectedFunction)
+).
+rule_out(function, signature, functionPath, startLine, endLine, effectedFunction, effectedSignature, effectedFunctionPath, effectedStartLine, effectedEndLine) :- (
+  rule_getAnEffectedFunction(function, effectedFunction),
+  rule_microscope__javascript__FunctionLikeDeclaration__getSymbol(symbol, function),
+  rule_microscope__javascript__FunctionLikeDeclaration__getSymbol(effectedSymbol, effectedFunction),
+  rule_microscope__javascript__FunctionLikeDeclaration__getLocation(location, function),
+  rule_microscope__javascript__FunctionLikeDeclaration__getLocation(effectedLocation, effectedFunction),
+  rule_microscope__javascript__Symbol__getDescription(signature, symbol),
+  rule_microscope__javascript__Symbol__getDescription(effectedSignature, effectedSymbol),
+  rule_microscope__javascript__Location__getRelativePath(functionPath, location),
+  rule_microscope__javascript__Location__getStartLineNumber(startLine, location),
+  rule_microscope__javascript__Location__getEndLineNumber(endLine, location),
+  rule_microscope__javascript__Location__getRelativePath(effectedFunctionPath, effectedLocation),
+  rule_microscope__javascript__Location__getStartLineNumber(effectedStartLine, effectedLocation),
+  rule_microscope__javascript__Location__getEndLineNumber(effectedEndLine, effectedLocation),
+  typecheck_microscope__javascript__Symbol(symbol),
+  typecheck_microscope__javascript__Symbol(effectedSymbol),
+  typecheck_microscope__javascript__Location(location),
+  typecheck_microscope__javascript__Location(effectedLocation),
+  typecheck_microscope__javascript__FunctionLikeDeclaration(function),
+  typecheck_microscope__javascript__FunctionLikeDeclaration(effectedFunction)
+).
+
+all_data_DBIndex([0, 0]).
+all_data_DBIndex([-1, -1]).
+
+schema_microscope__javascript__TopLevelDO(oid, [0, 0], oid, kind, location_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__TopLevelDO_0(oid, kind, location_oid).
+schema_microscope__javascript__NodeSymbolDO(node_oid, [0, 0], node_oid, symbol_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__NodeSymbolDO_0(node_oid, symbol_oid).
+schema_microscope__javascript__SymbolDO(oid, [0, 0], oid, name, description) :- input_microscope__javascript__JavascriptDB_microscope__javascript__SymbolDO_0(oid, name, description).
+schema_microscope__javascript__NodeDO(oid, [0, 0], oid, kind, parent_oid, index, location_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__NodeDO_0(oid, kind, parent_oid, index, location_oid).
+schema_microscope__javascript__FunctionEnclosingNodeDO(node_oid, [0, 0], node_oid, function_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__FunctionEnclosingNodeDO_0(node_oid, function_oid).
+schema_microscope__javascript__LocationDO(oid, [0, 0], oid, file_oid, start_line_number, start_column_number, end_line_number, end_column_number, text) :- input_microscope__javascript__JavascriptDB_microscope__javascript__LocationDO_0(oid, file_oid, start_line_number, start_column_number, end_line_number, end_column_number, text).
+schema_microscope__javascript__CallSiteDO(invoke_expression_oid, [0, 0], invoke_expression_oid, callee_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__CallSiteDO_0(invoke_expression_oid, callee_oid).
+schema_microscope__javascript__FileDO(oid, [0, 0], oid, name, extension, relative_path, location_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__FileDO_0(oid, name, extension, relative_path, location_oid).
+
+get_field_microscope__javascript__Node_id(result, self) :- result = self.
+get_field_microscope__javascript__Symbol_oid(result, self) :- result = self.
+get_field_microscope__javascript__Location_oid(result, self) :- result = self.
+get_field_microscope__javascript__NodeDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__NodeDO_kind(result, self) :- schema_microscope__javascript__NodeDO(self, _, _, result, _, _, _).
+get_field_microscope__javascript__NodeDO_parent_oid(result, self) :- schema_microscope__javascript__NodeDO(self, _, _, _, result, _, _).
+get_field_microscope__javascript__NodeDO_location_oid(result, self) :- schema_microscope__javascript__NodeDO(self, _, _, _, _, _, result).
+get_field_microscope__javascript__File_oid(result, self) :- result = self.
+get_field_microscope__javascript__Expression_id(result, self) :- result = self.
+get_field_microscope__javascript__SymbolDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__SymbolDO_name(result, self) :- schema_microscope__javascript__SymbolDO(self, _, _, result, _).
+get_field_microscope__javascript__SymbolDO_description(result, self) :- schema_microscope__javascript__SymbolDO(self, _, _, _, result).
+get_field_microscope__javascript__NodeSymbolDO_symbol_oid(result, self) :- schema_microscope__javascript__NodeSymbolDO(self, _, _, result).
+get_field_microscope__javascript__FileDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__FileDO_name(result, self) :- schema_microscope__javascript__FileDO(self, _, _, result, _, _, _).
+get_field_microscope__javascript__FileDO_extension(result, self) :- schema_microscope__javascript__FileDO(self, _, _, _, result, _, _).
+get_field_microscope__javascript__FileDO_relative_path(result, self) :- schema_microscope__javascript__FileDO(self, _, _, _, _, result, _).
+get_field_microscope__javascript__FileDO_location_oid(result, self) :- schema_microscope__javascript__FileDO(self, _, _, _, _, _, result).
+get_field_microscope__javascript__FunctionLikeDeclaration_id(result, self) :- result = self.
+get_field_microscope__javascript__FunctionEnclosingNodeDO_function_oid(result, self) :- schema_microscope__javascript__FunctionEnclosingNodeDO(self, _, _, result).
+get_field_microscope__javascript__CallSiteDO_invoke_expression_oid(result, self) :- result = self.
+get_field_microscope__javascript__CallSiteDO_callee_oid(result, self) :- schema_microscope__javascript__CallSiteDO(self, _, _, result).
+get_field_microscope__javascript__FunctionLike_id(result, self) :- result = self.
+get_field_microscope__javascript__TopLevelDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__TopLevelDO_location_oid(result, self) :- schema_microscope__javascript__TopLevelDO(self, _, _, _, result).
+get_field_microscope__javascript__LocationDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__LocationDO_file_oid(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, result, _, _, _, _, _).
+get_field_microscope__javascript__LocationDO_start_line_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, result, _, _, _, _).
+get_field_microscope__javascript__LocationDO_start_column_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, result, _, _, _).
+get_field_microscope__javascript__LocationDO_end_line_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, _, result, _, _).
+get_field_microscope__javascript__LocationDO_end_column_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, _, _, result, _).
+get_field_microscope__javascript__LocationDO_text(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, _, _, _, result).
+
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__TopLevelDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="top_level")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__NodeSymbolDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="node_symbol")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__SymbolDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="symbol_")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__NodeDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="node")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__FunctionEnclosingNodeDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="function_enclosing_node")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__LocationDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="location")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__CallSiteDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="call_site")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__FileDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="file")
+
+.output rule_out(IO="stdout")
+

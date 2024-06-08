@@ -1,0 +1,629 @@
+.functor get_field_by_index(self: number, total: number, index: number): number stateful
+.functor datalog_lang_builtin_string_getMatchResult(self: symbol, pattern: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_to_upper(self: symbol): symbol
+.functor datalog_lang_builtin_string_to_lower(self: symbol): symbol
+.functor datalog_lang_builtin_string_replace_once(self: symbol, pattern: symbol, replacement: symbol, index: number): symbol
+.functor datalog_lang_builtin_string_replace_all(self: symbol, pattern: symbol, replacement: symbol): symbol
+
+.type DBIndex = [type_id: number, load_path: number]
+.type int = number
+.type string = symbol
+.type microscope__javascript__JavascriptDB = DBIndex
+.type microscope__javascript__Node = int
+.type microscope__javascript__Location = int
+.type microscope__javascript__NodeDO = int
+.type microscope__javascript__SyntaxKind = int
+.type microscope__javascript__File = int
+.type microscope__javascript__FileDO = int
+.type microscope__javascript__TopLevelDO = int
+.type microscope__javascript__LocationDO = int
+
+.decl schema_microscope__javascript__Node(result: microscope__javascript__Node, db_id: DBIndex, id: int)
+.decl schema_microscope__javascript__Location(result: microscope__javascript__Location, db_id: DBIndex, oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, text: string)
+.decl schema_microscope__javascript__NodeDO(result: microscope__javascript__NodeDO, db_id: DBIndex, oid: int, kind: int, parent_oid: int, index: int, location_oid: int)
+.decl schema_microscope__javascript__SyntaxKind(result: microscope__javascript__SyntaxKind, db_id: DBIndex, id: int, name: string)
+.decl schema_microscope__javascript__File(result: microscope__javascript__File, db_id: DBIndex, oid: int, name: string, extension: string, relative_path: string, location_oid: int)
+.decl schema_microscope__javascript__FileDO(result: microscope__javascript__FileDO, db_id: DBIndex, oid: int, name: string, extension: string, relative_path: string, location_oid: int)
+.decl schema_microscope__javascript__TopLevelDO(result: microscope__javascript__TopLevelDO, db_id: DBIndex, oid: int, kind: int, location_oid: int)
+.decl schema_microscope__javascript__LocationDO(result: microscope__javascript__LocationDO, db_id: DBIndex, oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, text: string)
+
+.decl all_data_DBIndex(db_id: DBIndex)
+.decl rule_microscope__javascript__Node__getParent(result: microscope__javascript__Node, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node__getKind(result: int, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node____all__(result: microscope__javascript__Node, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__Node__getLocation(result: microscope__javascript__Location, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node__getParentOid(result: int, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Node__getIndex(result: int, self: microscope__javascript__Node)
+.decl rule_microscope__javascript__Location__getFileOid(result: int, self: microscope__javascript__Location) inline
+.decl rule_microscope__javascript__Location__getStartLineNumber(result: int, self: microscope__javascript__Location) inline
+.decl rule_microscope__javascript__Location__getFile(result: microscope__javascript__File, self: microscope__javascript__Location)
+.decl rule_microscope__javascript__Location__getEndLineNumber(result: int, self: microscope__javascript__Location) inline
+.decl rule_microscope__javascript__Location____all__(result: microscope__javascript__Location, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__NodeDO__getLocationOid(result: int, self: microscope__javascript__NodeDO)
+.decl rule_microscope__javascript__NodeDO__getParentOid(result: int, self: microscope__javascript__NodeDO)
+.decl rule_microscope__javascript__NodeDO__getIndex(result: int, self: microscope__javascript__NodeDO)
+.decl rule_microscope__javascript__NodeDO__getKind(result: int, self: microscope__javascript__NodeDO)
+.decl rule_microscope__javascript__NodeDO____all__(result: microscope__javascript__NodeDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__SyntaxKind__getName(result: string, self: microscope__javascript__SyntaxKind)
+.decl rule_microscope__javascript__SyntaxKind____all__(result: microscope__javascript__SyntaxKind)
+.decl rule_microscope__javascript__File__getRelativePath(result: string, self: microscope__javascript__File) inline
+.decl rule_microscope__javascript__File____all__(result: microscope__javascript__File, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__FileDO__getRelativePath(result: string, self: microscope__javascript__FileDO)
+.decl rule_microscope__javascript__FileDO____all__(result: microscope__javascript__FileDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__TopLevelDO__getLocationOid(result: int, self: microscope__javascript__TopLevelDO)
+.decl rule_microscope__javascript__TopLevelDO____all__(result: microscope__javascript__TopLevelDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__LocationDO____all__(result: microscope__javascript__LocationDO, db: microscope__javascript__JavascriptDB) inline
+.decl rule_microscope__javascript__LocationDO__getEndLineNumber(result: int, self: microscope__javascript__LocationDO)
+.decl rule_microscope__javascript__LocationDO__getStartLineNumber(result: int, self: microscope__javascript__LocationDO)
+.decl rule_microscope__javascript__LocationDO__getFileOid(result: int, self: microscope__javascript__LocationDO)
+.decl typecheck_microscope__javascript__Node(self: microscope__javascript__Node) inline
+.decl get_field_microscope__javascript__Node_id(result: int, self: microscope__javascript__Node) inline
+.decl get_field_microscope__javascript__Location_oid(result: int, self: microscope__javascript__Location) inline
+.decl get_field_microscope__javascript__NodeDO_oid(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__NodeDO_kind(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__NodeDO_parent_oid(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__NodeDO_index(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__NodeDO_location_oid(result: int, self: microscope__javascript__NodeDO) inline
+.decl get_field_microscope__javascript__SyntaxKind_id(result: int, self: microscope__javascript__SyntaxKind) inline
+.decl get_field_microscope__javascript__SyntaxKind_name(result: string, self: microscope__javascript__SyntaxKind) inline
+.decl get_field_microscope__javascript__File_oid(result: int, self: microscope__javascript__File) inline
+.decl get_field_microscope__javascript__FileDO_oid(result: int, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_name(result: string, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_extension(result: string, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_relative_path(result: string, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__FileDO_location_oid(result: int, self: microscope__javascript__FileDO) inline
+.decl get_field_microscope__javascript__TopLevelDO_oid(result: int, self: microscope__javascript__TopLevelDO) inline
+.decl get_field_microscope__javascript__TopLevelDO_location_oid(result: int, self: microscope__javascript__TopLevelDO) inline
+.decl get_field_microscope__javascript__LocationDO_oid(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_file_oid(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_start_line_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_start_column_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_end_line_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_end_column_number(result: int, self: microscope__javascript__LocationDO) inline
+.decl get_field_microscope__javascript__LocationDO_text(result: string, self: microscope__javascript__LocationDO) inline
+.decl rule_microscope__javascript__syntaxKind(kind: int, name: string)
+.decl rule_out(filePath: string, parentId: int, parentKind: string, parentStartLine: int, parentEndLine: int, childId: int, childKind: string, childStartLine: int, childEndLine: int, index: int)
+
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__TopLevelDO_0(oid: int, kind: int, location_oid: int)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__NodeDO_0(oid: int, kind: int, parent_oid: int, index: int, location_oid: int)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__LocationDO_0(oid: int, file_oid: int, start_line_number: int, start_column_number: int, end_line_number: int, end_column_number: int, text: string)
+.decl input_microscope__javascript__JavascriptDB_microscope__javascript__FileDO_0(oid: int, name: string, extension: string, relative_path: string, location_oid: int)
+
+rule_microscope__javascript__Location__getFileOid(result, self) :- rule_microscope__javascript__LocationDO__getFileOid(result, self).
+rule_microscope__javascript__Location__getStartLineNumber(result, self) :- rule_microscope__javascript__LocationDO__getStartLineNumber(result, self).
+rule_microscope__javascript__Location__getEndLineNumber(result, self) :- rule_microscope__javascript__LocationDO__getEndLineNumber(result, self).
+rule_microscope__javascript__File__getRelativePath(result, self) :- rule_microscope__javascript__FileDO__getRelativePath(result, self).
+typecheck_microscope__javascript__Node(self) :- schema_microscope__javascript__Node(self, _, _).
+schema_microscope__javascript__SyntaxKind(result, [-1, -1], field_0x6669656c64_id_int, field_0x6669656c64_name_string) :- (
+  rule_microscope__javascript__syntaxKind(id, name),
+  field_0x6669656c64_id_int = id,
+  field_0x6669656c64_name_string = name,
+  result = field_0x6669656c64_id_int
+).
+rule_microscope__javascript__SyntaxKind____all__(result) :- schema_microscope__javascript__SyntaxKind(result, _, _, _).
+rule_microscope__javascript__SyntaxKind__getName(result, self) :- get_field_microscope__javascript__SyntaxKind_name(result, self).
+rule_microscope__javascript__syntaxKind(kind, name) :- (
+  (kind = 0, name = "Unknown");
+  (kind = 1, name = "EndOfFileToken");
+  (kind = 2, name = "SingleLineCommentTrivia");
+  (kind = 3, name = "MultiLineCommentTrivia");
+  (kind = 4, name = "NewLineTrivia");
+  (kind = 5, name = "WhitespaceTrivia");
+  (kind = 6, name = "ShebangTrivia");
+  (kind = 7, name = "ConflictMarkerTrivia");
+  (kind = 8, name = "NumericLiteral");
+  (kind = 9, name = "BigIntLiteral");
+  (kind = 10, name = "StringLiteral");
+  (kind = 11, name = "JsxText");
+  (kind = 12, name = "JsxTextAllWhiteSpaces");
+  (kind = 13, name = "RegularExpressionLiteral");
+  (kind = 14, name = "NoSubstitutionTemplateLiteral");
+  (kind = 15, name = "TemplateHead");
+  (kind = 16, name = "TemplateMiddle");
+  (kind = 17, name = "TemplateTail");
+  (kind = 18, name = "OpenBraceToken");
+  (kind = 19, name = "CloseBraceToken");
+  (kind = 20, name = "OpenParenToken");
+  (kind = 21, name = "CloseParenToken");
+  (kind = 22, name = "OpenBracketToken");
+  (kind = 23, name = "CloseBracketToken");
+  (kind = 24, name = "DotToken");
+  (kind = 25, name = "DotDotDotToken");
+  (kind = 26, name = "SemicolonToken");
+  (kind = 27, name = "CommaToken");
+  (kind = 28, name = "QuestionDotToken");
+  (kind = 29, name = "LessThanToken");
+  (kind = 30, name = "LessThanSlashToken");
+  (kind = 31, name = "GreaterThanToken");
+  (kind = 32, name = "LessThanEqualsToken");
+  (kind = 33, name = "GreaterThanEqualsToken");
+  (kind = 34, name = "EqualsEqualsToken");
+  (kind = 35, name = "ExclamationEqualsToken");
+  (kind = 36, name = "EqualsEqualsEqualsToken");
+  (kind = 37, name = "ExclamationEqualsEqualsToken");
+  (kind = 38, name = "EqualsGreaterThanToken");
+  (kind = 39, name = "PlusToken");
+  (kind = 40, name = "MinusToken");
+  (kind = 41, name = "AsteriskToken");
+  (kind = 42, name = "AsteriskAsteriskToken");
+  (kind = 43, name = "SlashToken");
+  (kind = 44, name = "PercentToken");
+  (kind = 45, name = "PlusPlusToken");
+  (kind = 46, name = "MinusMinusToken");
+  (kind = 47, name = "LessThanLessThanToken");
+  (kind = 48, name = "GreaterThanGreaterThanToken");
+  (kind = 49, name = "GreaterThanGreaterThanGreaterThanToken");
+  (kind = 50, name = "AmpersandToken");
+  (kind = 51, name = "BarToken");
+  (kind = 52, name = "CaretToken");
+  (kind = 53, name = "ExclamationToken");
+  (kind = 54, name = "TildeToken");
+  (kind = 55, name = "AmpersandAmpersandToken");
+  (kind = 56, name = "BarBarToken");
+  (kind = 57, name = "QuestionToken");
+  (kind = 58, name = "ColonToken");
+  (kind = 59, name = "AtToken");
+  (kind = 60, name = "QuestionQuestionToken");
+  (kind = 61, name = "BacktickToken");
+  (kind = 62, name = "HashToken");
+  (kind = 63, name = "EqualsToken");
+  (kind = 64, name = "PlusEqualsToken");
+  (kind = 65, name = "MinusEqualsToken");
+  (kind = 66, name = "AsteriskEqualsToken");
+  (kind = 67, name = "AsteriskAsteriskEqualsToken");
+  (kind = 68, name = "SlashEqualsToken");
+  (kind = 69, name = "PercentEqualsToken");
+  (kind = 70, name = "LessThanLessThanEqualsToken");
+  (kind = 71, name = "GreaterThanGreaterThanEqualsToken");
+  (kind = 72, name = "GreaterThanGreaterThanGreaterThanEqualsToken");
+  (kind = 73, name = "AmpersandEqualsToken");
+  (kind = 74, name = "BarEqualsToken");
+  (kind = 75, name = "BarBarEqualsToken");
+  (kind = 76, name = "AmpersandAmpersandEqualsToken");
+  (kind = 77, name = "QuestionQuestionEqualsToken");
+  (kind = 78, name = "CaretEqualsToken");
+  (kind = 79, name = "Identifier");
+  (kind = 80, name = "PrivateIdentifier");
+  (kind = 81, name = "BreakKeyword");
+  (kind = 82, name = "CaseKeyword");
+  (kind = 83, name = "CatchKeyword");
+  (kind = 84, name = "ClassKeyword");
+  (kind = 85, name = "ConstKeyword");
+  (kind = 86, name = "ContinueKeyword");
+  (kind = 87, name = "DebuggerKeyword");
+  (kind = 88, name = "DefaultKeyword");
+  (kind = 89, name = "DeleteKeyword");
+  (kind = 90, name = "DoKeyword");
+  (kind = 91, name = "ElseKeyword");
+  (kind = 92, name = "EnumKeyword");
+  (kind = 93, name = "ExportKeyword");
+  (kind = 94, name = "ExtendsKeyword");
+  (kind = 95, name = "FalseKeyword");
+  (kind = 96, name = "FinallyKeyword");
+  (kind = 97, name = "ForKeyword");
+  (kind = 98, name = "FunctionKeyword");
+  (kind = 99, name = "IfKeyword");
+  (kind = 100, name = "ImportKeyword");
+  (kind = 101, name = "InKeyword");
+  (kind = 102, name = "InstanceOfKeyword");
+  (kind = 103, name = "NewKeyword");
+  (kind = 104, name = "NullKeyword");
+  (kind = 105, name = "ReturnKeyword");
+  (kind = 106, name = "SuperKeyword");
+  (kind = 107, name = "SwitchKeyword");
+  (kind = 108, name = "ThisKeyword");
+  (kind = 109, name = "ThrowKeyword");
+  (kind = 110, name = "TrueKeyword");
+  (kind = 111, name = "TryKeyword");
+  (kind = 112, name = "TypeOfKeyword");
+  (kind = 113, name = "VarKeyword");
+  (kind = 114, name = "VoidKeyword");
+  (kind = 115, name = "WhileKeyword");
+  (kind = 116, name = "WithKeyword");
+  (kind = 117, name = "ImplementsKeyword");
+  (kind = 118, name = "InterfaceKeyword");
+  (kind = 119, name = "LetKeyword");
+  (kind = 120, name = "PackageKeyword");
+  (kind = 121, name = "PrivateKeyword");
+  (kind = 122, name = "ProtectedKeyword");
+  (kind = 123, name = "PublicKeyword");
+  (kind = 124, name = "StaticKeyword");
+  (kind = 125, name = "YieldKeyword");
+  (kind = 126, name = "AbstractKeyword");
+  (kind = 127, name = "AsKeyword");
+  (kind = 128, name = "AssertsKeyword");
+  (kind = 129, name = "AssertKeyword");
+  (kind = 130, name = "AnyKeyword");
+  (kind = 131, name = "AsyncKeyword");
+  (kind = 132, name = "AwaitKeyword");
+  (kind = 133, name = "BooleanKeyword");
+  (kind = 134, name = "ConstructorKeyword");
+  (kind = 135, name = "DeclareKeyword");
+  (kind = 136, name = "GetKeyword");
+  (kind = 137, name = "InferKeyword");
+  (kind = 138, name = "IntrinsicKeyword");
+  (kind = 139, name = "IsKeyword");
+  (kind = 140, name = "KeyOfKeyword");
+  (kind = 141, name = "ModuleKeyword");
+  (kind = 142, name = "NamespaceKeyword");
+  (kind = 143, name = "NeverKeyword");
+  (kind = 144, name = "ReadonlyKeyword");
+  (kind = 145, name = "RequireKeyword");
+  (kind = 146, name = "NumberKeyword");
+  (kind = 147, name = "ObjectKeyword");
+  (kind = 148, name = "SetKeyword");
+  (kind = 149, name = "StringKeyword");
+  (kind = 150, name = "SymbolKeyword");
+  (kind = 151, name = "TypeKeyword");
+  (kind = 152, name = "UndefinedKeyword");
+  (kind = 153, name = "UniqueKeyword");
+  (kind = 154, name = "UnknownKeyword");
+  (kind = 155, name = "FromKeyword");
+  (kind = 156, name = "GlobalKeyword");
+  (kind = 157, name = "BigIntKeyword");
+  (kind = 158, name = "OverrideKeyword");
+  (kind = 159, name = "OfKeyword");
+  (kind = 160, name = "QualifiedName");
+  (kind = 161, name = "ComputedPropertyName");
+  (kind = 162, name = "TypeParameter");
+  (kind = 163, name = "Parameter");
+  (kind = 164, name = "Decorator");
+  (kind = 165, name = "PropertySignature");
+  (kind = 166, name = "PropertyDeclaration");
+  (kind = 167, name = "MethodSignature");
+  (kind = 168, name = "MethodDeclaration");
+  (kind = 169, name = "ClassStaticBlockDeclaration");
+  (kind = 170, name = "Constructor");
+  (kind = 171, name = "GetAccessor");
+  (kind = 172, name = "SetAccessor");
+  (kind = 173, name = "CallSignature");
+  (kind = 174, name = "ConstructSignature");
+  (kind = 175, name = "IndexSignature");
+  (kind = 176, name = "TypePredicate");
+  (kind = 177, name = "TypeReference");
+  (kind = 178, name = "FunctionType");
+  (kind = 179, name = "ConstructorType");
+  (kind = 180, name = "TypeQuery");
+  (kind = 181, name = "TypeLiteral");
+  (kind = 182, name = "ArrayType");
+  (kind = 183, name = "TupleType");
+  (kind = 184, name = "OptionalType");
+  (kind = 185, name = "RestType");
+  (kind = 186, name = "UnionType");
+  (kind = 187, name = "IntersectionType");
+  (kind = 188, name = "ConditionalType");
+  (kind = 189, name = "InferType");
+  (kind = 190, name = "ParenthesizedType");
+  (kind = 191, name = "ThisType");
+  (kind = 192, name = "TypeOperator");
+  (kind = 193, name = "IndexedAccessType");
+  (kind = 194, name = "MappedType");
+  (kind = 195, name = "LiteralType");
+  (kind = 196, name = "NamedTupleMember");
+  (kind = 197, name = "TemplateLiteralType");
+  (kind = 198, name = "TemplateLiteralTypeSpan");
+  (kind = 199, name = "ImportType");
+  (kind = 200, name = "ObjectBindingPattern");
+  (kind = 201, name = "ArrayBindingPattern");
+  (kind = 202, name = "BindingElement");
+  (kind = 203, name = "ArrayLiteralExpression");
+  (kind = 204, name = "ObjectLiteralExpression");
+  (kind = 205, name = "PropertyAccessExpression");
+  (kind = 206, name = "ElementAccessExpression");
+  (kind = 207, name = "CallExpression");
+  (kind = 208, name = "NewExpression");
+  (kind = 209, name = "TaggedTemplateExpression");
+  (kind = 210, name = "TypeAssertionExpression");
+  (kind = 211, name = "ParenthesizedExpression");
+  (kind = 212, name = "FunctionExpression");
+  (kind = 213, name = "ArrowFunction");
+  (kind = 214, name = "DeleteExpression");
+  (kind = 215, name = "TypeOfExpression");
+  (kind = 216, name = "VoidExpression");
+  (kind = 217, name = "AwaitExpression");
+  (kind = 218, name = "PrefixUnaryExpression");
+  (kind = 219, name = "PostfixUnaryExpression");
+  (kind = 220, name = "BinaryExpression");
+  (kind = 221, name = "ConditionalExpression");
+  (kind = 222, name = "TemplateExpression");
+  (kind = 223, name = "YieldExpression");
+  (kind = 224, name = "SpreadElement");
+  (kind = 225, name = "ClassExpression");
+  (kind = 226, name = "OmittedExpression");
+  (kind = 227, name = "ExpressionWithTypeArguments");
+  (kind = 228, name = "AsExpression");
+  (kind = 229, name = "NonNullExpression");
+  (kind = 230, name = "MetaProperty");
+  (kind = 231, name = "SyntheticExpression");
+  (kind = 232, name = "TemplateSpan");
+  (kind = 233, name = "SemicolonClassElement");
+  (kind = 234, name = "Block");
+  (kind = 235, name = "EmptyStatement");
+  (kind = 236, name = "VariableStatement");
+  (kind = 237, name = "ExpressionStatement");
+  (kind = 238, name = "IfStatement");
+  (kind = 239, name = "DoWhileStatement");
+  (kind = 240, name = "WhileStatement");
+  (kind = 241, name = "ForStatement");
+  (kind = 242, name = "ForInStatement");
+  (kind = 243, name = "ForOfStatement");
+  (kind = 244, name = "ContinueStatement");
+  (kind = 245, name = "BreakStatement");
+  (kind = 246, name = "ReturnStatement");
+  (kind = 247, name = "WithStatement");
+  (kind = 248, name = "SwitchStatement");
+  (kind = 249, name = "LabeledStatement");
+  (kind = 250, name = "ThrowStatement");
+  (kind = 251, name = "TryStatement");
+  (kind = 252, name = "DebuggerStatement");
+  (kind = 253, name = "VariableDeclaration");
+  (kind = 254, name = "VariableDeclarationList");
+  (kind = 255, name = "FunctionDeclaration");
+  (kind = 256, name = "ClassDeclaration");
+  (kind = 257, name = "InterfaceDeclaration");
+  (kind = 258, name = "TypeAliasDeclaration");
+  (kind = 259, name = "EnumDeclaration");
+  (kind = 260, name = "ModuleDeclaration");
+  (kind = 261, name = "ModuleBlock");
+  (kind = 262, name = "CaseBlock");
+  (kind = 263, name = "NamespaceExportDeclaration");
+  (kind = 264, name = "ImportEqualsDeclaration");
+  (kind = 265, name = "ImportDeclaration");
+  (kind = 266, name = "ImportClause");
+  (kind = 267, name = "NamespaceImport");
+  (kind = 268, name = "NamedImports");
+  (kind = 269, name = "ImportSpecifier");
+  (kind = 270, name = "ExportAssignment");
+  (kind = 271, name = "ExportDeclaration");
+  (kind = 272, name = "NamedExports");
+  (kind = 273, name = "NamespaceExport");
+  (kind = 274, name = "ExportSpecifier");
+  (kind = 275, name = "MissingDeclaration");
+  (kind = 276, name = "ExternalModuleReference");
+  (kind = 277, name = "JsxElement");
+  (kind = 278, name = "JsxSelfClosingElement");
+  (kind = 279, name = "JsxOpeningElement");
+  (kind = 280, name = "JsxClosingElement");
+  (kind = 281, name = "JsxFragment");
+  (kind = 282, name = "JsxOpeningFragment");
+  (kind = 283, name = "JsxClosingFragment");
+  (kind = 284, name = "JsxAttribute");
+  (kind = 285, name = "JsxAttributes");
+  (kind = 286, name = "JsxSpreadAttribute");
+  (kind = 287, name = "JsxExpression");
+  (kind = 288, name = "CaseClause");
+  (kind = 289, name = "DefaultClause");
+  (kind = 290, name = "HeritageClause");
+  (kind = 291, name = "CatchClause");
+  (kind = 292, name = "AssertClause");
+  (kind = 293, name = "AssertEntry");
+  (kind = 294, name = "PropertyAssignment");
+  (kind = 295, name = "ShorthandPropertyAssignment");
+  (kind = 296, name = "SpreadAssignment");
+  (kind = 297, name = "EnumMember");
+  (kind = 298, name = "UnparsedPrologue");
+  (kind = 299, name = "UnparsedPrepend");
+  (kind = 300, name = "UnparsedText");
+  (kind = 301, name = "UnparsedInternalText");
+  (kind = 302, name = "UnparsedSyntheticReference");
+  (kind = 303, name = "SourceFile");
+  (kind = 304, name = "Bundle");
+  (kind = 305, name = "UnparsedSource");
+  (kind = 306, name = "InputFiles");
+  (kind = 307, name = "JSDocTypeExpression");
+  (kind = 308, name = "JSDocNameReference");
+  (kind = 309, name = "JSDocMemberName");
+  (kind = 310, name = "JSDocAllType");
+  (kind = 311, name = "JSDocUnknownType");
+  (kind = 312, name = "JSDocNullableType");
+  (kind = 313, name = "JSDocNonNullableType");
+  (kind = 314, name = "JSDocOptionalType");
+  (kind = 315, name = "JSDocFunctionType");
+  (kind = 316, name = "JSDocVariadicType");
+  (kind = 317, name = "JSDocNamepathType");
+  (kind = 318, name = "JSDocComment");
+  (kind = 319, name = "JSDocText");
+  (kind = 320, name = "JSDocTypeLiteral");
+  (kind = 321, name = "JSDocSignature");
+  (kind = 322, name = "JSDocLink");
+  (kind = 323, name = "JSDocLinkCode");
+  (kind = 324, name = "JSDocLinkPlain");
+  (kind = 325, name = "JSDocTag");
+  (kind = 326, name = "JSDocAugmentsTag");
+  (kind = 327, name = "JSDocImplementsTag");
+  (kind = 328, name = "JSDocAuthorTag");
+  (kind = 329, name = "JSDocDeprecatedTag");
+  (kind = 330, name = "JSDocClassTag");
+  (kind = 331, name = "JSDocPublicTag");
+  (kind = 332, name = "JSDocPrivateTag");
+  (kind = 333, name = "JSDocProtectedTag");
+  (kind = 334, name = "JSDocReadonlyTag");
+  (kind = 335, name = "JSDocOverrideTag");
+  (kind = 336, name = "JSDocCallbackTag");
+  (kind = 337, name = "JSDocEnumTag");
+  (kind = 338, name = "JSDocParameterTag");
+  (kind = 339, name = "JSDocReturnTag");
+  (kind = 340, name = "JSDocThisTag");
+  (kind = 341, name = "JSDocTypeTag");
+  (kind = 342, name = "JSDocTemplateTag");
+  (kind = 343, name = "JSDocTypedefTag");
+  (kind = 344, name = "JSDocSeeTag");
+  (kind = 345, name = "JSDocPropertyTag");
+  (kind = 346, name = "SyntaxList");
+  (kind = 347, name = "NotEmittedStatement");
+  (kind = 348, name = "PartiallyEmittedExpression");
+  (kind = 349, name = "CommaListExpression");
+  (kind = 350, name = "MergeDeclarationMarker");
+  (kind = 351, name = "EndOfDeclarationMarker");
+  (kind = 352, name = "SyntheticReferenceExpression")
+).
+rule_microscope__javascript__LocationDO____all__(result, db) :- schema_microscope__javascript__LocationDO(result, db, _, _, _, _, _, _, _).
+rule_microscope__javascript__LocationDO__getFileOid(result, self) :- get_field_microscope__javascript__LocationDO_file_oid(result, self).
+rule_microscope__javascript__LocationDO__getStartLineNumber(result, self) :- get_field_microscope__javascript__LocationDO_start_line_number(result, self).
+rule_microscope__javascript__LocationDO__getEndLineNumber(result, self) :- get_field_microscope__javascript__LocationDO_end_line_number(result, self).
+rule_microscope__javascript__FileDO____all__(result, db) :- schema_microscope__javascript__FileDO(result, db, _, _, _, _, _).
+rule_microscope__javascript__FileDO__getRelativePath(result, self) :- get_field_microscope__javascript__FileDO_relative_path(result, self).
+rule_microscope__javascript__TopLevelDO____all__(result, db) :- schema_microscope__javascript__TopLevelDO(result, db, _, _, _).
+rule_microscope__javascript__TopLevelDO__getLocationOid(result, self) :- get_field_microscope__javascript__TopLevelDO_location_oid(result, self).
+rule_microscope__javascript__NodeDO____all__(result, db) :- schema_microscope__javascript__NodeDO(result, db, _, _, _, _, _).
+rule_microscope__javascript__NodeDO__getKind(result, self) :- get_field_microscope__javascript__NodeDO_kind(result, self).
+rule_microscope__javascript__NodeDO__getParentOid(result, self) :- get_field_microscope__javascript__NodeDO_parent_oid(result, self).
+rule_microscope__javascript__NodeDO__getIndex(result, self) :- get_field_microscope__javascript__NodeDO_index(result, self).
+rule_microscope__javascript__NodeDO__getLocationOid(result, self) :- get_field_microscope__javascript__NodeDO_location_oid(result, self).
+schema_microscope__javascript__File(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_name_string, field_0x6669656c64_extension_string, field_0x6669656c64_relative_path_string, field_0x6669656c64_location_oid_int) :- (
+  get_field_microscope__javascript__FileDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_microscope__javascript__FileDO_name(field_0x6669656c64_name_string, tmp),
+  get_field_microscope__javascript__FileDO_extension(field_0x6669656c64_extension_string, tmp),
+  get_field_microscope__javascript__FileDO_relative_path(field_0x6669656c64_relative_path_string, tmp),
+  get_field_microscope__javascript__FileDO_location_oid(field_0x6669656c64_location_oid_int, tmp),
+  result = field_0x6669656c64_oid_int,
+  rule_microscope__javascript__FileDO____all__(tmp, db)
+).
+rule_microscope__javascript__File____all__(result, db) :- schema_microscope__javascript__File(result, db, _, _, _, _, _).
+schema_microscope__javascript__Location(result, db, field_0x6669656c64_oid_int, field_0x6669656c64_file_oid_int, field_0x6669656c64_start_line_number_int, field_0x6669656c64_start_column_number_int, field_0x6669656c64_end_line_number_int, field_0x6669656c64_end_column_number_int, field_0x6669656c64_text_string) :- (
+  get_field_microscope__javascript__LocationDO_oid(field_0x6669656c64_oid_int, tmp),
+  get_field_microscope__javascript__LocationDO_file_oid(field_0x6669656c64_file_oid_int, tmp),
+  get_field_microscope__javascript__LocationDO_start_line_number(field_0x6669656c64_start_line_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_start_column_number(field_0x6669656c64_start_column_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_end_line_number(field_0x6669656c64_end_line_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_end_column_number(field_0x6669656c64_end_column_number_int, tmp),
+  get_field_microscope__javascript__LocationDO_text(field_0x6669656c64_text_string, tmp),
+  result = field_0x6669656c64_oid_int,
+  rule_microscope__javascript__LocationDO____all__(tmp, db)
+).
+rule_microscope__javascript__Location____all__(result, db) :- schema_microscope__javascript__Location(result, db, _, _, _, _, _, _, _).
+rule_microscope__javascript__Location__getFile(result, self) :- (
+  get_field_microscope__javascript__File_oid(ssa_temp_0, file),
+  rule_microscope__javascript__Location__getFileOid(ssa_temp_0, self),
+  result = file,
+  rule_microscope__javascript__File____all__(file, _)
+).
+schema_microscope__javascript__Node(result, db, field_0x6669656c64_id_int) :- (
+  (
+    get_field_microscope__javascript__NodeDO_oid(field_0x6669656c64_id_int, nodeDO),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__javascript__NodeDO____all__(nodeDO, db)
+  );
+  (
+    get_field_microscope__javascript__TopLevelDO_oid(field_0x6669656c64_id_int, topLevelDO),
+    result = field_0x6669656c64_id_int,
+    rule_microscope__javascript__TopLevelDO____all__(topLevelDO, db)
+  )
+).
+rule_microscope__javascript__Node____all__(result, db) :- schema_microscope__javascript__Node(result, db, _).
+rule_microscope__javascript__Node__getKind(result, self) :- (
+  (
+    nodeDO = self,
+    rule_microscope__javascript__NodeDO__getKind(result, nodeDO),
+    rule_microscope__javascript__NodeDO____all__(nodeDO, _)
+  );
+  (
+    topLevelDO = self,
+    result = 303,
+    rule_microscope__javascript__TopLevelDO____all__(topLevelDO, _)
+  )
+).
+rule_microscope__javascript__Node__getParentOid(result, self) :- (
+  nodeDO = self,
+  rule_microscope__javascript__NodeDO__getParentOid(result, nodeDO),
+  rule_microscope__javascript__NodeDO____all__(nodeDO, _)
+).
+rule_microscope__javascript__Node__getParent(result, self) :- (
+  rule_microscope__javascript__Node__getParentOid(ssa_temp_0, self),
+  schema_microscope__javascript__Node(parent, _, ssa_temp_0),
+  result = parent,
+  typecheck_microscope__javascript__Node(parent)
+).
+rule_microscope__javascript__Node__getIndex(result, self) :- (
+  nodeDO = self,
+  rule_microscope__javascript__NodeDO__getIndex(result, nodeDO),
+  rule_microscope__javascript__NodeDO____all__(nodeDO, _)
+).
+rule_microscope__javascript__Node__getLocation(result, self) :- (
+  (
+    nodeDO = self,
+    get_field_microscope__javascript__Location_oid(ssa_temp_0, location),
+    rule_microscope__javascript__NodeDO__getLocationOid(ssa_temp_0, nodeDO),
+    result = location,
+    rule_microscope__javascript__Location____all__(location, _),
+    rule_microscope__javascript__NodeDO____all__(nodeDO, _)
+  );
+  (
+    topLevelDO = self,
+    get_field_microscope__javascript__Location_oid(ssa_temp_5, location),
+    rule_microscope__javascript__TopLevelDO__getLocationOid(ssa_temp_5, topLevelDO),
+    result = location,
+    rule_microscope__javascript__Location____all__(location, _),
+    rule_microscope__javascript__TopLevelDO____all__(topLevelDO, _)
+  )
+).
+rule_out(filePath, parentId, parentKind, parentStartLine, parentEndLine, childId, childKind, childStartLine, childEndLine, index) :- (
+  db = [0, 0],
+  rule_microscope__javascript__Node__getParent(ssa_temp_1, child),
+  parent = ssa_temp_1,
+  get_field_microscope__javascript__Node_id(parentId, parent),
+  get_field_microscope__javascript__Node_id(childId, child),
+  get_field_microscope__javascript__SyntaxKind_id(ssa_temp_6, parentSyntaxKind),
+  rule_microscope__javascript__Node__getKind(ssa_temp_6, parent),
+  get_field_microscope__javascript__SyntaxKind_id(ssa_temp_9, childSyntaxKind),
+  rule_microscope__javascript__Node__getKind(ssa_temp_9, child),
+  rule_microscope__javascript__SyntaxKind__getName(parentKind, parentSyntaxKind),
+  rule_microscope__javascript__SyntaxKind__getName(childKind, childSyntaxKind),
+  rule_microscope__javascript__Node__getIndex(index, child),
+  rule_microscope__javascript__Node__getLocation(parentLocation, parent),
+  rule_microscope__javascript__Node__getLocation(childLocation, parent),
+  rule_microscope__javascript__Location__getFile(file, parentLocation),
+  rule_microscope__javascript__File__getRelativePath(filePath, file),
+  rule_microscope__javascript__Location__getStartLineNumber(parentStartLine, parentLocation),
+  rule_microscope__javascript__Location__getEndLineNumber(parentEndLine, parentLocation),
+  rule_microscope__javascript__Location__getStartLineNumber(childStartLine, childLocation),
+  rule_microscope__javascript__Location__getEndLineNumber(childEndLine, childLocation),
+  rule_microscope__javascript__Node____all__(parent, db),
+  rule_microscope__javascript__Node____all__(child, db),
+  rule_microscope__javascript__SyntaxKind____all__(parentSyntaxKind),
+  rule_microscope__javascript__SyntaxKind____all__(childSyntaxKind),
+  rule_microscope__javascript__Location____all__(parentLocation, db),
+  rule_microscope__javascript__Location____all__(childLocation, db),
+  rule_microscope__javascript__File____all__(file, db)
+).
+
+all_data_DBIndex([0, 0]).
+all_data_DBIndex([-1, -1]).
+
+schema_microscope__javascript__TopLevelDO(oid, [0, 0], oid, kind, location_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__TopLevelDO_0(oid, kind, location_oid).
+schema_microscope__javascript__NodeDO(oid, [0, 0], oid, kind, parent_oid, index, location_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__NodeDO_0(oid, kind, parent_oid, index, location_oid).
+schema_microscope__javascript__LocationDO(oid, [0, 0], oid, file_oid, start_line_number, start_column_number, end_line_number, end_column_number, text) :- input_microscope__javascript__JavascriptDB_microscope__javascript__LocationDO_0(oid, file_oid, start_line_number, start_column_number, end_line_number, end_column_number, text).
+schema_microscope__javascript__FileDO(oid, [0, 0], oid, name, extension, relative_path, location_oid) :- input_microscope__javascript__JavascriptDB_microscope__javascript__FileDO_0(oid, name, extension, relative_path, location_oid).
+
+get_field_microscope__javascript__Node_id(result, self) :- result = self.
+get_field_microscope__javascript__Location_oid(result, self) :- result = self.
+get_field_microscope__javascript__NodeDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__NodeDO_kind(result, self) :- schema_microscope__javascript__NodeDO(self, _, _, result, _, _, _).
+get_field_microscope__javascript__NodeDO_parent_oid(result, self) :- schema_microscope__javascript__NodeDO(self, _, _, _, result, _, _).
+get_field_microscope__javascript__NodeDO_index(result, self) :- schema_microscope__javascript__NodeDO(self, _, _, _, _, result, _).
+get_field_microscope__javascript__NodeDO_location_oid(result, self) :- schema_microscope__javascript__NodeDO(self, _, _, _, _, _, result).
+get_field_microscope__javascript__SyntaxKind_id(result, self) :- result = self.
+get_field_microscope__javascript__SyntaxKind_name(result, self) :- schema_microscope__javascript__SyntaxKind(self, _, _, result).
+get_field_microscope__javascript__File_oid(result, self) :- result = self.
+get_field_microscope__javascript__FileDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__FileDO_name(result, self) :- schema_microscope__javascript__FileDO(self, _, _, result, _, _, _).
+get_field_microscope__javascript__FileDO_extension(result, self) :- schema_microscope__javascript__FileDO(self, _, _, _, result, _, _).
+get_field_microscope__javascript__FileDO_relative_path(result, self) :- schema_microscope__javascript__FileDO(self, _, _, _, _, result, _).
+get_field_microscope__javascript__FileDO_location_oid(result, self) :- schema_microscope__javascript__FileDO(self, _, _, _, _, _, result).
+get_field_microscope__javascript__TopLevelDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__TopLevelDO_location_oid(result, self) :- schema_microscope__javascript__TopLevelDO(self, _, _, _, result).
+get_field_microscope__javascript__LocationDO_oid(result, self) :- result = self.
+get_field_microscope__javascript__LocationDO_file_oid(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, result, _, _, _, _, _).
+get_field_microscope__javascript__LocationDO_start_line_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, result, _, _, _, _).
+get_field_microscope__javascript__LocationDO_start_column_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, result, _, _, _).
+get_field_microscope__javascript__LocationDO_end_line_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, _, result, _, _).
+get_field_microscope__javascript__LocationDO_end_column_number(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, _, _, result, _).
+get_field_microscope__javascript__LocationDO_text(result, self) :- schema_microscope__javascript__LocationDO(self, _, _, _, _, _, _, _, result).
+
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__TopLevelDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="top_level")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__NodeDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="node")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__LocationDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="location")
+.input input_microscope__javascript__JavascriptDB_microscope__javascript__FileDO_0(IO="sqlite", dbname="microscope_javascript_src.db", name="file")
+
+.output rule_out(IO="stdout")
+
